@@ -1,5 +1,13 @@
 Dotfiles repository
 -------------------
-                                -- One repository to configure all
+                      -- One repository to configure all
 
-Repository listing:
+========================================================
+                        VIM PART
+========================================================
+
+This branch contains vim configuration files to set up
+an ExVim environment to easely develop mainly C/C++
+program on GNU/Linux with Dvorak Bépo keyboard (french
+variant of Dvorak layout, see http://bepo.fr).
+
