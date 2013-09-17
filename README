@@ -2,4 +2,10 @@ Dotfiles repository
 -------------------
                                 -- One repository to configure all
 
-Repository listing:
+Each software configuration is located on a single branch.
+To access to a specific software configuration, run
+
+login@host$ git checkout <branch>
+
+where branch is one of the following:
+    vim - Vim configuration with ExVim IDE installation
