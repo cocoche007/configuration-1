@@ -9,3 +9,4 @@ login@host$ git checkout <branch>
 
 where branch is one of the following:
     vim - Vim configuration with ExVim IDE installation
+    zsh - Zsh configuration
