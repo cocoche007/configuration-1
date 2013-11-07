@@ -1,12 +1,17 @@
 Dotfiles repository
 -------------------
-                                -- One repository to configure all
+                      -- One repository to configure all
 
-Each software configuration is located on a single branch.
-To access to a specific software configuration, run
+Each software configuration is located on a single folder.
 
-login@host$ git checkout <branch>
-
-where branch is one of the following:
     vim - Vim configuration with ExVim IDE installation
     zsh - Zsh configuration
+
+========================================================
+                        VIM PART
+========================================================
+
+This branch contains vim configuration files to set up
+an ExVim environment to easely develop mainly C/C++
+program on GNU/Linux with Dvorak Bépo keyboard (french
+variant of Dvorak layout, see http://bepo.fr).
