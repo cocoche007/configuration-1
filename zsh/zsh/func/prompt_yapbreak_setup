@@ -1,0 +1,189 @@
+# Yapbreak prompt theme
+
+autoload -U scm_yapbreak_init
+scm_yapbreak_init
+
+promt_yapbreak_help()
+{
+    cat << '------'
+prompt yapbreak
+------
+}
+
+prompt_yapbreak_setup()
+{
+    PROMPT=""
+    # Command history
+    PROMPT+="(%{$fg[red]%}%h%{$reset_color%})"
+    # User
+    PROMPT+="[%{$fg[green]%}%n%{$reset_color%}@"
+    # Host
+    PROMPT+="%{$fg[blue]%}%m%{$reset_color%}:"
+    # Path
+    PROMPT+="%{$fg[yellow]%}%~%{$reset_color%}|"
+    # Time
+    PROMPT+="%{$fg[cyan]%}%*%{$reset_color%}]"
+
+    # SCM
+    PROMPT+="\$(prompt_yapbreak_scm)"
+
+    # Command
+    PROMPT+="%{$reset_color%}%#"
+
+    # Last command result
+    RPROMPT="\$psvar"
+
+
+    export PROMPT
+    export RPROMPT
+
+    add-zsh-hook precmd process_status
+}
+
+process_status()
+{
+    local ex=$?
+    typeset -g psvar
+
+    if [[ $ex -ge 128 ]]; then
+        sig=$signals[$ex-127]
+        psvar="%{$fg[cyan]%}sig${(L)sig}%{$reset_color%}"
+    elif [[ $ex -eq 0 ]]; then
+        psvar="%{$fg[green]%}$ex%{$reset_color%}"
+    else
+        psvar="%{$fg[red]%}error: $ex%{$reset_color%}"
+    fi
+}
+
+prompt_yapbreak_scm() {
+    zgit_isgit && prompt_yapbreak_git && return
+}
+
+prompt_yapbreak_git() {
+    echo ""
+    head=$(zgit_head)
+    gitcommit=$(revstring $head)
+
+    if zgit_rebaseinfo; then
+        orig_commit=$(revstring $zgit_info[rb_head])
+        orig_name=$(git name-rev --name-only $zgit_info[rb_head])
+        orig="%{$fg[magenta]%}$orig_name%{$reset_color%}(%{$fg[yellow]%}$orig_commit%{$reset_color%})"
+        onto_commit=$(revstring $zgit_info[rb_onto])
+        onto_name=$(git name-rev --name-only $zgit_info[rb_onto])
+        onto="%{$fg[magenta]%}$onto_name%{$reset_color%}(%{$fg[yellow]%}$onto_commit%{$reset_color%})"
+
+        if [ -n "$zgit_info[rb_upstream]" ] && [ $zgit_info[rb_upstream] != $zgit_info[rb_onto] ]; then
+            upstream_commit=$(revstring $zgit_info[rb_upstream])
+            upstream_name=$(git name-rev --name-only $zgit_info[rb_upstream])
+            upstream="%{$fg[magenta]%}$upstream_name%{$reset_color%}(%{$fg[yellow]%}$upstream_commit%{$reset_color%})"
+            commits+="rebasing $upstream..$orig onto $onto"
+        else
+            commits+="rebasing $onto..$orig"
+        fi
+
+        local -a revs
+        revs=($(git rev-list $zgit_info[rb_onto]..HEAD))
+        if [ $#revs -gt 0 ]; then
+            commits+="\n$#revs commits in"
+        fi
+
+        if [ -f $zgit_info[dotest]/message ]; then
+            mess=$(head -n1 $zgit_info[dotest]/message)
+            commits+="$mess"
+        fi
+    elif [ -n "$gitcommit" ]; then
+        commits+="%{$fg[magenta]%}$head%{$reset_color%}(%{$fg[yellow]%}$gitcommit%{$reset_color%})"
+        local track_merge=$(zgit_tracking_merge)
+        if [ -n "$track_merge" ]; then
+            if git rev-parse --verify -q $track_merge >/dev/null; then
+                local track_remote=$(zgit_tracking_remote)
+                local tracked=$(revstring $track_merge 2>/dev/null)
+
+                local -a revs
+                revs=($(git rev-list --reverse $track_merge..HEAD))
+                if [ $#revs -gt 0 ]; then
+                    local base=$(revstring $revs[1]~1)
+                    local base_name=$(git name-rev --name-only $base)
+                    local base_short=$(revstring $base)
+                    local word_commits
+                    if [ $#revs -gt 1 ]; then
+                        word_commits='commits'
+                    else
+                        word_commits='commit'
+                    fi
+
+                    local conj="since"
+                    if [[ "$base" == "$tracked" ]]; then
+                        conj+=" tracked"
+                        tracked=
+                    fi
+                    commits+="$#revs $word_commits $conj %{$fg[magenta]%}$base_name%{$reset_color%}(%{$fg[yellow]%}$base_short%{$reset_color%})"
+                fi
+
+                if [ -n "$tracked" ]; then
+                    local track_name=$track_merge
+                    if [[ $track_remote == "." ]]; then
+                        track_name=${track_name##*/}
+                    fi
+                    tracked=$(revstring $tracked)
+                    commits+="<--%{$fg[red]%}$track_name%{$reset_color%}"
+                    if [[ "$tracked" != "$gitcommit" ]]; then
+                        commits[$#commits]+="(%{$fg[yellow]%}$tracked%{$reset_color%})"
+                    fi
+                fi
+            fi
+        fi
+    fi
+
+    gitsvn=$(git rev-parse --verify -q --short git-svn)
+    if [ $? -eq 0 ]; then
+        gitsvnrev=$(zgit_svnhead $gitsvn)
+        gitsvn=$(revstring $gitsvn)
+        if [ -n "$gitsvnrev" ]; then
+            local svninfo=''
+            local -a revs
+            svninfo+="svn%{$reset_color%}:%{$fg[magenta]%}r$gitsvnrev"
+            revs=($(git rev-list git-svn..HEAD))
+            if [ $#revs -gt 0 ]; then
+                svninfo+="%{$reset_color%}@HEAD~$#revs"
+                svninfo+="%{$reset_color%}(%{$fg[yellow]%}$gitsvn%{$reset_color%})"
+            fi
+            commits+=$svninfo
+        fi
+    fi
+
+    if [ $#commits -gt 0 ]; then
+        echo -n " ${(j: :)commits}"
+    fi
+
+    echo -n "%{$reset_color%}:%{$fg[magenta]%}$(zgit_head)%{$reset_color%}"
+
+    if zgit_inworktree; then
+        if ! zgit_isindexclean; then
+            echo -n "%{$fg[green]%}+%{$reset_color%}"
+        fi
+
+        local -a dirty
+        if ! zgit_isworktreeclean; then
+            dirty+="%{$fg[red]%}!%{$reset_color%}"
+        fi
+
+        if zgit_hasunmerged; then
+            dirty+="%{$fg[yellow]%}*%{$reset_color%}"
+        fi
+
+        if zgit_hasuntracked; then
+            dirty+="%{$fg[blue]%}?%{$reset_color%}"
+        fi
+
+        if [ $#dirty -gt 0 ]; then
+            echo -n "${(j::)dirty}%{$reset_color%}"
+        fi
+    fi
+
+    echo "]"
+
+}
+prompt_yapbreak_setup "$@"
+
+# vim:set ft=zsh;
