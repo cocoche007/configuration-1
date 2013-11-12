@@ -20,6 +20,10 @@ source  /home/olivaa/.aliases
 # Export some env vars
 export EDITOR=vim
 
+# Set manpage to vim
+export MANPAGER="/bin/sh -c \"sed -e 's/.$(echo -e '\010')//g' \
+                                | vim -R -c 'set ft=man nomod nolist' -c 'set nonu' -\""
+
 
 # Load path to zsh functions
 fpath=($fpath $HOME/.zsh/func)
