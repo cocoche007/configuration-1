@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# ~/.xinitrc
+#
+# Executed by startx (run your windows manager from here
+
+SESSION=i3
+
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+    for f in /etc/X11/xinit/xinitrc.d/*; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
+# Load Xresource
+[ -f "$HOME/.Xresources" ] && xrdb -merge "$HOME/.Xresources"
+
+# Load systemd as per user configuration
+systemd --user &
+
+case $SESSION in
+    wmfs2)
+        exec dbus-launch wmfs > $HOME/.log/wmfs 2>&1 &
+        wmpid=$!
+        echo $wmpid > "/tmp/wm.pid"
+        # Start status bar program
+        [ -x "$HOME/.config/wmfs/bin/status.sh" ] && $HOME/.config/wmfs/bin/status.sh &
+        ;;
+    i3|*)
+        exec dbus-launch i3 > $HOME/.log/i3 2>&1 &
+        wmpid=$!
+        echo $wmpid > "/tmp/wm.pid"
+        ;;
+esac
+
+# Create background list
+if [ -d "$HOME/.background" ]; then
+    find "$HOME/.background" -name "*.png" >  "$HOME/.background/filelist"
+    find "$HOME/.background" -name "*.jpg" >> "$HOME/.background/filelist"
+    find "$HOME/.background" -name "*.gif" >> "$HOME/.background/filelist"
+    find "$HOME/.background" -name "*.bmp" >> "$HOME/.background/filelist"
+    feh --bg-scale --randomize $(cat "$HOME/.background/filelist")
+fi
+
+# Start composite manager
+[ -x "/usr/bin/xcompmgr" ] && /usr/bin/xcompmgr -O -D1 -C -l &
+
+# Start thunar daemon
+[ -x "/usr/bin/thunar" ] && /usr/bin/thunar --daemon &
+
+# Start XBMC
+#[ -x "/usr/bin/xbmc" ] && /usr/bin/xbmc &
+
+wait $wmpid
+
+rm "/tmp/wm.pid"
