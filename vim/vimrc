@@ -770,16 +770,16 @@ let g:NERDTreeWinSize = exists('g:exPJ_window_width') ? g:exPJ_window_width : 30
 let g:user_zen_leader_key = '<c-j>'
 
 
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Remmapping bépo
 source ~/.vim/bepo.vimrc
 
-
-
 """ Mutt
 augroup filetypedetect
     autocmd BufRead,BufNewfile *mutt-*  setfiletype mail
 augroup END
+
+
+map <F7> :setlocal spell! spelllang=fr,en<CR>
+map <F6> :set expandtab!<CR>
