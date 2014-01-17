@@ -64,7 +64,7 @@ installdir()
 
 installfile "$INSTALL_DIR/vimrc"    "$HOME/.vimrc"
 installdir  "$INSTALL_DIR/vim"	    "$HOME/.vim"
+installdir  "$INSTALL_DIR/toolkit"  "$HOME/.toolkit"
 mkdir "$HOME/.exdev"
-mkdir "$HOME/.toolkit"
 
 
