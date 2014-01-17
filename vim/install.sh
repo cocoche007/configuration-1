@@ -22,10 +22,13 @@ installfile()
             "S"|"s")
                 ;;
             "R"|"r"|*)
+                if [ ! -d "$(dirname "$2")" ]; then
+                    mkdir -p "$(dirname "$2")"
+                fi
                 cp -v "$1" "$2"
         esac
     else
-        if [ -d "$(dirname "$2")" ]; then
+        if [ ! -d "$(dirname "$2")" ]; then
             mkdir -p "$(dirname "$2")"
         fi
         cp -v "$1" "$2"
@@ -65,6 +68,6 @@ installdir()
 installfile "$INSTALL_DIR/vimrc"    "$HOME/.vimrc"
 installdir  "$INSTALL_DIR/vim"	    "$HOME/.vim"
 installdir  "$INSTALL_DIR/toolkit"  "$HOME/.toolkit"
-mkdir "$HOME/.exdev"
+[ ! -d "$HOME/.exdev" ] && mkdir "$HOME/.exdev"
 
 
