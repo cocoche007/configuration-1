@@ -691,6 +691,25 @@ vmap <unique> <C-F11> <Plug>VisualDeComment
 nmap <unique> <C-F11> <Plug>DeComment
 imap <unique> <C-F11> <ESC><Plug>DeComment
 
+" ------------------------------------------------------------------ 
+" Desc: Doxygen Toolkit plugin 
+" ------------------------------------------------------------------ 
+let g:DoxygenToolkit_briefTag_pre = '\brief '
+let g:DoxygenToolkit_paramTag_pre = '\param '
+let g:DoxygenToolkit_returnTag_pre = '\return '
+let g:DoxygenToolkit_throwTag_pre = '\throw '
+let g:DoxygenToolkit_fileTag_pre = '\file '
+let g:DoxygenToolkit_authorTag_pre = '\author '
+let g:DoxygenToolkit_dateTag_pre = '\date '
+let g:DoxygenToolkit_versionTag_pre = '\version '
+let g:DoxygenToolkit_nameTag_pre = '\name '
+let g:DoxygenToolkit_classTag_pre = '\class '
+let g:DoxygenToolkit_authorName = "Adrien Oliva"
+let g:DoxygenToolkit_briefTag_funcName = 'yes'
+imap <unique> <F10> <ESC>:Dox<CR>
+nmap <unique> <F10> :Dox<CR>
+
+
 " ======================================================== 
 "  add new languages for comment
 " ======================================================== 

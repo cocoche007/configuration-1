@@ -15,9 +15,8 @@ installfile()
         fi
         case "$answer" in
             "M"|"m")
-                echo "# dotfiles automatic installation" >> "$2"
-                echo "append $1 to $2"
-                cat "$1" >> "$2"
+                echo "Manually merge $1 and $2"
+                vimdiff "$1" "$2"
                 ;;
             "S"|"s")
                 ;;
