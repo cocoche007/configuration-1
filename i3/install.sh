@@ -15,20 +15,19 @@ installfile()
         fi
         case "$answer" in
             "M"|"m")
-                echo "# dotfiles automatic installation" >> "$2"
-                echo "append $1 to $2"
-                cat "$1" >> "$2"
+                echo "Start vimdiff to manual merge $1 to $2"
+                $3 vimdiff "$1" "$2"
                 ;;
             "S"|"s")
                 ;;
             "R"|"r"|*)
-                cp -v "$1" "$2"
+                $3 cp -v "$1" "$2"
         esac
     else
         if [ -d "$(dirname "$2")" ]; then
-            mkdir -p "$(dirname "$2")"
+            $3 mkdir -p "$(dirname "$2")"
         fi
-        cp -v "$1" "$2"
+        $3 cp -v "$1" "$2"
     fi
 }
 
@@ -66,5 +65,5 @@ installfile "$INSTALL_DIR/Xresources"    "$HOME/.Xresources"
 installfile "$INSTALL_DIR/config"        "$HOME/.i3/config"
 installfile "$INSTALL_DIR/i3status.conf" "$HOME/.i3status.conf"
 installfile "$INSTALL_DIR/xinitrc"       "$HOME/.xinitrc"
-
+installfile "$INSTALL_DIR/keyboard.sh"   "/etc/profile.d/keyboard.sh" "sudo"
 

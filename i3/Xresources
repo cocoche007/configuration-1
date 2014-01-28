@@ -48,9 +48,9 @@ URxvt*color15:              #eeeeec
 
 ! Perl extension
 ! Tabbed urxvt
-! URxvt.perl-ext-common:      tabbed
-! URxvt.tabbed.tabbar-fg:     0
-! URxvt.tabbed.tabbar-bg:     8
+URxvt.perl-ext-common:      tabbed
+URxvt.tabbed.tabbar-fg:     0
+URxvt.tabbed.tabbar-bg:     8
 
 URxvt*preeditType: OnTheSpot,None
 URxvt*urlLauncher: uzbl-tabbed
