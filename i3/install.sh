@@ -5,8 +5,8 @@ INSTALL_DIR=$(dirname $0)
 installfile()
 {
     if [ -f "$2" ]; then
-        if [ "x$3" != "x" ]; then
-            answer=$3
+        if [ "x$4" != "x" ]; then
+            answer=$4
         else
             echo "Warning, $2 file already exists."
             diff "$1" "$2"
@@ -54,7 +54,7 @@ installdir()
         esac
         for file in $(find "$1" -type f); do
             outfile=$(echo "$file" | sed "s|$1|$2|")
-            installfile "$file" "$outfile" $flag
+            installfile "$file" "$outfile" "$3" $flag
         done
     else
         cp -Rvf "$1" "$2"
@@ -66,4 +66,4 @@ installfile "$INSTALL_DIR/config"        "$HOME/.i3/config"
 installfile "$INSTALL_DIR/i3status.conf" "$HOME/.i3status.conf"
 installfile "$INSTALL_DIR/xinitrc"       "$HOME/.xinitrc"
 installfile "$INSTALL_DIR/keyboard.sh"   "/etc/profile.d/keyboard.sh" "sudo"
-
+installfile "$INSTALL_DIR/XCompose"      "$HOME/.XCompose"
