@@ -88,20 +88,7 @@ fi
 # /////////////////////////////////////////////////////////////////////////////
 #                           User functions
 # /////////////////////////////////////////////////////////////////////////////
-DIRSTACKFILE="$HOME/.zsh/dirs.cache"
-DIRSTACKSIZE=20
-
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-    dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-    [[ -d $dirstack[1] ]] && cd $dirstack[1]
-fi
-
-chpwd()
-{
-    print -l $PWD ${(u)dirstack} > $DIRSTACKFILE
-}
-
+# Dirstack
 setopt autopushd pushdsilent pushdtohome
-# Remove duplicate entries
 setopt pushdignoredups
 setopt pushdminus
