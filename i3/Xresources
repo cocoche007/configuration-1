@@ -27,8 +27,8 @@ URxvt*scrollWithBuffer:     false
 URxvt*saveLines:            10000
 
 ! Meta character
-URxvt*keysym.End:           \033[8~
-URxvt*keysym.Home:          \033[7~
+URxvt*keysym.End:           \033[1~
+URxvt*keysym.Home:          \033[4~
 
 ! Color personalization
 URxvt*color0:               #101010
