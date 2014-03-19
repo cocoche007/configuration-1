@@ -1,0 +1,48 @@
+[global]
+    font = "Liberation Mono" 12
+    format = "<b>%a</b> - <i>%s</i>\n%b %p"
+    sort = yes
+    indicate_hidden = yes
+    alignment = left
+    bounce_freq = 1
+    show_age_threshold = 60
+    word_wrap = yes
+    ignore_newline = no
+    geometry = "360x7+1550+20"
+    transparency = 10
+    idle_threashold = 60
+    follow = none
+    sticky_history = yes
+    line_height = 0
+    separator_height = 5
+    horizontal_padding = 10
+    separator_color = "#1a1a1a"
+    startup_notification = yes
+    dmenu = /usr/bin/dmenu -p dunst:
+    browser = xdg-open
+    allow_markup = yes
+    timeout = 10
+
+[frame]
+    width = 1
+    color = "#aaaaaa"
+
+[urgency_low]
+    background = "#557728"
+    foreground = "#cccccc"
+    timeout = 10
+
+[urgency_normal]
+    background = "#285577"
+    foreground = "#ffffff"
+    timeout = 10
+
+[urgency_critical]
+    background = "#772828"
+    foreground = "#ffffff"
+    timeout = 10
+
+[notify-send]
+    appname = notify-send
+    format = "<i>%s</i>\n%b %p"
+    timeout = 10
