@@ -83,8 +83,10 @@ set scrolloff=0 " minimal number of screen lines to keep above and below the cur
 set nowrap      " I don't like wrap, cause in split window mode, it feel strange
 
 " Set color scheme
-silent exec "colorscheme elflord"
+" silent exec "colorscheme elflord"
 set background=dark
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
 
 set wildmenu " turn on wild menu, try typing :h and press <Tab> 
 set showcmd	" display incomplete commands
