@@ -4,13 +4,15 @@ URxvt*fading:               15
 
 ! Transparent terminal
 URxvt*depth:                32
-URxvt*background:           [50]#111111
+URxvt*background:           [90]#111111
 URxvt*transparent:          false
 
 ! Font and foreground color
 URxvt*foreground:           #f2f2f2
-!URxvt*font:                 xft:Dejavu:size=10:antialias=true
-!URxvt*boldfont:             xft:Dejavu:size=10:bold
+!URxvt*font:                 -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+!URxvt*boldfont:             -*-fixed-bold-r-*-*-14-*-*-*-*-*-*-*
+URxvt*font: xft:DejaVu Sans Mono:pixelsize=14:antialias=true:hinting=true
+URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=14:antialias=true:hinting=true
 URxvt*cursorColor:          white
 URxvt*cursorBlink:          false
 
