@@ -119,6 +119,14 @@ bindsym $mod+Shift+p exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # start thunar
 bindsym $mod+e exec "thunar"
 
+# Volume manager
+bindsym XF86AudioMute exec "$HOME/.i3/volume_manager toggle"
+bindsym XF86AudioRaiseVolume exec "$HOME/.i3/volume_manager up"
+bindsym XF86AudioLowerVolume exec "$HOME/.i3/volume_manager down"
+bindsym $mod+XF86AudioMute exec "$HOME/.i3/volume_manager select"
+bindsym $mod+XF86AudioLowerVolume exec "$HOME/.i3/volume_manager select"
+bindsym $mod+XF86AudioRaiseVolume exec "$HOME/.i3/volume_manager select"
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode

@@ -1,0 +1,45 @@
+#!/bin/sh
+
+APPNAME="Volume manager"
+
+notify()
+{
+    notify-send --urgency="$1" --app-name="$APPNAME" --category="device" "$2" "$3"
+}
+
+case $1 in
+    "toggle")
+        if [ -f $HOME/.i3/volume.sinks ]; then
+            while read sink; do
+                pactl set-sink-mute $sink toggle
+                notify normal "Card $(echo $sink | sed 's|^.*\.||')" "Toggle mute"
+            done < $HOME/.i3/volume.sinks
+        else
+            notify critical "Toggle mute" "No sinks defined on system"
+        fi
+        ;;
+    "up")
+        if [ -f $HOME/.i3/volume.sinks ]; then
+            while read sink; do
+                pactl set-sink-volume $sink +1%
+                notify normal "Card $(echo $sink | sed 's|^.*\.||')" "Increase volume"
+            done < $HOME/.i3/volume.sinks
+        else
+            notify critical "Increase volume" "No sinks defined on system"
+        fi
+        ;;
+    "down")
+        if [ -f $HOME/.i3/volume.sinks ]; then
+            while read sink; do
+                pactl set-sink-volume $sink -- -1%
+                notify normal "Card $(echo $sink | sed 's|^.*\.||')" "Decrease volume"
+            done < $HOME/.i3/volume.sinks
+        else
+            notify critical "Decrease volume" "No sinks defined on system"
+        fi
+        ;;
+    "select")
+        echo "TODO"
+        ;;
+    *)
+esac
