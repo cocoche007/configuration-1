@@ -36,7 +36,7 @@ if [ -d "$HOME/.background" ]; then
     unset filelist
 fi
 
-[ -x /usr/bin/start-pulseaudio-x11 ] && /usr/bin/start-pulseaudio-x11 &
-[ -x /usr/bin/thunar ] && /usr/bin/thunar -d &
-
+[ -x /usr/bin/start-pulseaudio-x11 ] && /usr/bin/start-pulseaudio-x11
+[ -x /usr/bin/thunar ] && /usr/bin/thunar --daemon &
+[ -x /usr/bin/redshift ] && /usr/bin/redshift -l 47.25:6.33 -t 5700:3600 -g 0.8 -m vidmode &
 wait $WMPID

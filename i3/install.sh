@@ -24,7 +24,7 @@ installfile()
                 $3 cp -v "$1" "$2"
         esac
     else
-        if [ -d "$(dirname "$2")" ]; then
+        if [ ! -d "$(dirname "$2")" ]; then
             $3 mkdir -p "$(dirname "$2")"
         fi
         $3 cp -v "$1" "$2"
