@@ -64,6 +64,24 @@ installdir()
     fi
 }
 
+update()
+{
+    if [ -f "$1" ]; then
+        echo -n "Do you really want to update $1 from internet (source $2) ? [Y/n]"
+        read answer
+        case "$answer" in
+            "n"|"N")
+                echo "Abort update."
+                ;;
+            *)
+                curl "$2" > "$1"
+                ;;
+        esac
+    fi
+}
+
+
+update      "$INSTALL_DIR/vim/syntax/i3.vim" "https://raw.githubusercontent.com/PotatoesMaster/i3-vim-syntax/master/syntax/i3.vim"
 installfile "$INSTALL_DIR/vimrc"    "$HOME/.vimrc"
 installdir  "$INSTALL_DIR/vim"	    "$HOME/.vim"
 installdir  "$INSTALL_DIR/toolkit"  "$HOME/.toolkit"
