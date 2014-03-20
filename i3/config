@@ -115,17 +115,19 @@ bindsym $mod+Shift+x reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+o restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+p exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+p exec "$HOME/.i3/script/i3-exit"
 # start thunar
 bindsym $mod+e exec "thunar"
+# Lock screen
+bindsym $mod+Shift+l exec "$HOME/.i3/script/i3lock-wrapper"
 
 # Volume manager
-bindsym XF86AudioMute exec "$HOME/.i3/volume_manager toggle"
-bindsym XF86AudioRaiseVolume exec "$HOME/.i3/volume_manager up"
-bindsym XF86AudioLowerVolume exec "$HOME/.i3/volume_manager down"
-bindsym $mod+XF86AudioMute exec "$HOME/.i3/volume_manager select"
-bindsym $mod+XF86AudioLowerVolume exec "$HOME/.i3/volume_manager select"
-bindsym $mod+XF86AudioRaiseVolume exec "$HOME/.i3/volume_manager select"
+bindsym XF86AudioMute exec "$HOME/.i3/script/volume_manager toggle"
+bindsym XF86AudioRaiseVolume exec "$HOME/.i3/script/volume_manager up"
+bindsym XF86AudioLowerVolume exec "$HOME/.i3/script/volume_manager down"
+bindsym $mod+XF86AudioMute exec "$HOME/.i3/script/volume_manager select"
+bindsym $mod+XF86AudioLowerVolume exec "$HOME/.i3/script/volume_manager select"
+bindsym $mod+XF86AudioRaiseVolume exec "$HOME/.i3/script/volume_manager select"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -173,3 +175,6 @@ bar {
         urgent_workspace        #ffffff #900000
     }
 }
+
+
+# vim:filetype=i3

@@ -68,4 +68,6 @@ installfile "$INSTALL_DIR/xinitrc"        "$HOME/.xinitrc"
 installfile "$INSTALL_DIR/keyboard.sh"    "/etc/profile.d/keyboard.sh" "sudo"
 installfile "$INSTALL_DIR/XCompose"       "$HOME/.XCompose"
 installfile "$INSTALL_DIR/dunstrc"        "$HOME/.config/dunst/dunstrc"
-installfile "$INSTALL_DIR/volume_manager" "$HOME/.i3/volume_manager"
+installdir  "$INSTALL_DIR/script"         "$HOME/.i3/script"
+
+echo "You need to install dzen2, scrot, i3-py and i3pystatus."
