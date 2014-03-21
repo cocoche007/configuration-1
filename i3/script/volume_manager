@@ -4,15 +4,79 @@ APPNAME="Volume manager"
 
 notify()
 {
-    notify-send --urgency="$1" --app-name="$APPNAME" --category="device" "$2" "$3"
+    notify-send --expire-time=1000 --urgency="$1" --app-name="$APPNAME" --category="device" "$2" "$3"
+}
+
+toggle_volume()
+{
+    sink=$1
+    pactl set-sink-mute $sink toggle
+    notify normal "Card $(echo $sink | sed 's|^.*\.||')" "$(get_volume $sink) - Toggle mute"
+}
+
+up_volume()
+{
+    sink=$1
+
+    pactl set-sink-volume $sink +$2%
+    notify normal "Card $(echo $sink | sed 's|^.*\.||')" "$(get_volume $sink) - Increase volume"
+}
+
+down_volume()
+{
+    sink=$1
+
+    pactl set-sink-volume $sink -- -$2%
+    notify normal "Card $(echo $sink | sed 's|^.*\.||')" "$(get_volume $sink) - Decrease volume"
+}
+
+get_volume()
+{
+    sink=$1
+
+    sinkfound=0
+    volumefound=0
+    mutefound=0
+
+    OUTPUT=$(pactl list sinks)
+    for line in $OUTPUT; do
+        if [ $sinkfound -eq 1 ]; then
+            if [ $volumefound -eq 1 ]; then
+                look=$(echo $line | /usr/bin/grep "[0-9][0-9]*%")
+                if [ $? -eq 0 ]; then
+                    echo $look
+                    return
+                fi
+            else
+                if [ $line == "Volume:" ]; then
+                    volumefound=1
+                fi
+            fi
+            if [ $mutefound -eq 1 ]; then
+                if [ $line == "yes" ]; then
+                    echo "Mute"
+                    return
+                fi
+                mutefound=0
+            else
+                if [ $line == "Mute:" ]; then
+                    mutefound=1
+                fi
+            fi
+
+        else
+            if [ $line == $sink ]; then
+                sinkfound=1
+            fi
+        fi
+    done
 }
 
 case $1 in
     "toggle")
         if [ -f $HOME/.i3/volume.sinks ]; then
             while read sink; do
-                pactl set-sink-mute $sink toggle
-                notify normal "Card $(echo $sink | sed 's|^.*\.||')" "Toggle mute"
+                toggle_volume $sink
             done < $HOME/.i3/volume.sinks
         else
             notify critical "Toggle mute" "No sinks defined on system"
@@ -21,8 +85,7 @@ case $1 in
     "up")
         if [ -f $HOME/.i3/volume.sinks ]; then
             while read sink; do
-                pactl set-sink-volume $sink +1%
-                notify normal "Card $(echo $sink | sed 's|^.*\.||')" "Increase volume"
+                up_volume $sink 1
             done < $HOME/.i3/volume.sinks
         else
             notify critical "Increase volume" "No sinks defined on system"
@@ -31,8 +94,7 @@ case $1 in
     "down")
         if [ -f $HOME/.i3/volume.sinks ]; then
             while read sink; do
-                pactl set-sink-volume $sink -- -1%
-                notify normal "Card $(echo $sink | sed 's|^.*\.||')" "Decrease volume"
+                down_volume $sink 1
             done < $HOME/.i3/volume.sinks
         else
             notify critical "Decrease volume" "No sinks defined on system"
