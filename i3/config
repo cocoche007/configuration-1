@@ -159,6 +159,7 @@ bindsym $mod+o mode "resize"
 # finds out, if available)
 bar {
     status_command              i3status
+    mode                        dock
     position                    bottom
     workspace_buttons           yes
     tray_output                 right
