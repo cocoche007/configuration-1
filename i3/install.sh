@@ -62,12 +62,10 @@ installdir()
 }
 
 installfile "$INSTALL_DIR/Xresources"     "$HOME/.Xresources"
-installfile "$INSTALL_DIR/config"         "$HOME/.i3/config"
-installfile "$INSTALL_DIR/i3status.conf"  "$HOME/.i3status.conf"
 installfile "$INSTALL_DIR/xinitrc"        "$HOME/.xinitrc"
 installfile "$INSTALL_DIR/keyboard.sh"    "/etc/profile.d/keyboard.sh" "sudo"
 installfile "$INSTALL_DIR/XCompose"       "$HOME/.XCompose"
 installfile "$INSTALL_DIR/dunstrc"        "$HOME/.config/dunst/dunstrc"
-installdir  "$INSTALL_DIR/script"         "$HOME/.i3/script"
+installdir  "$INSTALL_DIR/i3"             "$HOME/.i3"
 
 echo "You need to install dzen2, scrot, i3-py and i3pystatus."

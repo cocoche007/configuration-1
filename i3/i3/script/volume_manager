@@ -1,6 +1,25 @@
 #!/bin/sh
 
 APPNAME="Volume manager"
+CURRENT_SINK="$(cat .i3/script/.volume.current_sinks)"
+ALLSINKS=
+MAXSINKS=
+
+init_sink()
+{
+    if [ -z ${ALLSINKS} ]; then
+        i=0
+        for sink in $(pacmd list-sinks | grep "name:" | sed 's|^.*name: <||;s|>||'); do
+            echo "Add $sink in array"
+            ALLSINKS[$i]=$sink
+            i=$(( $i + 1 ))
+        done
+        MAXSINKS=$i
+    fi
+    if [ -z $(CURRENT_SINK) ]; then
+        
+    fi
+}
 
 notify()
 {

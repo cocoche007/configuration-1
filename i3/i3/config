@@ -158,17 +158,19 @@ bindsym $mod+o mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command              i3status
+    status_command              i3status -c ~/.i3/i3status.conf
     mode                        dock
     position                    bottom
     workspace_buttons           yes
-    tray_output                 right
+    tray_output                 eDP1
 
-    font                        -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    #font                        -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font                        -*-termsyn-bold-*-*-*-*-*-100-100-*-*-*-*
 
     colors {
         background              #000000
         statusline              #ffffff
+        separator               #666666
 
         focused_workspace       #ffffff #285577
         active_workspace        #ffffff #333333
