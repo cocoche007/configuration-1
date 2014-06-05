@@ -24,14 +24,14 @@ syn keyword cStatement  ex_safe_free ex_safe_free_use ex_safe_free_nomng
 syn keyword cStatement  ex_stack_malloc ex_stack_free
 syn keyword cStatement  ex_log ex_error ex_warning ex_log_func ex_assert ex_assert_slow ex_assert_return ex_assert_exec ex_check ex_check_return ex_check_exec ex_static_assert ex_compile_time_assert
 
-if !exists('g:ex_todo_keyword')
-    let g:ex_todo_keyword = 'NOTE REF EXAMPLE'
+if !exists('g:Ex_todo_keyword')
+    let g:Ex_todo_keyword = 'NOTE REF EXAMPLE'
 endif
-if !exists('g:ex_comment_lable_keyword')
-    let g:ex_comment_lable_keyword = 'TEMP CRASH MODIFY DEBUG DUMMY DELME TESTME OPTME REFACTORING DUPLICATE REDUNDANCY'
+if !exists('g:Ex_comment_lable_keyword')
+    let g:Ex_comment_lable_keyword = 'TEMP CRASH MODIFY DEBUG DUMMY DELME TESTME OPTME REFACTORING DUPLICATE REDUNDANCY'
 endif
-silent exec ':syn keyword cTodo contained ' . g:ex_todo_keyword
-silent exec ':syn keyword exCommentLable contained ' . g:ex_comment_lable_keyword
+silent exec ':syn keyword cTodo contained ' . g:Ex_todo_keyword
+silent exec ':syn keyword exCommentLable contained ' . g:Ex_comment_lable_keyword
 syn cluster cCommentGroup contains=cTodo,exCommentLable
 
 " ======================================================== 

@@ -23,32 +23,32 @@ let loaded_exquickfix = 1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_window_height')
-    let g:exQF_window_height = 20
+if !exists('g:ExQF_window_height')
+    let g:ExQF_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_window_width')
-    let g:exQF_window_width = 30
+if !exists('g:ExQF_window_width')
+    let g:ExQF_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_window_height_increment')
-    let g:exQF_window_height_increment = 30
+if !exists('g:ExQF_window_height_increment')
+    let g:ExQF_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_window_width_increment')
-    let g:exQF_window_width_increment = 50
+if !exists('g:ExQF_window_width_increment')
+    let g:ExQF_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,32 +56,32 @@ endif
 " 'topleft','botright','belowright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_window_direction')
-    let g:exQF_window_direction = 'belowright'
+if !exists('g:ExQF_window_direction')
+    let g:ExQF_window_direction = 'belowright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_use_vertical_window')
-    let g:exQF_use_vertical_window = 0
+if !exists('g:ExQF_use_vertical_window')
+    let g:ExQF_use_vertical_window = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go back to edit buffer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_backto_editbuf')
-    let g:exQF_backto_editbuf = 0
+if !exists('g:ExQF_backto_editbuf')
+    let g:ExQF_backto_editbuf = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go and close exTagSelect window
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_close_when_selected')
-    let g:exQF_close_when_selected = 0
+if !exists('g:ExQF_close_when_selected')
+    let g:ExQF_close_when_selected = 0
 endif
 
 " ------------------------------------------------------------------ 
@@ -89,8 +89,8 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exQF_edit_mode')
-    let g:exQF_edit_mode = 'replace'
+if !exists('g:ExQF_edit_mode')
+    let g:ExQF_edit_mode = 'replace'
 endif
 
 " ======================================================== 
@@ -159,10 +159,10 @@ function s:exQF_OpenWindow( short_title ) " <<<
 
     let title = '__exQF_' . s:exQF_short_title . 'Window__'
     " open window
-    if g:exQF_use_vertical_window
-        call exUtility#OpenWindow( title, g:exQF_window_direction, g:exQF_window_width, g:exQF_use_vertical_window, g:exQF_edit_mode, 1, 'g:exQF_Init'.s:exQF_short_title.'Window', 'g:exQF_Update'.s:exQF_short_title.'Window' )
+    if g:ExQF_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExQF_window_direction, g:ExQF_window_width, g:ExQF_use_vertical_window, g:ExQF_edit_mode, 1, 'g:ExQF_Init'.s:exQF_short_title.'Window', 'g:ExQF_Update'.s:exQF_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exQF_window_direction, g:exQF_window_height, g:exQF_use_vertical_window, g:exQF_edit_mode, 1, 'g:exQF_Init'.s:exQF_short_title.'Window', 'g:exQF_Update'.s:exQF_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExQF_window_direction, g:ExQF_window_height, g:ExQF_use_vertical_window, g:ExQF_edit_mode, 1, 'g:ExQF_Init'.s:exQF_short_title.'Window', 'g:ExQF_Update'.s:exQF_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -171,10 +171,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exQF_ResizeWindow() " <<<
-    if g:exQF_use_vertical_window
-        call exUtility#ResizeWindow( g:exQF_use_vertical_window, g:exQF_window_width, g:exQF_window_width_increment )
+    if g:ExQF_use_vertical_window
+        call exUtility#ResizeWindow( g:ExQF_use_vertical_window, g:ExQF_window_width, g:ExQF_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exQF_use_vertical_window, g:exQF_window_height, g:exQF_window_height_increment )
+        call exUtility#ResizeWindow( g:ExQF_use_vertical_window, g:ExQF_window_height, g:ExQF_window_height_increment )
     endif
 endfunction " >>>
 
@@ -196,10 +196,10 @@ function s:exQF_ToggleWindow( short_title ) " <<<
 
     let title = '__exQF_' . s:exQF_short_title . 'Window__'
     " toggle exQF window
-    if g:exQF_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exQF_window_direction, g:exQF_window_width, g:exQF_use_vertical_window, 'none', 0, 'g:exQF_Init'.s:exQF_short_title.'Window', 'g:exQF_Update'.s:exQF_short_title.'Window' )
+    if g:ExQF_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExQF_window_direction, g:ExQF_window_width, g:ExQF_use_vertical_window, 'none', 0, 'g:ExQF_Init'.s:exQF_short_title.'Window', 'g:ExQF_Update'.s:exQF_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exQF_window_direction, g:exQF_window_height, g:exQF_use_vertical_window, 'none', 0, 'g:exQF_Init'.s:exQF_short_title.'Window', 'g:exQF_Update'.s:exQF_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExQF_window_direction, g:ExQF_window_height, g:ExQF_use_vertical_window, 'none', 0, 'g:ExQF_Init'.s:exQF_short_title.'Window', 'g:ExQF_Update'.s:exQF_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -211,21 +211,21 @@ function s:exQF_SwitchWindow( short_title ) " <<<
     let title = '__exQF_' . a:short_title . 'Window__'
     if bufwinnr(title) == -1
         " save the old height & width
-        let old_height = g:exQF_window_height
-        let old_width = g:exQF_window_width
+        let old_height = g:ExQF_window_height
+        let old_width = g:ExQF_window_width
 
         " use the width & height of current window if it is same plugin window.
         if bufname ('%') ==# s:exQF_select_title || bufname ('%') ==# s:exQF_quick_view_title
-            let g:exQF_window_height = winheight('.')
-            let g:exQF_window_width = winwidth('.')
+            let g:ExQF_window_height = winheight('.')
+            let g:ExQF_window_width = winwidth('.')
         endif
 
         " switch to the new plugin window
         call s:exQF_ToggleWindow(a:short_title)
 
         " recover the width and height
-        let g:exQF_window_height = old_height
-        let g:exQF_window_width = old_width
+        let g:ExQF_window_height = old_height
+        let g:ExQF_window_width = old_width
     endif
 endfunction " >>>
 
@@ -256,7 +256,7 @@ function s:exQF_Goto(idx) " <<<
 
     " go back if needed
     let title = '__exQF_' . s:exQF_short_title . 'Window__'
-    call exUtility#OperateWindow ( title, g:exQF_close_when_selected, g:exQF_backto_editbuf, 1 )
+    call exUtility#OperateWindow ( title, g:ExQF_close_when_selected, g:ExQF_backto_editbuf, 1 )
 endfunction " >>>
 
 " ======================================================== 
@@ -267,7 +267,7 @@ endfunction " >>>
 " Desc: Init exQuickFix window
 " ------------------------------------------------------------------ 
 
-function g:exQF_InitSelectWindow() " <<<
+function g:ExQF_InitSelectWindow() " <<<
     silent! setlocal number
     silent! setlocal autoread
     setlocal foldmethod=marker foldmarker=<<<<<<,>>>>>> foldlevel=1
@@ -284,9 +284,9 @@ function g:exQF_InitSelectWindow() " <<<
     syntax match ex_SynLineNr contained '(\d\+)'
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exQF_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exQF_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exQF_GotoInSelectWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exQF_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exQF_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exQF_GotoInSelectWindow()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exQF_GotoInSelectWindow()<CR>
 
     nnoremap <buffer> <silent> <C-Right>   :call <SID>exQF_SwitchWindow('Select')<CR>
@@ -319,7 +319,7 @@ endfunction " >>>
 " Desc: Update exQuickFix window 
 " ------------------------------------------------------------------ 
 
-function g:exQF_UpdateSelectWindow() " <<<
+function g:ExQF_UpdateSelectWindow() " <<<
     silent call cursor(s:exQF_select_idx, 1)
     call exUtility#HighlightConfirmLine()
     if s:exQF_cur_filename != ''
@@ -340,7 +340,7 @@ function s:exQF_PasteQuickFixResult(register) " <<<
     call s:exQF_ChooseCompiler ()
 
     " init compiler dir and current working dir
-    let s:exQF_compile_dir = g:exES_CWD
+    let s:exQF_compile_dir = g:ExES_CWD
     let cur_dir = getcwd()
 
     " get the quick fix result
@@ -465,7 +465,7 @@ function s:exQF_GetQuickFixResult( file_name ) " <<<
         call s:exQF_ChooseCompiler ()
 
         " init compiler dir and current working dir
-        let s:exQF_compile_dir = g:exES_CWD
+        let s:exQF_compile_dir = g:ExES_CWD
         let cur_dir = getcwd()
 
         " get the quick fix result
@@ -485,7 +485,7 @@ endfunction " >>>
 " Desc: Init exQuickFix select window
 " ------------------------------------------------------------------ 
 
-function g:exQF_InitQuickViewWindow() " <<<
+function g:ExQF_InitQuickViewWindow() " <<<
     setlocal number
     " syntax highlight
     syntax region exQF_FileLineRegion start='^[^:<].*:\(\d\+:\|(\d\+)\)*'  end="$" contains=ex_SynFileName,ex_SynLineNr
@@ -495,9 +495,9 @@ function g:exQF_InitQuickViewWindow() " <<<
     syntax match ex_SynLineNr contained '(\d\+)'
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exQF_ToggleWindow('QuickView')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exQF_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exQF_GotoInQuickViewWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exQF_ToggleWindow('QuickView')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exQF_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exQF_GotoInQuickViewWindow()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exQF_GotoInQuickViewWindow()<CR>
 
     nnoremap <buffer> <silent> <C-Right>   :call <SID>exQF_SwitchWindow('Select')<CR>
@@ -514,7 +514,7 @@ endfunction " >>>
 " Desc: Update exQuickFix window 
 " ------------------------------------------------------------------ 
 
-function g:exQF_UpdateQuickViewWindow() " <<<
+function g:ExQF_UpdateQuickViewWindow() " <<<
     silent call cursor(s:exQF_quick_view_idx, 1)
     call exUtility#HighlightConfirmLine()
     if s:exQF_need_update_quick_view_window

@@ -23,71 +23,71 @@ let loaded_exutility=1
 " Desc: register plugin buffer filetypes, so we can recognize the window as plugin window
 " ------------------------------------------------------------------ 
 
-if !exists('g:ex_plugin_registered_filetypes')
-    let g:ex_plugin_registered_filetypes = ["ex_plugin","ex_project","taglist","nerdtree"] 
+if !exists('g:Ex_plugin_registered_filetypes')
+    let g:Ex_plugin_registered_filetypes = ["ex_plugin","ex_project","taglist","nerdtree"] 
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: register plugin buffer names, so we can recognize the window as plugin window
 " ------------------------------------------------------------------ 
 
-if !exists('g:ex_plugin_registered_bufnames')
-    let g:ex_plugin_registered_bufnames = ["-MiniBufExplorer-","__Tag_List__","\[Lookup File\]"] 
+if !exists('g:Ex_plugin_registered_bufnames')
+    let g:Ex_plugin_registered_bufnames = ["-MiniBufExplorer-","__Tag_List__","\[Lookup File\]"] 
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: turn on/off help text
 " ------------------------------------------------------------------ 
 
-if !exists('g:ex_help_text_on')
-    let g:ex_help_text_on = 0
+if !exists('g:Ex_help_text_on')
+    let g:Ex_help_text_on = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: 
 " ------------------------------------------------------------------ 
 
-if !exists('g:ex_auto_hl_cursor_word')
-    let g:ex_auto_hl_cursor_word = 0
+if !exists('g:Ex_auto_hl_cursor_word')
+    let g:Ex_auto_hl_cursor_word = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: add todo syntax keyword 
 " ------------------------------------------------------------------ 
 
-if !exists('g:ex_todo_keyword')
-    let g:ex_todo_keyword = 'NOTE REF EXAMPLE SAMPLE CHECK'
+if !exists('g:Ex_todo_keyword')
+    let g:Ex_todo_keyword = 'NOTE REF EXAMPLE SAMPLE CHECK'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: add comment lable keyword
 " ------------------------------------------------------------------ 
 
-if !exists('g:ex_comment_lable_keyword')
-    let g:ex_comment_lable_keyword = 'DELME TEMP MODIFY ADD KEEPME DISABLE ' " for editing
-    let g:ex_comment_lable_keyword .= 'DEBUG CRASH DUMMY UNUSED TESTME ' " for testing 
-    let g:ex_comment_lable_keyword .= 'HACK OPTME HARDCODE REFACTORING DUPLICATE REDUNDANCY ' " for refactoring
+if !exists('g:Ex_comment_lable_keyword')
+    let g:Ex_comment_lable_keyword = 'DELME TEMP MODIFY ADD KEEPME DISABLE ' " for editing
+    let g:Ex_comment_lable_keyword .= 'DEBUG CRASH DUMMY UNUSED TESTME ' " for testing 
+    let g:Ex_comment_lable_keyword .= 'HACK OPTME HARDCODE REFACTORING DUPLICATE REDUNDANCY ' " for refactoring
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: default supported languages 
 " ------------------------------------------------------------------ 
 
-if !exists ( "g:ex_default_langs" )
-    let g:ex_default_langs = ['c', 'cpp', 'c#', 'java', 'shader', 'python', 'vim', 'uc', 'math', 'wiki', 'ini', 'make', 'sh', 'batch', 'debug' ] 
+if !exists ( "g:Ex_default_langs" )
+    let g:Ex_default_langs = ['c', 'cpp', 'c#', 'java', 'shader', 'python', 'vim', 'uc', 'math', 'wiki', 'ini', 'make', 'sh', 'batch', 'debug' ] 
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: cscope supported languages 
 " ------------------------------------------------------------------ 
 
-if !exists ( "g:ex_cscope_langs" )
-    let g:ex_cscope_langs = ['c', 'cpp', 'shader', 'asm' ] 
+if !exists ( "g:Ex_cscope_langs" )
+    let g:Ex_cscope_langs = ['c', 'cpp', 'shader', 'asm' ] 
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: ex_dev environment variable 
-" NOTE: we don't recommend to set the g:ex_dev_path directly in vim/.vimrc
+" NOTE: we don't recommend to set the g:Ex_dev_path directly in vim/.vimrc
 " ------------------------------------------------------------------ 
 
 if $EX_DEV ==# ""
@@ -109,13 +109,13 @@ endif
 " Desc: 
 " ------------------------------------------------------------------ 
 
-if !exists ( "g:ex_toolkit_path" )
-    let g:ex_toolkit_path = $EX_DEV.'/tools/exvim/toolkit'
+if !exists ( "g:Ex_toolkit_path" )
+    let g:Ex_toolkit_path = $EX_DEV.'/tools/exvim/toolkit'
 endif
 
 " check if the toolkit path exists
-if finddir(g:ex_toolkit_path) == ''
-    call exUtility#WarningMsg("the toolkit path doesn't exits, please set a right path to the global variable g:ex_toolkit_path in your .vimrc")
+if finddir(g:Ex_toolkit_path) == ''
+    call exUtility#WarningMsg("the toolkit path doesn't exits, please set a right path to the global variable g:Ex_toolkit_path in your .vimrc")
 endif
 
 " ------------------------------------------------------------------ 
@@ -123,47 +123,47 @@ endif
 " ------------------------------------------------------------------ 
 
 " general key mapping: close window
-if !exists ( "g:ex_keymap_close" )
-    let g:ex_keymap_close = "<esc>"
+if !exists ( "g:Ex_keymap_close" )
+    let g:Ex_keymap_close = "<esc>"
     if has("gui_running")
-        let g:ex_keymap_close = "<esc>"
+        let g:Ex_keymap_close = "<esc>"
     else " xterm should not map <esc> key
         if has("unix")
-            let g:ex_keymap_close = "<leader><esc>"
+            let g:Ex_keymap_close = "<leader><esc>"
         endif
     endif
 endif
 
 " general key mapping: resize window
-if !exists ( "g:ex_keymap_resize" )
-    let g:ex_keymap_resize = "<space>"
+if !exists ( "g:Ex_keymap_resize" )
+    let g:Ex_keymap_resize = "<space>"
 endif
 
 " general key mapping: select confirm
-if !exists ( "g:ex_keymap_confirm" )
-    let g:ex_keymap_confirm = "<enter>"
+if !exists ( "g:Ex_keymap_confirm" )
+    let g:Ex_keymap_confirm = "<enter>"
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: smart detect ctags
 " ------------------------------------------------------------------ 
 
-if !exists('g:ex_ctags_cmd')
+if !exists('g:Ex_ctags_cmd')
     if executable('exuberant-ctags')
         " On Debian Linux, exuberant ctags is installed
         " as exuberant-ctags
-        let g:ex_ctags_cmd = 'exuberant-ctags'
+        let g:Ex_ctags_cmd = 'exuberant-ctags'
     elseif executable('exctags')
         " On Free-BSD, exuberant ctags is installed as exctags
-        let g:ex_ctags_cmd = 'exctags'
+        let g:Ex_ctags_cmd = 'exctags'
     elseif executable('ctags')
-        let g:ex_ctags_cmd = 'ctags'
+        let g:Ex_ctags_cmd = 'ctags'
     elseif executable('ctags.exe')
-        let g:ex_ctags_cmd = 'ctags.exe'
+        let g:Ex_ctags_cmd = 'ctags.exe'
     elseif executable('tags')
-        let g:ex_ctags_cmd = 'tags'
+        let g:Ex_ctags_cmd = 'tags'
     else
-        let g:ex_ctags_cmd = ''
+        let g:Ex_ctags_cmd = ''
     endif
 endif
 
@@ -175,7 +175,7 @@ endif
 " function settings
 " ======================================================== 
 
-silent call exUtility#SetProjectFilter ( "file_filter", exUtility#GetFileFilterByLanguage (g:ex_default_langs) )
+silent call exUtility#SetProjectFilter ( "file_filter", exUtility#GetFileFilterByLanguage (g:Ex_default_langs) )
 silent call exUtility#SetProjectFilter ( "dir_filter", "" ) " null-string means include all directories
 
 "/////////////////////////////////////////////////////////////////////////////
@@ -301,8 +301,8 @@ function s:UpdateSyntaxHighlights() " <<<
     endif
 
     " update custom environment
-    if exists('*g:ex_CustomHighlight')
-        call g:ex_CustomHighlight()
+    if exists('*g:Ex_CustomHighlight')
+        call g:Ex_CustomHighlight()
     endif
 
 endfunction " >>>
@@ -364,7 +364,7 @@ au VimEnter * call s:UpdateSyntaxHighlights()
 " } DISABLE: status-line end 
 
 " 
-if g:ex_auto_hl_cursor_word
+if g:Ex_auto_hl_cursor_word
     au CursorHold * :call exUtility#Highlight_Temp()
     au CursorMoved * :call exUtility#Highlight_TempCursorMoved()
 endif

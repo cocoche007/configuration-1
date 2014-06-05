@@ -23,32 +23,32 @@ let loaded_exproject=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_window_height')
-    let g:exPJ_window_height = 20
+if !exists('g:ExPJ_window_height')
+    let g:ExPJ_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_window_width')
-    let g:exPJ_window_width = 30
+if !exists('g:ExPJ_window_width')
+    let g:ExPJ_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_window_height_increment')
-    let g:exPJ_window_height_increment = 30
+if !exists('g:ExPJ_window_height_increment')
+    let g:ExPJ_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_window_width_increment')
-    let g:exPJ_window_width_increment = 50
+if !exists('g:ExPJ_window_width_increment')
+    let g:ExPJ_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,32 +56,32 @@ endif
 " 'topleft','botright', 'belowright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_window_direction')
-    let g:exPJ_window_direction = 'topleft'
+if !exists('g:ExPJ_window_direction')
+    let g:ExPJ_window_direction = 'topleft'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_use_vertical_window')
-    let g:exPJ_use_vertical_window = 1
+if !exists('g:ExPJ_use_vertical_window')
+    let g:ExPJ_use_vertical_window = 1
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go back to edit buffer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_backto_editbuf')
-    let g:exPJ_backto_editbuf = 1
+if !exists('g:ExPJ_backto_editbuf')
+    let g:ExPJ_backto_editbuf = 1
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: close the project window after selected, by YJR
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_close_when_selected')
-    let g:exPJ_close_when_selected = 0
+if !exists('g:ExPJ_close_when_selected')
+    let g:ExPJ_close_when_selected = 0
 endif
 
 " ------------------------------------------------------------------ 
@@ -89,8 +89,8 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exPJ_edit_mode')
-    let g:exPJ_edit_mode = 'replace'
+if !exists('g:ExPJ_edit_mode')
+    let g:ExPJ_edit_mode = 'replace'
 endif
 
 " ======================================================== 
@@ -143,10 +143,10 @@ function s:exPJ_OpenWindow( short_title ) " <<<
         let title = s:exPJ_cur_filename
     endif
     " open window
-    if g:exPJ_use_vertical_window
-        call exUtility#OpenWindow( title, g:exPJ_window_direction, g:exPJ_window_width, g:exPJ_use_vertical_window, 'none', 1, 'g:exPJ_Init'.s:exPJ_short_title.'Window', 'g:exPJ_Update'.s:exPJ_short_title.'Window' )
+    if g:ExPJ_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExPJ_window_direction, g:ExPJ_window_width, g:ExPJ_use_vertical_window, 'none', 1, 'g:ExPJ_Init'.s:exPJ_short_title.'Window', 'g:ExPJ_Update'.s:exPJ_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exPJ_window_direction, g:exPJ_window_height, g:exPJ_use_vertical_window, 'none', 1, 'g:exPJ_Init'.s:exPJ_short_title.'Window', 'g:exPJ_Update'.s:exPJ_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExPJ_window_direction, g:ExPJ_window_height, g:ExPJ_use_vertical_window, 'none', 1, 'g:ExPJ_Init'.s:exPJ_short_title.'Window', 'g:ExPJ_Update'.s:exPJ_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -155,10 +155,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exPJ_ResizeWindow() " <<<
-    if g:exPJ_use_vertical_window
-        call exUtility#ResizeWindow( g:exPJ_use_vertical_window, g:exPJ_window_width, g:exPJ_window_width_increment )
+    if g:ExPJ_use_vertical_window
+        call exUtility#ResizeWindow( g:ExPJ_use_vertical_window, g:ExPJ_window_width, g:ExPJ_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exPJ_use_vertical_window, g:exPJ_window_height, g:exPJ_window_height_increment )
+        call exUtility#ResizeWindow( g:ExPJ_use_vertical_window, g:ExPJ_window_height, g:ExPJ_window_height_increment )
     endif
 endfunction " >>>
 
@@ -188,10 +188,10 @@ function s:exPJ_ToggleWindow( short_title ) " <<<
     endif
 
     " when toggle on, we expect the cursor can be focus on that window.
-    if g:exPJ_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exPJ_window_direction, g:exPJ_window_width, g:exPJ_use_vertical_window, 'none', 0, 'g:exPJ_Init'.s:exPJ_short_title.'Window', 'g:exPJ_Update'.s:exPJ_short_title.'Window' )
+    if g:ExPJ_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExPJ_window_direction, g:ExPJ_window_width, g:ExPJ_use_vertical_window, 'none', 0, 'g:ExPJ_Init'.s:exPJ_short_title.'Window', 'g:ExPJ_Update'.s:exPJ_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exPJ_window_direction, g:exPJ_window_height, g:exPJ_use_vertical_window, 'none', 0, 'g:exPJ_Init'.s:exPJ_short_title.'Window', 'g:exPJ_Update'.s:exPJ_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExPJ_window_direction, g:ExPJ_window_height, g:ExPJ_use_vertical_window, 'none', 0, 'g:ExPJ_Init'.s:exPJ_short_title.'Window', 'g:ExPJ_Update'.s:exPJ_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -207,21 +207,21 @@ endfunction " >>>
 "     endif
 "     if bufwinnr(title) == -1
 "         " save the old height & width
-"         let old_height = g:exPJ_window_height
-"         let old_width = g:exPJ_window_width
+"         let old_height = g:ExPJ_window_height
+"         let old_width = g:ExPJ_window_width
 
 "         " use the width & height of current window if it is same plugin window.
 "         if fnamemodify(bufname ('%'),':p:.') ==# fnamemodify(s:exPJ_cur_filename,':p:.') || bufname ('%') ==# s:exPJ_quick_view_title
-"             let g:exPJ_window_height = winheight('.')
-"             let g:exPJ_window_width = winwidth('.')
+"             let g:ExPJ_window_height = winheight('.')
+"             let g:ExPJ_window_width = winwidth('.')
 "         endif
 
 "         " switch to the new plugin window
 "         call s:exPJ_ToggleWindow(a:short_title)
 
 "         " recover the width and height
-"         let g:exPJ_window_height = old_height
-"         let g:exPJ_window_width = old_width
+"         let g:ExPJ_window_height = old_height
+"         let g:ExPJ_window_width = old_width
 "     endif
 " endfunction " >>>
 " } DISABLE end 
@@ -293,10 +293,10 @@ endfunction " >>>
 
 function s:exPJ_RefreshWindow() " <<<
     " silent! wincmd H
-    if g:exPJ_use_vertical_window
-        silent exe 'vertical resize ' . g:exPJ_window_width
+    if g:ExPJ_use_vertical_window
+        silent exe 'vertical resize ' . g:ExPJ_window_width
     else
-        silent exe 'resize ' . g:exPJ_window_height
+        silent exe 'resize ' . g:ExPJ_window_height
     endif
 endfunction " >>>
 
@@ -348,7 +348,7 @@ endfunction " >>>
 " Desc: Init exTagSelect window
 " ------------------------------------------------------------------ 
 
-function g:exPJ_InitSelectWindow() " <<<
+function g:ExPJ_InitSelectWindow() " <<<
     " NOTE: overwrite the filetype from ex_plugin to ex_project, so that the project window will not be close when doing a ex-operation
     silent! setlocal filetype=ex_project 
     silent! setlocal buftype=
@@ -377,9 +377,9 @@ function g:exPJ_InitSelectWindow() " <<<
     syntax match exPJ_SynErrorFile '\[e\]'
 
     " key map
-    " silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exPJ_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exPJ_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exPJ_GotoSelectResult('e')<CR>"
+    " silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exPJ_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exPJ_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exPJ_GotoSelectResult('e')<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exPJ_GotoSelectResult('e')<CR>
 
     nnoremap <silent> <buffer> <S-Return> :call <SID>exPJ_GotoSelectResult('bel sp')<CR>
@@ -424,7 +424,7 @@ endfunction " >>>
 " Desc: Update window
 " ------------------------------------------------------------------ 
 
-function g:exPJ_UpdateSelectWindow() " <<<
+function g:ExPJ_UpdateSelectWindow() " <<<
 endfunction " >>>
 
 " ------------------------------------------------------------------ 
@@ -466,14 +466,14 @@ function s:exPJ_CreateProject(with_dialog) " <<<
 
     " get entry dir
     let entry_dir = getcwd()
-    if exists('g:exES_CWD')
-        let entry_dir = g:exES_CWD
+    if exists('g:ExES_CWD')
+        let entry_dir = g:ExES_CWD
     endif
 
     " if use dialog
     if a:with_dialog == 1
         " if the exProject is standalone version, show entry dir dialog
-        if !exists('g:exES_CWD')
+        if !exists('g:ExES_CWD')
             let entry_dir = inputdialog( 'Enter the entry directory: ', getcwd(), 'cancle' )
             if entry_dir == ''
                 call exUtility#WarningMsg('Entry dir is empty')
@@ -515,19 +515,19 @@ function s:exPJ_CreateProject(with_dialog) " <<<
     call exUtility#Browse( entry_dir, exUtility#GetFileFilterPattern(project_file_filter), exUtility#GetDirFilterPattern(project_dir_filter), filename_list )
 
     " save filenametag list
-    if exists( 'g:exES_LookupFileTag' )
+    if exists( 'g:ExES_LookupFileTag' )
         echon "sorting filenametags... \r"
-        silent call writefile( sort(filename_list), simplify(g:exES_CWD.'/'.g:exES_LookupFileTag))
-        echon "save as " . g:exES_LookupFileTag . " \r"
+        silent call writefile( sort(filename_list), simplify(g:ExES_CWD.'/'.g:ExES_LookupFileTag))
+        echon "save as " . g:ExES_LookupFileTag . " \r"
     endif
 
     " KEEPME: we don't use this method now { 
     " save filenamelist_cwd & filenamelist_vimfiles
-    " if exists( 'g:exES_FilenameList' )
-    "     silent call writefile( filename_list[1], simplify(g:exES_CWD.'/'.g:exES_FilenameList.'_cwd'))
-    "     echon "save as " . g:exES_FilenameList . "_cwd \r"
-    "     silent call writefile( filename_list[2], simplify(g:exES_CWD.'/'.g:exES_FilenameList.'_vimfiles'))
-    "     echon "save as " . g:exES_FilenameList . "_vimfiles \r"
+    " if exists( 'g:ExES_FilenameList' )
+    "     silent call writefile( filename_list[1], simplify(g:ExES_CWD.'/'.g:ExES_FilenameList.'_cwd'))
+    "     echon "save as " . g:ExES_FilenameList . "_cwd \r"
+    "     silent call writefile( filename_list[2], simplify(g:ExES_CWD.'/'.g:ExES_FilenameList.'_vimfiles'))
+    "     echon "save as " . g:ExES_FilenameList . "_vimfiles \r"
     " endif
     " } KEEPME end 
 
@@ -977,7 +977,7 @@ function s:exPJ_GotoSelectResult(edit_cmd) " <<<
     endif
 
     " go back if needed
-    call exUtility#OperateWindow ( s:exPJ_select_title, g:exPJ_close_when_selected, g:exPJ_backto_editbuf, 0 )
+    call exUtility#OperateWindow ( s:exPJ_select_title, g:ExPJ_close_when_selected, g:ExPJ_backto_editbuf, 0 )
 endfunction " >>>
 
 " ------------------------------------------------------------------ 
@@ -1040,7 +1040,7 @@ endfunction " >>>
 " Desc: return if the project is open or not, YJR
 " ------------------------------------------------------------------ 
 
-function! g:exPJ_IsWindowOpened() " <<<
+function! g:ExPJ_IsWindowOpened() " <<<
     return bufwinnr(s:exPJ_cur_filename) != -1
 endfunction " >>>
 

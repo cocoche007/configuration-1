@@ -9,14 +9,14 @@
 " syntax defines
 "/////////////////////////////////////////////////////////////////////////////
 
-if !exists('g:ex_todo_keyword')
-    let g:ex_todo_keyword = 'NOTE REF EXAMPLE'
+if !exists('g:Ex_todo_keyword')
+    let g:Ex_todo_keyword = 'NOTE REF EXAMPLE'
 endif
-if !exists('g:ex_comment_lable_keyword')
-    let g:ex_comment_lable_keyword = 'TEMP CRASH MODIFY DEBUG DUMMY DELME TESTME OPTME REFACTORING DUPLICATE REDUNDANCY'
+if !exists('g:Ex_comment_lable_keyword')
+    let g:Ex_comment_lable_keyword = 'TEMP CRASH MODIFY DEBUG DUMMY DELME TESTME OPTME REFACTORING DUPLICATE REDUNDANCY'
 endif
-silent exec ':syn keyword pythonTodo contained ' . g:ex_todo_keyword
-silent exec ':syn keyword exCommentLable contained ' . g:ex_comment_lable_keyword
+silent exec ':syn keyword pythonTodo contained ' . g:Ex_todo_keyword
+silent exec ':syn keyword exCommentLable contained ' . g:Ex_comment_lable_keyword
 syn match   pythonComment	"#.*$" contains=pythonTodo,exCommentLable,@Spell
 
 "/////////////////////////////////////////////////////////////////////////////

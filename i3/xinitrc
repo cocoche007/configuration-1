@@ -26,7 +26,7 @@ fi
 # Create background list
 if [ -x /usr/bin/feh ]; then
     filelist="$HOME/.background/filelist"
-if [ -d "$HOME/.background" ]; then
+    if [ -d "$HOME/.background" ]; then
         /usr/bin/find "$HOME/.background" -name "*.png" >  "$filelist"
         /usr/bin/find "$HOME/.background" -name "*.jpg" >> "$filelist"
         /usr/bin/find "$HOME/.background" -name "*.gif" >> "$filelist"

@@ -50,13 +50,13 @@ let s:ex_level_list = []
 " ------------------------------------------------------------------ 
 
 let s:ex_special_mark_pattern = 'todo\|xxx\|fixme'
-if exists('g:ex_todo_keyword')
-    for item in split(tolower(g:ex_todo_keyword), ' ')
+if exists('g:Ex_todo_keyword')
+    for item in split(tolower(g:Ex_todo_keyword), ' ')
         let s:ex_special_mark_pattern .= '\|\<' . item . '\>' 
     endfor
 endif
-if exists('g:ex_comment_lable_keyword')
-    for item in split(tolower(g:ex_comment_lable_keyword), ' ')
+if exists('g:Ex_comment_lable_keyword')
+    for item in split(tolower(g:Ex_comment_lable_keyword), ' ')
         let s:ex_special_mark_pattern .= '\|\<' . item . '\>' 
     endfor
 endif
@@ -241,14 +241,14 @@ function exUtility#CreateWindow( buffer_name, window_direction, window_size, use
 
     " after create the window, record the bufname into the plugin buffer name list
     let short_bufname = fnamemodify(a:buffer_name,":p:t")
-    if index( g:ex_plugin_registered_bufnames, short_bufname ) == -1
-        silent call add( g:ex_plugin_registered_bufnames, short_bufname )
+    if index( g:Ex_plugin_registered_bufnames, short_bufname ) == -1
+        silent call add( g:Ex_plugin_registered_bufnames, short_bufname )
     endif
 
     " record the filetype into the plugin filetype list
     let buf_filetype = getbufvar(a:buffer_name,'&filetype')
-    if index( g:ex_plugin_registered_filetypes, buf_filetype ) == -1
-        silent call add( g:ex_plugin_registered_filetypes, buf_filetype )
+    if index( g:Ex_plugin_registered_filetypes, buf_filetype ) == -1
+        silent call add( g:Ex_plugin_registered_filetypes, buf_filetype )
     endif
 
 endfunction " >>>
@@ -291,8 +291,8 @@ function exUtility#InitWindow(init_func_name) " <<<
     augroup end
 
     " avoid cwd change problem
-    if exists( 'g:exES_CWD' )
-        au BufEnter * silent exec 'lcd ' . escape(g:exES_CWD, " ")
+    if exists( 'g:ExES_CWD' )
+        au BufEnter * silent exec 'lcd ' . escape(g:ExES_CWD, " ")
     endif
 
     " call the user define init_function
@@ -751,7 +751,7 @@ function exUtility#PutHeader() " <<<
                 if getline(4) =~# b:ECcommentOpen . " Last Change  : .*" . b:ECcommentClose
                     if getline(5) =~# b:ECcommentOpen . " Description  : .*" . b:ECcommentClose
                         silent call setline ( 2, b:ECcommentOpen . " File         : " . fnamemodify(expand('%'), ":t") . b:ECcommentClose )
-                        silent call setline ( 3, b:ECcommentOpen . " Author       : " . g:ex_usr_name . " " . b:ECcommentClose )
+                        silent call setline ( 3, b:ECcommentOpen . " Author       : " . g:Ex_usr_name . " " . b:ECcommentClose )
                         silent call setline ( 4, b:ECcommentOpen . " Last Change  : " . strftime("%m/%d/%Y | %H:%M:%S %p | %A,%B") . b:ECcommentClose )
                         silent call cursor ( 7, 0 )
                         return
@@ -763,7 +763,7 @@ function exUtility#PutHeader() " <<<
 
     silent call append ( 0, b:ECcommentOpen . " ======================================================================================" . b:ECcommentClose )
     silent call append ( 1, b:ECcommentOpen . " File         : " . fnamemodify(expand('%'), ":t") . b:ECcommentClose )
-    silent call append ( 2, b:ECcommentOpen . " Author       : " . g:ex_usr_name . " " . b:ECcommentClose )
+    silent call append ( 2, b:ECcommentOpen . " Author       : " . g:Ex_usr_name . " " . b:ECcommentClose )
     silent call append ( 3, b:ECcommentOpen . " Last Change  : " . strftime("%m/%d/%Y | %H:%M:%S %p | %A,%B") . b:ECcommentClose )
     silent call append ( 4, b:ECcommentOpen . " Description  : " . b:ECcommentClose )
     silent call append ( 5, b:ECcommentOpen . " ======================================================================================" . b:ECcommentClose )
@@ -1034,12 +1034,12 @@ endfunction " >>>
 
 function exUtility#IsRegisteredPluginBuffer ( buffer_name ) " <<<
     " check if the buffer filetype is register in the plugin filetype list 
-    if index( g:ex_plugin_registered_filetypes, getbufvar( a:buffer_name, '&filetype' ), 0, 1 ) >= 0
+    if index( g:Ex_plugin_registered_filetypes, getbufvar( a:buffer_name, '&filetype' ), 0, 1 ) >= 0
         return 1
     endif
 
     " check if the buffer name is register in the plugin buffername list 
-    if index( g:ex_plugin_registered_bufnames, fnamemodify( a:buffer_name, ":p:t" ), 0, 1 ) >= 0
+    if index( g:Ex_plugin_registered_bufnames, fnamemodify( a:buffer_name, ":p:t" ), 0, 1 ) >= 0
         return 1
     endif
 
@@ -1297,7 +1297,7 @@ endfunction  " >>>
 " ------------------------------------------------------------------ 
 
 function exUtility#SaveRestoreInfo() " <<<
-    if exists ('g:exES_RestoreInfo')
+    if exists ('g:ExES_RestoreInfo')
         let nb_buffers = bufnr('$')     " Get the number of the last buffer.
         let idx = 1                     " Set the buffer index to one, NOTE: zero is represent to last edit buffer.
         let cmdlist = []
@@ -1321,7 +1321,7 @@ function exUtility#SaveRestoreInfo() " <<<
         endif
 
         "
-        call writefile( cmdlist, g:exES_RestoreInfo )
+        call writefile( cmdlist, g:ExES_RestoreInfo )
     endif
 endfunction  " >>>
 
@@ -1330,9 +1330,9 @@ endfunction  " >>>
 " ------------------------------------------------------------------ 
 
 function exUtility#RestoreLastEditBuffers() " <<<
-    if exists ('g:exES_RestoreInfo') && findfile( fnamemodify(g:exES_RestoreInfo,':p'), '.;' ) != ""
+    if exists ('g:ExES_RestoreInfo') && findfile( fnamemodify(g:ExES_RestoreInfo,':p'), '.;' ) != ""
         call exUtility#GotoEditBuffer()
-        let cmdlist = readfile ( g:exES_RestoreInfo )
+        let cmdlist = readfile ( g:ExES_RestoreInfo )
 
         " load all buffers
         for cmd in cmdlist 
@@ -1427,8 +1427,8 @@ endfunction " >>>
 " function exUtility#MatchTagFile( tag_file_list, file_name ) " <<<
 "     return fnamemodify(a:file_name,":p")
 "     " if we can use CWD find file, use it first
-"     if exists('g:exES_CWD')
-"         let full_file_name = substitute(g:exES_CWD,'\','',"g") . '//' . substitute(a:file_name,'\.\\','\\',"g")
+"     if exists('g:ExES_CWD')
+"         let full_file_name = substitute(g:ExES_CWD,'\','',"g") . '//' . substitute(a:file_name,'\.\\','\\',"g")
 "         if findfile(full_file_name) != ''
 "             return simplify(full_file_name)
 "         endif
@@ -1507,7 +1507,7 @@ endfunction " >>>
 
 function exUtility#GetCscopeFileFilter(filter_list) " <<<
     let cscope_file_filter_list = []
-    for lang_type in g:ex_cscope_langs 
+    for lang_type in g:Ex_cscope_langs 
         if has_key (s:ex_exvim_lang_map, lang_type)
             for file_type in s:ex_exvim_lang_map[lang_type] 
                 if index(a:filter_list,file_type) != -1
@@ -1994,10 +1994,10 @@ endfunction " >>>
 
 function exUtility#QuickFileJump() " <<<
     " make the gf go everywhere in the project
-    if exists( 'g:exES_CWD' )
+    if exists( 'g:ExES_CWD' )
         let file_name = expand("<cfile>")
         echomsg "searching file: " . file_name
-        let path = escape(g:exES_CWD, " ") . "/**;"
+        let path = escape(g:ExES_CWD, " ") . "/**;"
         let full_path_file = findfile( simplify(file_name), path ) 
 
         " if we found the file
@@ -2291,7 +2291,7 @@ function exUtility#VCMakeBAT(cmd, config) " <<<
     " process by bat
     let make_vs = glob('make_vs.bat') 
     if make_vs != ''
-        if exists('g:exES_Solution')
+        if exists('g:ExES_Solution')
             let escape_idx = stridx(a:cmd, '/')
             let prj_name = ''
             let cmd = a:cmd
@@ -2315,7 +2315,7 @@ function exUtility#VCMakeBAT(cmd, config) " <<<
             endif
 
             " exec make_vs.bat
-            call exUtility#Terminal ( 'prompt', 'nowait', 'make_vs ' . cmd . ' ' . g:exES_Solution . ' ' . a:config . ' ' . prj_name )
+            call exUtility#Terminal ( 'prompt', 'nowait', 'make_vs ' . cmd . ' ' . g:ExES_Solution . ' ' . a:config . ' ' . prj_name )
         else
             call exUtility#WarningMsg("solution not found")
         endif
@@ -2393,11 +2393,11 @@ function exUtility#UpdateVimFiles( type ) " <<<
     " ======================================================== 
 
     let vimentry_name = ''
-    if exists('g:exES_VimEntryName')
-        let vimentry_name = '_' . g:exES_VimEntryName
+    if exists('g:ExES_VimEntryName')
+        let vimentry_name = '_' . g:ExES_VimEntryName
     endif
     let quick_gen_custom = 'quick_gen_project' . vimentry_name . '_custom.' . suffix
-    if findfile( quick_gen_custom, escape(g:exES_CWD,' \') ) != ""
+    if findfile( quick_gen_custom, escape(g:ExES_CWD,' \') ) != ""
         let quick_gen_script = quick_gen_custom
     endif
 
@@ -2406,9 +2406,9 @@ function exUtility#UpdateVimFiles( type ) " <<<
     " ======================================================== 
 
     if quick_gen_script != ''
-        silent exec "cscope kill " . g:exES_Cscope
+        silent exec "cscope kill " . g:ExES_Cscope
         " we use async update
-        " silent exec "cscope add " . g:exES_Cscope
+        " silent exec "cscope add " . g:ExES_Cscope
     else
         call exUtility#WarningMsg("quick_gen_project script not found")
         return
@@ -2420,10 +2420,10 @@ function exUtility#UpdateVimFiles( type ) " <<<
 
     let gen_type = ''
     if a:type == ""
-        silent exec "cscope kill " . g:exES_Cscope
+        silent exec "cscope kill " . g:ExES_Cscope
         let gen_type = ' all'
         " we use async update
-        " silent exec "cscope add " . g:exES_Cscope
+        " silent exec "cscope add " . g:ExES_Cscope
     elseif a:type == "ID"
         let gen_type = ' id'
     elseif a:type == "symbol"
@@ -2433,10 +2433,10 @@ function exUtility#UpdateVimFiles( type ) " <<<
     elseif a:type == "tag"
         let gen_type = ' tag'
     elseif a:type == "cscope"
-        silent exec "cscope kill " . g:exES_Cscope
+        silent exec "cscope kill " . g:ExES_Cscope
         let gen_type = ' cscope'
         " we use async update
-        " silent exec "cscope add " . g:exES_Cscope
+        " silent exec "cscope add " . g:ExES_Cscope
     elseif a:type == "filenamelist"
         let gen_type = ' filenamelist'
     else
@@ -2448,7 +2448,7 @@ function exUtility#UpdateVimFiles( type ) " <<<
     " add quick_gen_project script command
     " ======================================================== 
 
-    let update_cmd = quick_gen_script . gen_type . ' ' . g:exES_vimfiles_dirname
+    let update_cmd = quick_gen_script . gen_type . ' ' . g:ExES_vimfiles_dirname
 
     " ======================================================== 
     " add vimentry references command
@@ -2473,19 +2473,19 @@ endfunction " >>>
 function exUtility#GetUpdateVimentryRefsCommand( type ) " <<<
     let cmd = ''
 
-    if !empty(g:exES_vimentryRefs)
+    if !empty(g:ExES_vimentryRefs)
         if has ('win32')
             let cmd .= ' & echo.'
             let cmd .= ' & echo Update vimentry references...'
 
-            let destSymbol = '"' . exUtility#Pathfmt(exUtility#GetVimFile ( g:exES_CWD, g:exES_vimfiles_dirname, 'symbol'),'windows') . '"'
-            let destInherit = '"' . exUtility#Pathfmt(exUtility#GetVimFile ( g:exES_CWD, g:exES_vimfiles_dirname, 'inherits'),'windows') . '"'
+            let destSymbol = '"' . exUtility#Pathfmt(exUtility#GetVimFile ( g:ExES_CWD, g:ExES_vimfiles_dirname, 'symbol'),'windows') . '"'
+            let destInherit = '"' . exUtility#Pathfmt(exUtility#GetVimFile ( g:ExES_CWD, g:ExES_vimfiles_dirname, 'inherits'),'windows') . '"'
 
             let symbolFiles = destSymbol
             let inheritFiles = destInherit
 
             " get process files
-            for vimentry in g:exES_vimentryRefs
+            for vimentry in g:ExES_vimentryRefs
                 let ref_entry_dir = fnamemodify( vimentry, ':p:h')
                 let ref_vimfiles_dirname = '.vimfiles.' . fnamemodify( vimentry, ":t:r" )
                 let symbolFiles .= '+' . '"' . exUtility#Pathfmt(exUtility#GetVimFile ( ref_entry_dir, ref_vimfiles_dirname, 'symbol'),'windows') . '"'
@@ -2494,7 +2494,7 @@ function exUtility#GetUpdateVimentryRefsCommand( type ) " <<<
 
             " get symbol cmd
             if a:type == "" || a:type == "symbol"
-                let tmpSymbol = '"' . exUtility#Pathfmt( './'.g:exES_vimfiles_dirname.'/_symbol', 'windows' ) . '"'
+                let tmpSymbol = '"' . exUtility#Pathfmt( './'.g:ExES_vimfiles_dirname.'/_symbol', 'windows' ) . '"'
                 let tmp_cmd = ' copy ' . symbolFiles . ' ' . tmpSymbol
                 let tmp_cmd .= ' & sort ' . tmpSymbol . ' /O ' . tmpSymbol
                 let tmp_cmd .= ' & move /Y ' . tmpSymbol . ' ' . destSymbol
@@ -2505,7 +2505,7 @@ function exUtility#GetUpdateVimentryRefsCommand( type ) " <<<
 
             " get inherit cmd
             if a:type == "" || a:type == "inherit"
-                let tmpInherit = '"' . exUtility#Pathfmt( './'.g:exES_vimfiles_dirname.'/_inherits', 'windows' ) . '"'
+                let tmpInherit = '"' . exUtility#Pathfmt( './'.g:ExES_vimfiles_dirname.'/_inherits', 'windows' ) . '"'
                 let tmp_cmd = ' copy ' . inheritFiles . ' ' . tmpInherit
                 let tmp_cmd .= ' & move /Y ' . tmpInherit . ' ' . destInherit
 
@@ -2516,14 +2516,14 @@ function exUtility#GetUpdateVimentryRefsCommand( type ) " <<<
             let cmd .= ' && echo'
             let cmd .= ' && echo Update vimentry references...'
 
-            let destSymbol = '"' . exUtility#Pathfmt(exUtility#GetVimFile ( g:exES_CWD, g:exES_vimfiles_dirname, 'symbol'),'unix') . '"'
-            let destInherit = '"' . exUtility#Pathfmt(exUtility#GetVimFile ( g:exES_CWD, g:exES_vimfiles_dirname, 'inherits'),'unix') . '"'
+            let destSymbol = '"' . exUtility#Pathfmt(exUtility#GetVimFile ( g:ExES_CWD, g:ExES_vimfiles_dirname, 'symbol'),'unix') . '"'
+            let destInherit = '"' . exUtility#Pathfmt(exUtility#GetVimFile ( g:ExES_CWD, g:ExES_vimfiles_dirname, 'inherits'),'unix') . '"'
 
             let symbolFiles = destSymbol
             let inheritFiles = destInherit
 
             " get process files
-            for vimentry in g:exES_vimentryRefs
+            for vimentry in g:ExES_vimentryRefs
                 let ref_entry_dir = fnamemodify( vimentry, ':p:h')
                 let ref_vimfiles_dirname = '.vimfiles.' . fnamemodify( vimentry, ":t:r" )
                 let symbolFiles .= ' ' . '"' . exUtility#Pathfmt(exUtility#GetVimFile ( ref_entry_dir, ref_vimfiles_dirname, 'symbol'),'unix') . '"'
@@ -2532,7 +2532,7 @@ function exUtility#GetUpdateVimentryRefsCommand( type ) " <<<
 
             " get symbol cmd
             if a:type == "" || a:type == "symbol"
-                let tmpSymbol = '"' . exUtility#Pathfmt( './'.g:exES_vimfiles_dirname.'/_symbol', 'unix' ) . '"'
+                let tmpSymbol = '"' . exUtility#Pathfmt( './'.g:ExES_vimfiles_dirname.'/_symbol', 'unix' ) . '"'
                 let tmp_cmd = ' cat ' . symbolFiles . ' > ' . tmpSymbol
                 let tmp_cmd .= ' && sort ' . tmpSymbol . ' -o ' . tmpSymbol
                 let tmp_cmd .= ' && mv -f ' . tmpSymbol . ' ' . destSymbol
@@ -2543,7 +2543,7 @@ function exUtility#GetUpdateVimentryRefsCommand( type ) " <<<
 
             " get inherit cmd
             if a:type == "" || a:type == "inherit"
-                let tmpInherit = '"' . exUtility#Pathfmt( './'.g:exES_vimfiles_dirname.'/_inherits', 'unix' ) . '"'
+                let tmpInherit = '"' . exUtility#Pathfmt( './'.g:ExES_vimfiles_dirname.'/_inherits', 'unix' ) . '"'
                 let tmp_cmd = ' cat ' . inheritFiles . ' > ' . tmpInherit
                 let tmp_cmd .= ' && mv -f ' . tmpInherit . ' ' . destInherit
 
@@ -2579,7 +2579,7 @@ function exUtility#CopyQuickGenProject() " <<<
     let quick_gen_script = 'quick_gen_project_custom.' . script_suffix
 
     " get quick gen script from repository
-    let full_quick_gen_script = fnamemodify( g:ex_toolkit_path . '/' . folder_name . '/' . quick_gen_script, ":p" )
+    let full_quick_gen_script = fnamemodify( g:Ex_toolkit_path . '/' . folder_name . '/' . quick_gen_script, ":p" )
 
     if findfile( full_quick_gen_script ) == ""
         call exUtility#WarningMsg('Error: file ' . full_quick_gen_script . ' not found')
@@ -2623,9 +2623,9 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function exUtility#GetLangType() " <<<
-    if exists('g:exES_LangType')
+    if exists('g:ExES_LangType')
         let lang_list = []
-        if g:exES_LangType == 'auto' " if user don't specific language type, use filter as language type.
+        if g:ExES_LangType == 'auto' " if user don't specific language type, use filter as language type.
             " get filter_list and walk through it
             let filter_list = split( s:ex_project_file_filter, ',' )
             for filter in filter_list 
@@ -2641,7 +2641,7 @@ function exUtility#GetLangType() " <<<
                 endfor
             endfor
         else
-            let lang_list = split( g:exES_LangType, ',' )
+            let lang_list = split( g:ExES_LangType, ',' )
         endif
 
         " return lang list
@@ -2669,7 +2669,7 @@ function exUtility#GetQuickGenSupportMap( lang_type ) " <<<
     let lang_list = split( a:lang_type, ' ' )
 
     " check plugin level support
-    if exists('g:loaded_extagselect') && g:loaded_extagselect && g:ex_ctags_cmd != ''
+    if exists('g:loaded_extagselect') && g:loaded_extagselect && g:Ex_ctags_cmd != ''
         let support_map['ctags'] = 'true'
     endif
     if exists('g:loaded_exsymboltable') && g:loaded_exsymboltable 
@@ -2724,7 +2724,7 @@ function exUtility#GetQuickGenSupportMap( lang_type ) " <<<
     if support_map['cscope'] == 'true'
         " search a:lang_type in ctags_lang_map
         for item in lang_list
-            if index ( g:ex_cscope_langs, item ) >= 0
+            if index ( g:Ex_cscope_langs, item ) >= 0
                 let found_lang = 1
                 break
             endif
@@ -2737,7 +2737,7 @@ function exUtility#GetQuickGenSupportMap( lang_type ) " <<<
     endif
 
     " check filenamelist support
-    if exists( 'g:exES_LookupFileTag' )
+    if exists( 'g:ExES_LookupFileTag' )
         let support_map['filenamelist'] = 'true'
     else
         if support_map['ctags'] == 'false' && support_map['cscope'] == 'false'
@@ -2814,10 +2814,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function exUtility#CreateIDLangMap( file_filter ) " <<<
-    if exists('g:exES_vimfiles_dirname')
-        let idlang_map_file = './'.g:exES_vimfiles_dirname.'/id-lang-autogen.map'
-        if finddir( './'.g:exES_vimfiles_dirname ) == ""
-            call exUtility#WarningMsg('Error: ' . './'.g:exES_vimfiles_dirname . ' not found!')
+    if exists('g:ExES_vimfiles_dirname')
+        let idlang_map_file = './'.g:ExES_vimfiles_dirname.'/id-lang-autogen.map'
+        if finddir( './'.g:ExES_vimfiles_dirname ) == ""
+            call exUtility#WarningMsg('Error: ' . './'.g:ExES_vimfiles_dirname . ' not found!')
             return 
         endif
 
@@ -2868,14 +2868,14 @@ function exUtility#CreateQuickGenProject() " <<<
     " init platform dependence value and write script
     if has ('win32')
         let script_suffix = 'bat'
-        let fmt_toolkit_path = exUtility#Pathfmt( g:ex_toolkit_path, 'windows')
+        let fmt_toolkit_path = exUtility#Pathfmt( g:Ex_toolkit_path, 'windows')
 
         silent call add( text_list, '@echo off' )
         silent call add( text_list, 'set script_type=autogen' )
         silent call add( text_list, 'set cwd=%~pd0' )
         silent call add( text_list, 'set toolkit_path='.fmt_toolkit_path )
         silent call add( text_list, 'set lang_type='.lang_type ) " 
-        silent call add( text_list, 'set vimfiles_path='.g:exES_vimfiles_dirname )
+        silent call add( text_list, 'set vimfiles_path='.g:ExES_vimfiles_dirname )
         silent call add( text_list, 'set file_filter='.file_filter_list[0] )
         silent call add( text_list, 'set file_filter_pattern='.'"'.file_filter_pattern_list[0].'"' )
         silent call add( text_list, 'set cscope_file_filter='.file_filter_list[1] )
@@ -2887,7 +2887,7 @@ function exUtility#CreateQuickGenProject() " <<<
         silent call add( text_list, 'set support_inherit='.support_map['inherit'] )
         silent call add( text_list, 'set support_cscope='.support_map['cscope'] )
         silent call add( text_list, 'set support_idutils='.support_map['idutils'] )
-        silent call add( text_list, 'set ctags_cmd='.g:ex_ctags_cmd )
+        silent call add( text_list, 'set ctags_cmd='.g:Ex_ctags_cmd )
         silent call add( text_list, 'set ctags_options='.ctags_options )
         silent call add( text_list, 'if exist .\%vimfiles_path%\quick_gen_project_pre_custom.bat (' )
         silent call add( text_list, '    call .\%vimfiles_path%\quick_gen_project_pre_custom.bat' )
@@ -2899,7 +2899,7 @@ function exUtility#CreateQuickGenProject() " <<<
         silent call add( text_list, 'echo on' )
     elseif has ('unix')
         let script_suffix = 'sh'
-        let fmt_toolkit_path = exUtility#Pathfmt( g:ex_toolkit_path, 'unix')
+        let fmt_toolkit_path = exUtility#Pathfmt( g:Ex_toolkit_path, 'unix')
 
         silent call add( text_list, '#!/bin/sh' )
         silent call add( text_list, 'export script_type="autogen"' )
@@ -2907,7 +2907,7 @@ function exUtility#CreateQuickGenProject() " <<<
         silent call add( text_list, 'export cwd=${PWD}' ) " 
         silent call add( text_list, 'export toolkit_path='.fmt_toolkit_path )
         silent call add( text_list, 'export lang_type='.'"'.lang_type.'"' ) " 
-        silent call add( text_list, 'export vimfiles_path='.'"'.g:exES_vimfiles_dirname.'"' )
+        silent call add( text_list, 'export vimfiles_path='.'"'.g:ExES_vimfiles_dirname.'"' )
         silent call add( text_list, 'export file_filter='.'"'.file_filter_list[0].'"' )
         silent call add( text_list, 'export file_filter_pattern='."'".file_filter_pattern_list[0]."'" )
         silent call add( text_list, 'export cscope_file_filter='.'"'.file_filter_list[1].'"' )
@@ -2919,7 +2919,7 @@ function exUtility#CreateQuickGenProject() " <<<
         silent call add( text_list, 'export support_inherit='.'"'.support_map['inherit'].'"' )
         silent call add( text_list, 'export support_cscope='.'"'.support_map['cscope'].'"' )
         silent call add( text_list, 'export support_idutils='.'"'.support_map['idutils'].'"' )
-        silent call add( text_list, 'export ctags_cmd='.'"'.g:ex_ctags_cmd.'"' )
+        silent call add( text_list, 'export ctags_cmd='.'"'.g:Ex_ctags_cmd.'"' )
         silent call add( text_list, 'export ctags_options='.'"'.ctags_options.'"' )
         silent call add( text_list, 'if [ -f "./${vimfiles_path}/quick_gen_project_pre_custom.sh" ]; then' )
         silent call add( text_list, '    sh ./${vimfiles_path}/quick_gen_project_pre_custom.sh' )
@@ -2932,19 +2932,19 @@ function exUtility#CreateQuickGenProject() " <<<
 
     " save to quick_gen_project_NAME_autogen.bat/sh
     let vimentry_name = ''
-    if exists('g:exES_VimEntryName')
-        let vimentry_name = '_' . g:exES_VimEntryName
+    if exists('g:ExES_VimEntryName')
+        let vimentry_name = '_' . g:ExES_VimEntryName
     endif
     let file_name = 'quick_gen_project' . vimentry_name . '_autogen.' . script_suffix
     call writefile ( text_list, file_name )
 
     " write pre and post file
-    let quick_gen_custom_pre = g:exES_vimfiles_dirname . '/quick_gen_project_pre_custom.' . script_suffix
-    let quick_gen_custom_post = g:exES_vimfiles_dirname . '/quick_gen_project_post_custom.' . script_suffix
-    if findfile( quick_gen_custom_pre, escape(g:exES_CWD,' \') ) == ""
+    let quick_gen_custom_pre = g:ExES_vimfiles_dirname . '/quick_gen_project_pre_custom.' . script_suffix
+    let quick_gen_custom_post = g:ExES_vimfiles_dirname . '/quick_gen_project_post_custom.' . script_suffix
+    if findfile( quick_gen_custom_pre, escape(g:ExES_CWD,' \') ) == ""
         call writefile ( [], quick_gen_custom_pre )
     endif
-    if findfile( quick_gen_custom_post, escape(g:exES_CWD,' \') ) == ""
+    if findfile( quick_gen_custom_post, escape(g:ExES_CWD,' \') ) == ""
         call writefile ( [], quick_gen_custom_post )
     endif
 
@@ -3142,7 +3142,7 @@ function exUtility#DefineMatchVariables() " <<<
     if !exists('w:ex_HighLightText')
         let w:ex_HighLightText = ["","","","",""]
     endif
-    if g:ex_auto_hl_cursor_word
+    if g:Ex_auto_hl_cursor_word
         if !exists('w:ex_hlMatchIDTemp')
             let w:ex_hlMatchIDTemp = 0
         endif
@@ -3175,8 +3175,8 @@ function exUtility#SrcHighlight( line1, line2 ) " <<<
     let last_line = a:line2
 
     " process src-highlight
-    if exists("g:exES_CWD")
-        let temp_directory_path = g:exES_CWD.'/'.g:exES_vimfiles_dirname.'/.temp' 
+    if exists("g:ExES_CWD")
+        let temp_directory_path = g:ExES_CWD.'/'.g:ExES_vimfiles_dirname.'/.temp' 
         let temp_file = temp_directory_path.'/'.'_src_highlight.txt' 
         let temp_file_html = temp_file . '.html' 
     else
@@ -3197,7 +3197,7 @@ function exUtility#SrcHighlight( line1, line2 ) " <<<
 
     " browse use browser browse file
     "KEEPME once we have css version (src 2.6): let shl_cmd = 'source-highlight -f html -s ex_cpp -n --data-dir=%EX_DEV%\GnuWin32\share\source-highlight -css="ex.css"' . ' -i ' . temp_file . ' -o ' . temp_file_html
-    let share_path = g:ex_toolkit_path . '\src-highlight\data'
+    let share_path = g:Ex_toolkit_path . '\src-highlight\data'
     let shl_cmd = 'source-highlight -f html -s ex_cpp -n --data-dir='.share_path . ' -i ' . temp_file . ' -o ' . temp_file_html
 
     let shl_result = system(shl_cmd)
@@ -3206,10 +3206,10 @@ function exUtility#SrcHighlight( line1, line2 ) " <<<
     let win_file = exUtility#Pathfmt( temp_file_html, 'windows')
 
     " try to open the file by web browser
-    if findfile ( g:exES_WebBrowser ) != ''
-        silent exec '!start ' . g:exES_WebBrowser . ' ' . win_file
+    if findfile ( g:ExES_WebBrowser ) != ''
+        silent exec '!start ' . g:ExES_WebBrowser . ' ' . win_file
     else
-        call exUtility#WarningMsg ("Can't not find web-browser: ".g:exES_WebBrowser . " defined by g:exES_WebBrowser")
+        call exUtility#WarningMsg ("Can't not find web-browser: ".g:ExES_WebBrowser . " defined by g:ExES_WebBrowser")
         return
     endif
 
@@ -3227,10 +3227,10 @@ endfunction " >>>
 
 function exUtility#GenInheritsDot( pattern, gen_method ) " <<<
     " find inherits file
-    if exists( g:exES_Inherits )
-        let inherits_file = g:exES_Inherits
+    if exists( g:ExES_Inherits )
+        let inherits_file = g:ExES_Inherits
     else
-        let inherits_file = './'.g:exES_vimfiles_dirname.'/inherits'
+        let inherits_file = './'.g:ExES_vimfiles_dirname.'/inherits'
     endif
 
     if findfile ( inherits_file ) == ''
@@ -3241,7 +3241,7 @@ function exUtility#GenInheritsDot( pattern, gen_method ) " <<<
     echomsg "generating inherits: " . a:pattern
 
     " create inherit dot file path
-    let inherit_directory_path = g:exES_CWD.'/'.g:exES_vimfiles_dirname.'/.hierarchies/' 
+    let inherit_directory_path = g:ExES_CWD.'/'.g:ExES_vimfiles_dirname.'/.hierarchies/' 
     if finddir(inherit_directory_path) == ''
         silent call mkdir(inherit_directory_path)
     endif
@@ -3319,10 +3319,10 @@ function exUtility#ViewInheritsImage() " <<<
     endif
 
     " try to open the file by image viewer
-    if findfile ( g:exES_ImageViewer ) != ''
-        silent exec '!start ' . g:exES_ImageViewer ' ' . file_name
+    if findfile ( g:ExES_ImageViewer ) != ''
+        silent exec '!start ' . g:ExES_ImageViewer ' ' . file_name
     else
-        call exUtility#WarningMsg ("Can't not find image viewer: ".g:exES_ImageViewer . " defined by g:exES_ImageViewer")
+        call exUtility#WarningMsg ("Can't not find image viewer: ".g:ExES_ImageViewer . " defined by g:ExES_ImageViewer")
         return
     endif
 
@@ -3389,11 +3389,11 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function exUtility#EditVimEntry() " <<<
-    if exists( 'g:exES_VimEntryName' ) && exists( 'g:exES_CWD' ) && findfile ( g:exES_VimEntryName.'.vimentry', escape(g:exES_CWD,' \') ) != ""
-        let vimentry_file = g:exES_VimEntryName . '.vimentry'
+    if exists( 'g:ExES_VimEntryName' ) && exists( 'g:ExES_CWD' ) && findfile ( g:ExES_VimEntryName.'.vimentry', escape(g:ExES_CWD,' \') ) != ""
+        let vimentry_file = g:ExES_VimEntryName . '.vimentry'
         echon 'edit vimentry file: ' . vimentry_file . "\r"
         call exUtility#GotoEditBuffer ()
-        silent exec 'e ' . g:exES_CWD . '/' . vimentry_file
+        silent exec 'e ' . g:ExES_CWD . '/' . vimentry_file
     else
         call exUtility#WarningMsg ("can't find current vimentry file")
     endif
@@ -3409,8 +3409,8 @@ endfunction " >>>
 
 function exUtility#CompleteBySymbolFile( arg_lead, cmd_line, cursor_pos ) " <<<
     let filter_tag = []
-    if exists ('g:exES_Symbol')
-        let tags = readfile( g:exES_Symbol )
+    if exists ('g:ExES_Symbol')
+        let tags = readfile( g:ExES_Symbol )
 
         for tag in tags
             if exUtility#SmartCaseCompare ( tag, '^'.a:arg_lead.'.*' )
@@ -3448,8 +3448,8 @@ endfunction " >>>
 
 function exUtility#CompleteByProjectFile( arg_lead, cmd_line, cursor_pos ) " <<<
     let filter_files = []
-    if exists ('g:exES_Project')
-        let project_files = readfile(g:exES_Project)
+    if exists ('g:ExES_Project')
+        let project_files = readfile(g:ExES_Project)
         for file_line in project_files
             let file_name = exUtility#GetFileName (file_line)
             if exUtility#SmartCaseCompare( file_name, '^'.a:arg_lead.'.*' )
@@ -3515,8 +3515,8 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function exUtility#CompleteMKArgs( arg_lead, cmd_line, cursor_pos ) " <<<
-    let args = split( g:ex_todo_keyword, ' ' )
-    silent call extend (args, split( g:ex_comment_lable_keyword, ' ' ) )
+    let args = split( g:Ex_todo_keyword, ' ' )
+    silent call extend (args, split( g:Ex_comment_lable_keyword, ' ' ) )
 
     let filter_result = []
     for arg in args
@@ -3564,13 +3564,13 @@ endfunction " >>>
 
 function exUtility#CreateVimwikiFiles() " <<<
     " create wiki html header
-    if exists( 'g:exES_wikiHtmlHeader' )
+    if exists( 'g:ExES_wikiHtmlHeader' )
 
-        " if we don't exist g:exES_wikiHome directory, don't create default header template 
-        if finddir( fnamemodify(g:exES_wikiHome,':p') ) != ''
+        " if we don't exist g:ExES_wikiHome directory, don't create default header template 
+        if finddir( fnamemodify(g:ExES_wikiHome,':p') ) != ''
 
             " write default header if not found one.
-            let html_header_file = fnamemodify(g:exES_wikiHtmlHeader,':p') 
+            let html_header_file = fnamemodify(g:ExES_wikiHtmlHeader,':p') 
             if findfile( html_header_file, '.;' ) == "" || empty( readfile(html_header_file) )
                 "
                 let text_list = []
@@ -3618,8 +3618,8 @@ function exUtility#CreateVimwikiFiles() " <<<
                 silent call add ( text_list, "<div class=\"contents\">" )
 
                 " create dir before write, if not exist
-                if finddir( fnamemodify(g:exES_wikiHtmlHeader,':p:h') ) == ''
-                    silent call mkdir( fnamemodify(g:exES_wikiHtmlHeader,':p:h') )
+                if finddir( fnamemodify(g:ExES_wikiHtmlHeader,':p:h') ) == ''
+                    silent call mkdir( fnamemodify(g:ExES_wikiHtmlHeader,':p:h') )
                 endif
 
                 " finally write file
@@ -3650,8 +3650,8 @@ function exUtility#SaveAndConvertVimwiki( save_all ) " <<<
     endif
 
     " copy syntax highlighter js files
-    if exists ( 'g:exES_wikiHomeHtml' )
-        let dest_path = fnamemodify( simplify(g:exES_wikiHomeHtml . '/syntax_highlighter'), ':p' ) 
+    if exists ( 'g:ExES_wikiHomeHtml' )
+        let dest_path = fnamemodify( simplify(g:ExES_wikiHomeHtml . '/syntax_highlighter'), ':p' ) 
         " if we don't have ./html/syntax_highlighter, create it, and copy files to it
         if finddir ( dest_path ) == ''
             silent call mkdir( dest_path )
@@ -3666,7 +3666,7 @@ endfunction " >>>
 
 function exUtility#CopySyntaxHighlighterFiles( dest_path ) " <<<
     let full_path = fnamemodify(a:dest_path,':p') 
-    " if we don't exist g:exES_wikiHome directory, don't create default header template 
+    " if we don't exist g:ExES_wikiHome directory, don't create default header template 
     if finddir( full_path ) != ''
         " init platform dependence value
         let copy_cmd = ''
@@ -3680,7 +3680,7 @@ function exUtility#CopySyntaxHighlighterFiles( dest_path ) " <<<
         let src = '' 
         let cmd = ''
         if has("win32")
-            let src = fnamemodify( g:ex_toolkit_path . "\\SyntaxHighlighter", ":p")
+            let src = fnamemodify( g:Ex_toolkit_path . "\\SyntaxHighlighter", ":p")
             let src = exUtility#Pathfmt( src, 'windows')
 
             " remove last \ if found in src path
@@ -3695,7 +3695,7 @@ function exUtility#CopySyntaxHighlighterFiles( dest_path ) " <<<
 
             let cmd = copy_cmd . ' ' . src . ' ' . dest 
         elseif has("unix")
-            let src = fnamemodify( g:ex_toolkit_path . '/SyntaxHighlighter/', ":p")
+            let src = fnamemodify( g:Ex_toolkit_path . '/SyntaxHighlighter/', ":p")
             let src = exUtility#Pathfmt( src, 'unix')
 
             " remove last \ if found in dest path
@@ -3750,7 +3750,7 @@ function exUtility#DisplayHelp() " <<<
         return
     endif
 
-    if !g:ex_help_text_on
+    if !g:Ex_help_text_on
         return
     endif
 
@@ -3839,7 +3839,7 @@ endfunction " >>>
 
 function exUtility#HelpUpdateCursor() " <<<
     " return immidiaetly if help off
-    if !g:ex_help_text_on
+    if !g:Ex_help_text_on
         return 0
     endif
     if getline('.')[0] == '"'

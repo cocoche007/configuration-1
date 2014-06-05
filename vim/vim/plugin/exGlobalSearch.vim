@@ -23,32 +23,32 @@ let loaded_exglobalsearch=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_window_height')
-    let g:exGS_window_height = 20
+if !exists('g:ExGS_window_height')
+    let g:ExGS_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_window_width')
-    let g:exGS_window_width = 30
+if !exists('g:ExGS_window_width')
+    let g:ExGS_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_window_height_increment')
-    let g:exGS_window_height_increment = 30
+if !exists('g:ExGS_window_height_increment')
+    let g:ExGS_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_window_width_increment')
-    let g:exGS_window_width_increment = 50
+if !exists('g:ExGS_window_width_increment')
+    let g:ExGS_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,40 +56,40 @@ endif
 " 'topleft','botright', 'belowright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_window_direction')
-    let g:exGS_window_direction = 'belowright'
+if !exists('g:ExGS_window_direction')
+    let g:ExGS_window_direction = 'belowright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_use_vertical_window')
-    let g:exGS_use_vertical_window = 0
+if !exists('g:ExGS_use_vertical_window')
+    let g:ExGS_use_vertical_window = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go back to edit buffer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_backto_editbuf')
-    let g:exGS_backto_editbuf = 0
+if !exists('g:ExGS_backto_editbuf')
+    let g:ExGS_backto_editbuf = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go and close exTagSelect window
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_close_when_selected')
-    let g:exGS_close_when_selected = 0
+if !exists('g:ExGS_close_when_selected')
+    let g:ExGS_close_when_selected = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use syntax highlight for search result
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_highlight_result')
-    let g:exGS_highlight_result = 0
+if !exists('g:ExGS_highlight_result')
+    let g:ExGS_highlight_result = 0
 endif
 
 " ------------------------------------------------------------------ 
@@ -97,24 +97,24 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_edit_mode')
-    let g:exGS_edit_mode = 'replace'
+if !exists('g:ExGS_edit_mode')
+    let g:ExGS_edit_mode = 'replace'
 endif
 
 " ------------------------------------------------------------------ 
-" Desc: set if auto sort result if the result less than g:exGS_lines_for_autosort lines 
+" Desc: set if auto sort result if the result less than g:ExGS_lines_for_autosort lines 
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_auto_sort')
-    let g:exGS_auto_sort = 0
+if !exists('g:ExGS_auto_sort')
+    let g:ExGS_auto_sort = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: less than ? lines, will trigger auto sort
 " ------------------------------------------------------------------ 
 
-if !exists('g:exGS_lines_for_autosort')
-    let g:exGS_lines_for_autosort = 500
+if !exists('g:ExGS_lines_for_autosort')
+    let g:ExGS_lines_for_autosort = 500
 endif
 
 " ======================================================== 
@@ -167,7 +167,7 @@ let s:exGS_quick_view_search_pattern = ''
 " ------------------------------------------------------------------ 
 
 function s:exGS_ClearEntryToggleWindow( title ) " <<<
-    call g:exJS_ClearEntryStateList ()
+    call g:ExJS_ClearEntryStateList ()
     call s:exGS_ToggleWindow ( a:title )
 endfunction " >>>
 
@@ -181,10 +181,10 @@ function s:exGS_OpenWindow( short_title ) " <<<
     endif
     let title = '__exGS_' . s:exGS_short_title . 'Window__'
     " open window
-    if g:exGS_use_vertical_window
-        call exUtility#OpenWindow( title, g:exGS_window_direction, g:exGS_window_width, g:exGS_use_vertical_window, g:exGS_edit_mode, 1, 'g:exGS_Init'.s:exGS_short_title.'Window', 'g:exGS_Update'.s:exGS_short_title.'Window' )
+    if g:ExGS_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExGS_window_direction, g:ExGS_window_width, g:ExGS_use_vertical_window, g:ExGS_edit_mode, 1, 'g:ExGS_Init'.s:exGS_short_title.'Window', 'g:ExGS_Update'.s:exGS_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exGS_window_direction, g:exGS_window_height, g:exGS_use_vertical_window, g:exGS_edit_mode, 1, 'g:exGS_Init'.s:exGS_short_title.'Window', 'g:exGS_Update'.s:exGS_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExGS_window_direction, g:ExGS_window_height, g:ExGS_use_vertical_window, g:ExGS_edit_mode, 1, 'g:ExGS_Init'.s:exGS_short_title.'Window', 'g:ExGS_Update'.s:exGS_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -193,10 +193,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exGS_ResizeWindow() " <<<
-    if g:exGS_use_vertical_window
-        call exUtility#ResizeWindow( g:exGS_use_vertical_window, g:exGS_window_width, g:exGS_window_width_increment )
+    if g:ExGS_use_vertical_window
+        call exUtility#ResizeWindow( g:ExGS_use_vertical_window, g:ExGS_window_width, g:ExGS_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exGS_use_vertical_window, g:exGS_window_height, g:exGS_window_height_increment )
+        call exUtility#ResizeWindow( g:ExGS_use_vertical_window, g:ExGS_window_height, g:ExGS_window_height_increment )
     endif
 endfunction " >>>
 
@@ -217,10 +217,10 @@ function s:exGS_ToggleWindow( short_title ) " <<<
 
     " toggle exGS window
     let title = '__exGS_' . s:exGS_short_title . 'Window__'
-    if g:exGS_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exGS_window_direction, g:exGS_window_width, g:exGS_use_vertical_window, 'none', 0, 'g:exGS_Init'.s:exGS_short_title.'Window', 'g:exGS_Update'.s:exGS_short_title.'Window' )
+    if g:ExGS_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExGS_window_direction, g:ExGS_window_width, g:ExGS_use_vertical_window, 'none', 0, 'g:ExGS_Init'.s:exGS_short_title.'Window', 'g:ExGS_Update'.s:exGS_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exGS_window_direction, g:exGS_window_height, g:exGS_use_vertical_window, 'none', 0, 'g:exGS_Init'.s:exGS_short_title.'Window', 'g:exGS_Update'.s:exGS_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExGS_window_direction, g:ExGS_window_height, g:ExGS_use_vertical_window, 'none', 0, 'g:ExGS_Init'.s:exGS_short_title.'Window', 'g:ExGS_Update'.s:exGS_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -232,21 +232,21 @@ function s:exGS_SwitchWindow( short_title ) " <<<
     let title = '__exGS_' . a:short_title . 'Window__'
     if bufwinnr(title) == -1
         " save the old height & width
-        let old_height = g:exGS_window_height
-        let old_width = g:exGS_window_width
+        let old_height = g:ExGS_window_height
+        let old_width = g:ExGS_window_width
 
         " use the width & height of current window if it is same plugin window.
         if bufname ('%') ==# s:exGS_select_title || bufname ('%') ==# s:exGS_quick_view_title
-            let g:exGS_window_height = winheight('.')
-            let g:exGS_window_width = winwidth('.')
+            let g:ExGS_window_height = winheight('.')
+            let g:ExGS_window_width = winwidth('.')
         endif
 
         " switch to the new plugin window
         call s:exGS_ToggleWindow(a:short_title)
 
         " recover the width and height
-        let g:exGS_window_height = old_height
-        let g:exGS_window_width = old_width
+        let g:ExGS_window_height = old_height
+        let g:ExGS_window_width = old_width
     endif
 endfunction " >>>
 
@@ -311,14 +311,14 @@ function s:exGS_Goto() " <<<
     let stack_info.tagidx = -1 
     if s:exGS_need_push_search_result 
         let s:exGS_need_push_search_result = 0 
-        call g:exJS_PushJumpStack (stack_info) 
+        call g:ExJS_PushJumpStack (stack_info) 
     else 
-        call g:exJS_SetLastJumpStack (stack_info) 
+        call g:ExJS_SetLastJumpStack (stack_info) 
     endif 
 
     " go back if needed 
     let title = '__exGS_' . s:exGS_short_title . 'Window__' 
-    call exUtility#OperateWindow ( title, g:exGS_close_when_selected, g:exGS_backto_editbuf, 1 )
+    call exUtility#OperateWindow ( title, g:ExGS_close_when_selected, g:ExGS_backto_editbuf, 1 )
 
     return 1 
 
@@ -459,11 +459,11 @@ endfunction " >>>
 " Desc: Init exGlobalSearch window
 " ------------------------------------------------------------------ 
 
-function g:exGS_InitSelectWindow() " <<<
+function g:ExGS_InitSelectWindow() " <<<
     setlocal number
 
     " syntax highlight
-    if g:exGS_highlight_result
+    if g:ExGS_highlight_result
         " this will load the syntax highlight as cpp for search result
         silent exec "so $VIM/vimfiles/after/syntax/exUtility.vim"
     endif
@@ -474,9 +474,9 @@ function g:exGS_InitSelectWindow() " <<<
     syntax match ex_SynLineNr '\d\+:'
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exGS_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exGS_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exGS_GotoInSelectWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exGS_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exGS_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exGS_GotoInSelectWindow()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exGS_GotoInSelectWindow()<CR>
 
     nnoremap <buffer> <silent> <C-Left>   :call <SID>exGS_SwitchWindow('QuickView')<CR>
@@ -505,7 +505,7 @@ endfunction " >>>
 " Desc: Update exGlobalSearch window 
 " ------------------------------------------------------------------ 
 
-function g:exGS_UpdateSelectWindow() " <<<
+function g:ExGS_UpdateSelectWindow() " <<<
     silent call cursor(s:exGS_select_idx, 1)
     call exUtility#HighlightConfirmLine()
 endfunction " >>>
@@ -542,9 +542,9 @@ endfunction ">>>
 " ------------------------------------------------------------------ 
 
 function s:exGS_GetGlobalSearchResult(search_pattern, search_method, direct_jump) " <<<
-    " if you don't have g:exES_ID, stop search process
-	if !exists( 'g:exES_ID' )
-        call exUtility#WarningMsg('the g:exES_ID not found, pls set it in your .vimentry file.')
+    " if you don't have g:ExES_ID, stop search process
+	if !exists( 'g:ExES_ID' )
+        call exUtility#WarningMsg('the g:ExES_ID not found, pls set it in your .vimentry file.')
         return
     endif
 
@@ -566,10 +566,10 @@ function s:exGS_GetGlobalSearchResult(search_pattern, search_method, direct_jump
     " create search cmd
     if s:exGS_ignore_case && (match(a:search_pattern, '\u') == -1)
         echomsg 'search ' . a:search_pattern . '...(ignore case)'
-        let search_cmd = 'lid --result=grep -i -f' . g:exES_ID . ' ' . a:search_method . ' ' . a:search_pattern
+        let search_cmd = 'lid --result=grep -i -f' . g:ExES_ID . ' ' . a:search_method . ' ' . a:search_pattern
     else
         echomsg 'search ' . a:search_pattern . '...(no ignore case)'
-        let search_cmd = 'lid --result=grep -f' . g:exES_ID . ' ' . a:search_method . ' ' . a:search_pattern
+        let search_cmd = 'lid --result=grep -f' . g:ExES_ID . ' ' . a:search_method . ' ' . a:search_pattern
     endif
     let search_result = system(search_cmd)
     let search_result = '----------' . a:search_pattern . '----------' . "\n" . search_result
@@ -592,7 +592,7 @@ function s:exGS_GetGlobalSearchResult(search_pattern, search_method, direct_jump
     let stack_info.keyword = a:search_pattern
     let stack_info.taglist = []
     let stack_info.tagidx = -1
-    call g:exJS_PushEntryState ( stack_info )
+    call g:ExJS_PushEntryState ( stack_info )
 
     " open and goto search window first
     let gs_winnr = bufwinnr(s:exGS_select_title)
@@ -608,9 +608,9 @@ function s:exGS_GetGlobalSearchResult(search_pattern, search_method, direct_jump
     call exUtility#HighlightConfirmLine()
     silent put = search_result
 
-    " auto sort search results if the number of results less than g:exGS_lines_for_autosort lines
-    if g:exGS_auto_sort == 1
-        if line('$') <= g:exGS_lines_for_autosort
+    " auto sort search results if the number of results less than g:ExGS_lines_for_autosort lines
+    if g:ExGS_auto_sort == 1
+        if line('$') <= g:ExGS_lines_for_autosort
             call s:exGS_SortSearchResults ()
         endif
     endif
@@ -685,10 +685,10 @@ function s:exGS_GetFilenameSearchResult(search_pattern, search_method) " <<<
     " create search cmd
     if a:search_method ==# '-w'
         echomsg 'search files by word ' . a:search_pattern . '...(no ignore case)'
-        let search_cmd = 'fnid -f' . g:exES_ID . ' ' . a:search_pattern
+        let search_cmd = 'fnid -f' . g:ExES_ID . ' ' . a:search_pattern
     else
         echomsg 'search files by reg-exp ' . a:search_pattern . '...(no ignore case)'
-        let search_cmd = 'fnid -f' . g:exES_ID . ' *' . a:search_pattern . '* '
+        let search_cmd = 'fnid -f' . g:ExES_ID . ' *' . a:search_pattern . '* '
     endif
     let search_result = system(search_cmd)
     let search_result = '----------' . a:search_pattern . '----------' . "\n" . search_result
@@ -714,12 +714,12 @@ endfunction " >>>
 " Desc: Init exGlobalSearch select window
 " ------------------------------------------------------------------ 
 
-function g:exGS_InitQuickViewWindow() " <<<
+function g:ExGS_InitQuickViewWindow() " <<<
     setlocal number
     setlocal foldmethod=marker foldmarker=<<<<<<,>>>>>> foldlevel=1
 
     " syntax highlight
-    if g:exGS_highlight_result
+    if g:ExGS_highlight_result
         " this will load the syntax highlight as cpp for search result
         silent exec "so $VIM/vimfiles/after/syntax/exUtility.vim"
     endif
@@ -733,9 +733,9 @@ function g:exGS_InitQuickViewWindow() " <<<
     syntax match ex_SynFold '>>>>>>'
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exGS_ToggleWindow('QuickView')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exGS_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exGS_GotoInQuickViewWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exGS_ToggleWindow('QuickView')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exGS_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exGS_GotoInQuickViewWindow()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exGS_GotoInQuickViewWindow()<CR>
 
     nnoremap <buffer> <silent> <C-Right>   :call <SID>exGS_SwitchWindow('Select')<CR>
@@ -754,7 +754,7 @@ endfunction " >>>
 " Desc: Update exGlobalSearch quickview window 
 " ------------------------------------------------------------------ 
 
-function g:exGS_UpdateQuickViewWindow() " <<<
+function g:ExGS_UpdateQuickViewWindow() " <<<
     silent call cursor(s:exGS_quick_view_idx, 1)
     call exUtility#HighlightConfirmLine()
 endfunction " >>>

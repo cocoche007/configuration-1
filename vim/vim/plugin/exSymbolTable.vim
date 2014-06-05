@@ -23,32 +23,32 @@ let loaded_exsymboltable=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exSL_window_height')
-    let g:exSL_window_height = 20
+if !exists('g:ExSL_window_height')
+    let g:ExSL_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exSL_window_width')
-    let g:exSL_window_width = 30
+if !exists('g:ExSL_window_width')
+    let g:ExSL_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exSL_window_height_increment')
-    let g:exSL_window_height_increment = 30
+if !exists('g:ExSL_window_height_increment')
+    let g:ExSL_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exSL_window_width_increment')
-    let g:exSL_window_width_increment = 50
+if !exists('g:ExSL_window_width_increment')
+    let g:ExSL_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,16 +56,16 @@ endif
 " 'topleft','botright','belowright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exSL_window_direction')
-    let g:exSL_window_direction = 'botright'
+if !exists('g:ExSL_window_direction')
+    let g:ExSL_window_direction = 'botright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exSL_use_vertical_window')
-    let g:exSL_use_vertical_window = 1
+if !exists('g:ExSL_use_vertical_window')
+    let g:ExSL_use_vertical_window = 1
 endif
 
 " ------------------------------------------------------------------ 
@@ -73,16 +73,16 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exSL_edit_mode')
-    let g:exSL_edit_mode = 'replace'
+if !exists('g:ExSL_edit_mode')
+    let g:ExSL_edit_mode = 'replace'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: set tag select command
 " ------------------------------------------------------------------ 
 
-if !exists('g:exSL_SymbolSelectCmd')
-    let g:exSL_SymbolSelectCmd = 'TS'
+if !exists('g:ExSL_SymbolSelectCmd')
+    let g:ExSL_SymbolSelectCmd = 'TS'
 endif
 
 " ======================================================== 
@@ -146,7 +146,7 @@ function s:exSL_PushEntryToggleWindow( title ) " <<<
     let stack_info.keyword = 'N/A'
     let stack_info.taglist = []
     let stack_info.tagidx = -1
-    call g:exJS_PushEntryState ( stack_info )
+    call g:ExJS_PushEntryState ( stack_info )
 
     "
     call s:exSL_ToggleWindow(a:title)
@@ -162,10 +162,10 @@ function s:exSL_OpenWindow( short_title ) " <<<
     endif
     let title = '__exSL_' . s:exSL_short_title . 'Window__'
     " open window
-    if g:exSL_use_vertical_window
-        call exUtility#OpenWindow( title, g:exSL_window_direction, g:exSL_window_width, g:exSL_use_vertical_window, g:exSL_edit_mode, 1, 'g:exSL_Init'.s:exSL_short_title.'Window', 'g:exSL_Update'.s:exSL_short_title.'Window' )
+    if g:ExSL_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExSL_window_direction, g:ExSL_window_width, g:ExSL_use_vertical_window, g:ExSL_edit_mode, 1, 'g:ExSL_Init'.s:exSL_short_title.'Window', 'g:ExSL_Update'.s:exSL_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exSL_window_direction, g:exSL_window_height, g:exSL_use_vertical_window, g:exSL_edit_mode, 1, 'g:exSL_Init'.s:exSL_short_title.'Window', 'g:exSL_Update'.s:exSL_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExSL_window_direction, g:ExSL_window_height, g:ExSL_use_vertical_window, g:ExSL_edit_mode, 1, 'g:ExSL_Init'.s:exSL_short_title.'Window', 'g:ExSL_Update'.s:exSL_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -174,10 +174,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exSL_ResizeWindow() " <<<
-    if g:exSL_use_vertical_window
-        call exUtility#ResizeWindow( g:exSL_use_vertical_window, g:exSL_window_width, g:exSL_window_width_increment )
+    if g:ExSL_use_vertical_window
+        call exUtility#ResizeWindow( g:ExSL_use_vertical_window, g:ExSL_window_width, g:ExSL_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exSL_use_vertical_window, g:exSL_window_height, g:exSL_window_height_increment )
+        call exUtility#ResizeWindow( g:ExSL_use_vertical_window, g:ExSL_window_height, g:ExSL_window_height_increment )
     endif
 endfunction " >>>
 
@@ -187,8 +187,8 @@ endfunction " >>>
 
 function s:exSL_ToggleWindow( short_title ) " <<<
     " read the file first, if file name changes, reset title.
-    if exists('g:exES_Symbol') 
-        let sel_bufname = fnamemodify(g:exES_Symbol, ':p:.')
+    if exists('g:ExES_Symbol') 
+        let sel_bufname = fnamemodify(g:ExES_Symbol, ':p:.')
         if s:exSL_select_title !=# sel_bufname
             let s:exSL_select_title = sel_bufname
         endif
@@ -222,10 +222,10 @@ function s:exSL_ToggleWindow( short_title ) " <<<
 
     " toggle exSL window
     let title = s:exSL_cur_title
-    if g:exSL_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exSL_window_direction, g:exSL_window_width, g:exSL_use_vertical_window, 'none', 0, 'g:exSL_Init'.s:exSL_short_title.'Window', 'g:exSL_Update'.s:exSL_short_title.'Window' )
+    if g:ExSL_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExSL_window_direction, g:ExSL_window_width, g:ExSL_use_vertical_window, 'none', 0, 'g:ExSL_Init'.s:exSL_short_title.'Window', 'g:ExSL_Update'.s:exSL_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exSL_window_direction, g:exSL_window_height, g:exSL_use_vertical_window, 'none', 0, 'g:exSL_Init'.s:exSL_short_title.'Window', 'g:exSL_Update'.s:exSL_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExSL_window_direction, g:ExSL_window_height, g:ExSL_use_vertical_window, 'none', 0, 'g:ExSL_Init'.s:exSL_short_title.'Window', 'g:ExSL_Update'.s:exSL_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -243,21 +243,21 @@ function s:exSL_SwitchWindow( short_title ) " <<<
 
     if bufwinnr(s:exSL_cur_title) == -1
         " save the old height & width
-        let old_height = g:exSL_window_height
-        let old_width = g:exSL_window_width
+        let old_height = g:ExSL_window_height
+        let old_width = g:ExSL_window_width
 
         " use the width & height of current window if it is same plugin window.
         if bufname ('%') ==# s:exSL_select_title || bufname ('%') ==# s:exSL_quick_view_title 
-            let g:exSL_window_height = winheight('.')
-            let g:exSL_window_width = winwidth('.')
+            let g:ExSL_window_height = winheight('.')
+            let g:ExSL_window_width = winwidth('.')
         endif
 
         " switch to the new plugin window
         call s:exSL_ToggleWindow(a:short_title)
 
         " recover the width and height
-        let g:exSL_window_height = old_height
-        let g:exSL_window_width = old_width
+        let g:ExSL_window_height = old_height
+        let g:ExSL_window_width = old_width
     endif
 endfunction " >>>
 
@@ -408,7 +408,7 @@ function s:exSL_GetAndShowPickedResult( pattern, by_word ) " <<<
     let stack_info.keyword = search_pattern
     let stack_info.taglist = []
     let stack_info.tagidx = -1
-    call g:exJS_PushEntryState ( stack_info )
+    call g:ExJS_PushEntryState ( stack_info )
 
     " check if we have symbol select or quickview window opened
     let sl_winnr = bufwinnr(s:exSL_select_title)
@@ -440,7 +440,7 @@ function s:exSL_GotoResult() " <<<
     let s:exSL_select_idx = line('.')
     let symbol_key_word = getline('.')
     if symbol_key_word != ''
-        exec g:exSL_SymbolSelectCmd . " " . symbol_key_word
+        exec g:ExSL_SymbolSelectCmd . " " . symbol_key_word
     else
         call exUtility#WarningMsg('Please select a symbol')
     endif
@@ -454,7 +454,7 @@ endfunction " >>>
 " Desc: Init exSymbolList window
 " ------------------------------------------------------------------ 
 
-function g:exSL_InitSelectWindow() " <<<
+function g:ExSL_InitSelectWindow() " <<<
     " set buffer no modifiable
     silent! setlocal nomodifiable
     silent! setlocal nonumber
@@ -462,9 +462,9 @@ function g:exSL_InitSelectWindow() " <<<
     silent! setlocal buftype=
     
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exSL_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exSL_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exSL_GotoResult()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exSL_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exSL_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exSL_GotoResult()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse> \|:call <SID>exSL_GotoResult()<CR>
 
     nnoremap <buffer> <silent> <C-Return>   \|:call <SID>exSL_ShowPickedResult(getline('.'), 0)<CR>
@@ -485,7 +485,7 @@ endfunction " >>>
 " Desc: Update exSymbolList window
 " ------------------------------------------------------------------ 
 
-function g:exSL_UpdateSelectWindow() " <<<
+function g:ExSL_UpdateSelectWindow() " <<<
     call cursor( s:exSL_select_idx, 1)
     call exUtility#HighlightConfirmLine()
 endfunction " >>>
@@ -498,13 +498,13 @@ endfunction " >>>
 " Desc: Init exSymbolList window
 " ------------------------------------------------------------------ 
 
-function g:exSL_InitQuickViewWindow() " <<<
+function g:ExSL_InitQuickViewWindow() " <<<
     silent! setlocal nonumber
     
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exSL_ToggleWindow('QuickView')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exSL_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exSL_GotoResult()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exSL_ToggleWindow('QuickView')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exSL_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exSL_GotoResult()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse> \|:call <SID>exSL_GotoResult()<CR>
 
     nnoremap <buffer> <silent> <C-Left>   :call <SID>exSL_SwitchWindow('QuickView')<CR>
@@ -521,7 +521,7 @@ endfunction " >>>
 " Desc: Update exSymbolList window
 " ------------------------------------------------------------------ 
 
-function g:exSL_UpdateQuickViewWindow() " <<<
+function g:ExSL_UpdateQuickViewWindow() " <<<
     call cursor( s:exSL_quick_view_idx, 1)
     call exUtility#HighlightConfirmLine()
 endfunction " >>>

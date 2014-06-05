@@ -23,32 +23,32 @@ let loaded_excscope=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_window_height')
-    let g:exCS_window_height = 20
+if !exists('g:ExCS_window_height')
+    let g:ExCS_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_window_width')
-    let g:exCS_window_width = 48
+if !exists('g:ExCS_window_width')
+    let g:ExCS_window_width = 48
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_window_height_increment')
-    let g:exCS_window_height_increment = 30
+if !exists('g:ExCS_window_height_increment')
+    let g:ExCS_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_window_width_increment')
-    let g:exCS_window_width_increment = 50
+if !exists('g:ExCS_window_width_increment')
+    let g:ExCS_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,32 +56,32 @@ endif
 " 'topleft','botright','belowright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_window_direction')
-    let g:exCS_window_direction = 'belowright'
+if !exists('g:ExCS_window_direction')
+    let g:ExCS_window_direction = 'belowright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_use_vertical_window')
-    let g:exCS_use_vertical_window = 0
+if !exists('g:ExCS_use_vertical_window')
+    let g:ExCS_use_vertical_window = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go back to edit buffer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_backto_editbuf')
-    let g:exCS_backto_editbuf = 0
+if !exists('g:ExCS_backto_editbuf')
+    let g:ExCS_backto_editbuf = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go and close exTagSelect window
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_close_when_selected')
-    let g:exCS_close_when_selected = 0
+if !exists('g:ExCS_close_when_selected')
+    let g:ExCS_close_when_selected = 0
 endif
 
 " ------------------------------------------------------------------ 
@@ -89,16 +89,16 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_edit_mode')
-    let g:exCS_edit_mode = 'replace'
+if !exists('g:ExCS_edit_mode')
+    let g:ExCS_edit_mode = 'replace'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use syntax highlight for search result
 " ------------------------------------------------------------------ 
 
-if !exists('g:exCS_highlight_result')
-    let g:exCS_highlight_result = 0
+if !exists('g:ExCS_highlight_result')
+    let g:ExCS_highlight_result = 0
 endif
 
 " ======================================================== 
@@ -154,10 +154,10 @@ function s:exCS_OpenWindow( short_title ) " <<<
     endif
     let title = '__exCS_' . s:exCS_short_title . 'Window__'
     " open window
-    if g:exCS_use_vertical_window
-        call exUtility#OpenWindow( title, g:exCS_window_direction, g:exCS_window_width, g:exCS_use_vertical_window, g:exCS_edit_mode, 1, 'g:exCS_Init'.s:exCS_short_title.'Window', 'g:exCS_Update'.s:exCS_short_title.'Window' )
+    if g:ExCS_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExCS_window_direction, g:ExCS_window_width, g:ExCS_use_vertical_window, g:ExCS_edit_mode, 1, 'g:ExCS_Init'.s:exCS_short_title.'Window', 'g:ExCS_Update'.s:exCS_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exCS_window_direction, g:exCS_window_height, g:exCS_use_vertical_window, g:exCS_edit_mode, 1, 'g:exCS_Init'.s:exCS_short_title.'Window', 'g:exCS_Update'.s:exCS_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExCS_window_direction, g:ExCS_window_height, g:ExCS_use_vertical_window, g:ExCS_edit_mode, 1, 'g:ExCS_Init'.s:exCS_short_title.'Window', 'g:ExCS_Update'.s:exCS_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -166,10 +166,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exCS_ResizeWindow() " <<<
-    if g:exCS_use_vertical_window
-        call exUtility#ResizeWindow( g:exCS_use_vertical_window, g:exCS_window_width, g:exCS_window_width_increment )
+    if g:ExCS_use_vertical_window
+        call exUtility#ResizeWindow( g:ExCS_use_vertical_window, g:ExCS_window_width, g:ExCS_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exCS_use_vertical_window, g:exCS_window_height, g:exCS_window_height_increment )
+        call exUtility#ResizeWindow( g:ExCS_use_vertical_window, g:ExCS_window_height, g:ExCS_window_height_increment )
     endif
 endfunction " >>>
 
@@ -190,10 +190,10 @@ function s:exCS_ToggleWindow( short_title ) " <<<
 
     " toggle exCS window
     let title = '__exCS_' . s:exCS_short_title . 'Window__'
-    if g:exCS_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exCS_window_direction, g:exCS_window_width, g:exCS_use_vertical_window, 'none', 0, 'g:exCS_Init'.s:exCS_short_title.'Window', 'g:exCS_Update'.s:exCS_short_title.'Window' )
+    if g:ExCS_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExCS_window_direction, g:ExCS_window_width, g:ExCS_use_vertical_window, 'none', 0, 'g:ExCS_Init'.s:exCS_short_title.'Window', 'g:ExCS_Update'.s:exCS_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exCS_window_direction, g:exCS_window_height, g:exCS_use_vertical_window, 'none', 0, 'g:exCS_Init'.s:exCS_short_title.'Window', 'g:exCS_Update'.s:exCS_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExCS_window_direction, g:ExCS_window_height, g:ExCS_use_vertical_window, 'none', 0, 'g:ExCS_Init'.s:exCS_short_title.'Window', 'g:ExCS_Update'.s:exCS_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -205,21 +205,21 @@ function s:exCS_SwitchWindow( short_title ) " <<<
     let title = '__exCS_' . a:short_title . 'Window__'
     if bufwinnr(title) == -1
         " save the old height & width
-        let old_height = g:exCS_window_height
-        let old_width = g:exCS_window_width
+        let old_height = g:ExCS_window_height
+        let old_width = g:ExCS_window_width
 
         " use the width & height of current window if it is same plugin window.
         if bufname ('%') ==# s:exCS_select_title || bufname ('%') ==# s:exCS_quick_view_title 
-            let g:exCS_window_height = winheight('.')
-            let g:exCS_window_width = winwidth('.')
+            let g:ExCS_window_height = winheight('.')
+            let g:ExCS_window_width = winwidth('.')
         endif
 
         " switch to the new plugin window
         call s:exCS_ToggleWindow(a:short_title)
 
         " recover the width and height
-        let g:exCS_window_height = old_height
-        let g:exCS_window_width = old_width
+        let g:ExCS_window_height = old_height
+        let g:ExCS_window_width = old_width
     endif
 endfunction " >>>
 
@@ -227,11 +227,11 @@ endfunction " >>>
 " Desc: 
 " ------------------------------------------------------------------ 
 
-function g:exCS_ConnectCscopeFile() " <<<
+function g:ExCS_ConnectCscopeFile() " <<<
     " don't show any message
 	setlocal nocsverb
     " connect cscope files
-    silent exec "cscope add " . g:exES_Cscope
+    silent exec "cscope add " . g:ExES_Cscope
 	silent! setlocal cscopequickfix=s-,c-,d-,i-,t-,e-
 endfunction " >>>
 
@@ -276,7 +276,7 @@ function s:exCS_Goto() " <<<
 
     " go back if needed
     let title = '__exCS_' . s:exCS_short_title . 'Window__'
-    call exUtility#OperateWindow ( title, g:exCS_close_when_selected, g:exCS_backto_editbuf, 1 )
+    call exUtility#OperateWindow ( title, g:ExCS_close_when_selected, g:ExCS_backto_editbuf, 1 )
 
     return 1
 endfunction " >>>
@@ -470,19 +470,19 @@ endfunction " >>>
 " Desc: Init exGlobalSearch window
 " ------------------------------------------------------------------ 
 
-function g:exCS_InitSelectWindow() " <<<
+function g:ExCS_InitSelectWindow() " <<<
     silent! setlocal nonumber
     
     " if no scope connect yet, connect it
-    if !exists('g:exES_Cscope')
-        let g:exES_Cscope = './'.g:exES_vimfiles_dirname.'/cscope.out'
+    if !exists('g:ExES_Cscope')
+        let g:ExES_Cscope = './'.g:ExES_vimfiles_dirname.'/cscope.out'
     endif
-    if cscope_connection(4, "cscope.out", g:exES_Cscope ) == 0
-        call g:exCS_ConnectCscopeFile()
+    if cscope_connection(4, "cscope.out", g:ExES_Cscope ) == 0
+        call g:ExCS_ConnectCscopeFile()
     endif
 
     " code highlight
-    if g:exCS_highlight_result
+    if g:ExCS_highlight_result
         " this will load the syntax highlight as cpp for search result
         silent exec "so $VIM/vimfiles/after/syntax/exUtility.vim"
     endif
@@ -509,9 +509,9 @@ function g:exCS_InitSelectWindow() " <<<
     hi link exCS_DefType Special
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exCS_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exCS_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exCS_GotoInSelectWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exCS_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exCS_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exCS_GotoInSelectWindow()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exCS_GotoInSelectWindow()<CR>
 
     "
@@ -538,7 +538,7 @@ endfunction " >>>
 " Desc: Update exGlobalSearch window 
 " ------------------------------------------------------------------ 
 
-function g:exCS_UpdateSelectWindow() " <<<
+function g:ExCS_UpdateSelectWindow() " <<<
     silent call cursor(s:exCS_select_idx, 1)
     call exUtility#HighlightConfirmLine()
 endfunction " >>>
@@ -551,8 +551,8 @@ endfunction " >>>
 
 function s:exCS_GetSearchResult(search_pattern, search_method) " <<<
     " if cscope file not connect, connect it
-    if cscope_connection(4, "cscope.out", g:exES_Cscope ) == 0
-        call g:exCS_ConnectCscopeFile()
+    if cscope_connection(4, "cscope.out", g:ExES_Cscope ) == 0
+        call g:ExCS_ConnectCscopeFile()
     endif
 
     " jump back to edit buffer first
@@ -560,12 +560,12 @@ function s:exCS_GetSearchResult(search_pattern, search_method) " <<<
 
     " change window for suitable search method
     let search_result = ''
-    let g:exCS_use_vertical_window = 0
-    let g:exCS_window_direction = 'bel'
+    let g:ExCS_use_vertical_window = 0
+    let g:ExCS_window_direction = 'bel'
 
     if a:search_method =~# '\(d\|i\)'
-        let g:exCS_use_vertical_window = 1
-        let g:exCS_window_direction = 'botright'
+        let g:ExCS_use_vertical_window = 1
+        let g:ExCS_window_direction = 'botright'
     elseif a:search_method ==# 'g' " NOTE: the defination result not go into quickfix list
         silent redir =>search_result
     endif
@@ -647,7 +647,7 @@ endfunction " >>>
 " Desc: Init exGlobalSearch select window
 " ------------------------------------------------------------------ 
 
-function g:exCS_InitQuickViewWindow() " <<<
+function g:ExCS_InitQuickViewWindow() " <<<
     silent! setlocal nonumber
     setlocal foldmethod=marker foldmarker=<<<<<<,>>>>>> foldlevel=1
 
@@ -675,9 +675,9 @@ function g:exCS_InitQuickViewWindow() " <<<
     hi link exCS_DefType Special
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exCS_ToggleWindow('QuickView')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exCS_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exCS_GotoInQuickViewWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exCS_ToggleWindow('QuickView')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exCS_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exCS_GotoInQuickViewWindow()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exCS_GotoInQuickViewWindow()<CR>
 
     "
@@ -691,7 +691,7 @@ endfunction " >>>
 " Desc: Update exGlobalSearch QuickView window 
 " ------------------------------------------------------------------ 
 
-function g:exCS_UpdateQuickViewWindow() " <<<
+function g:ExCS_UpdateQuickViewWindow() " <<<
     silent call cursor(s:exCS_quick_view_idx, 1)
     call exUtility#HighlightConfirmLine()
 endfunction " >>>

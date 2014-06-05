@@ -23,32 +23,32 @@ let loaded_exjumpstack=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_window_height')
-    let g:exJS_window_height = 20
+if !exists('g:ExJS_window_height')
+    let g:ExJS_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_window_width')
-    let g:exJS_window_width = 30
+if !exists('g:ExJS_window_width')
+    let g:ExJS_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_window_height_increment')
-    let g:exJS_window_height_increment = 30
+if !exists('g:ExJS_window_height_increment')
+    let g:ExJS_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_window_width_increment')
-    let g:exJS_window_width_increment = 50
+if !exists('g:ExJS_window_width_increment')
+    let g:ExJS_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,32 +56,32 @@ endif
 " 'topleft','botright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_window_direction')
-    let g:exJS_window_direction = 'belowright'
+if !exists('g:ExJS_window_direction')
+    let g:ExJS_window_direction = 'belowright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_use_vertical_window')
-    let g:exJS_use_vertical_window = 0
+if !exists('g:ExJS_use_vertical_window')
+    let g:ExJS_use_vertical_window = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go back to edit buffer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_backto_editbuf')
-    let g:exJS_backto_editbuf = 0
+if !exists('g:ExJS_backto_editbuf')
+    let g:ExJS_backto_editbuf = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go and close exTagSelect window
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_close_when_selected')
-    let g:exJS_close_when_selected = 0
+if !exists('g:ExJS_close_when_selected')
+    let g:ExJS_close_when_selected = 0
 endif
 
 " ------------------------------------------------------------------ 
@@ -89,8 +89,8 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exJS_edit_mode')
-    let g:exJS_edit_mode = 'replace'
+if !exists('g:ExJS_edit_mode')
+    let g:ExJS_edit_mode = 'replace'
 endif
 
 " ======================================================== 
@@ -153,13 +153,13 @@ let s:exJS_entry_list = []
 " Desc: exJS_PushJumpStack
 " ------------------------------------------------------------------ 
 
-function g:exJS_PushJumpStack( state ) " <<<
+function g:ExJS_PushJumpStack( state ) " <<<
     " truncate stack first
     call s:exJS_TruncateStack ()
 
     " if the first item in entry list is a internal state jump, we should connect it with last jump
     if !empty(s:exJS_entry_list) && s:exJS_IsInternalState( s:exJS_entry_list[0] )
-        call g:exJS_SetLastJumpStack (s:exJS_entry_list[0])
+        call g:ExJS_SetLastJumpStack (s:exJS_entry_list[0])
         call remove ( s:exJS_entry_list, 0 )
     endif
 
@@ -186,7 +186,7 @@ endfunction " >>>
 " Desc: 
 " ------------------------------------------------------------------ 
 
-function g:exJS_SetLastJumpStack( state ) " <<<
+function g:ExJS_SetLastJumpStack( state ) " <<<
     " if the index is invalid, skip it!
     if s:exJS_stack_idx == -1
         return
@@ -213,7 +213,7 @@ endfunction " >>>
 " Desc: exJS_PushEntryState
 " ------------------------------------------------------------------ 
 
-function g:exJS_PushEntryState ( state ) " <<<
+function g:ExJS_PushEntryState ( state ) " <<<
     " DELME: in the push entry, we can't use truncate, cause you may use [TG] and then cancle jumping { 
     " truncate stack first
     " call s:exJS_TruncateStack ()
@@ -239,7 +239,7 @@ endfunction " >>>
 " Desc: 
 " ------------------------------------------------------------------ 
 
-function g:exJS_ClearEntryStateList () " <<<
+function g:ExJS_ClearEntryStateList () " <<<
     if !empty(s:exJS_entry_list)
         silent call remove ( s:exJS_entry_list, 0, len(s:exJS_entry_list)-1 )
     endif
@@ -317,10 +317,10 @@ function s:exJS_OpenWindow( short_title ) " <<<
     endif
     let title = '__exJS_' . s:exJS_short_title . 'Window__'
     " open window
-    if g:exJS_use_vertical_window
-        call exUtility#OpenWindow( title, g:exJS_window_direction, g:exJS_window_width, g:exJS_use_vertical_window, g:exJS_edit_mode, 1, 'g:exJS_Init'.s:exJS_short_title.'Window', 'g:exJS_Update'.s:exJS_short_title.'Window' )
+    if g:ExJS_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExJS_window_direction, g:ExJS_window_width, g:ExJS_use_vertical_window, g:ExJS_edit_mode, 1, 'g:ExJS_Init'.s:exJS_short_title.'Window', 'g:ExJS_Update'.s:exJS_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exJS_window_direction, g:exJS_window_height, g:exJS_use_vertical_window, g:exJS_edit_mode, 1, 'g:exJS_Init'.s:exJS_short_title.'Window', 'g:exJS_Update'.s:exJS_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExJS_window_direction, g:ExJS_window_height, g:ExJS_use_vertical_window, g:ExJS_edit_mode, 1, 'g:ExJS_Init'.s:exJS_short_title.'Window', 'g:ExJS_Update'.s:exJS_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -329,10 +329,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exJS_ResizeWindow() " <<<
-    if g:exJS_use_vertical_window
-        call exUtility#ResizeWindow( g:exJS_use_vertical_window, g:exJS_window_width, g:exJS_window_width_increment )
+    if g:ExJS_use_vertical_window
+        call exUtility#ResizeWindow( g:ExJS_use_vertical_window, g:ExJS_window_width, g:ExJS_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exJS_use_vertical_window, g:exJS_window_height, g:exJS_window_height_increment )
+        call exUtility#ResizeWindow( g:ExJS_use_vertical_window, g:ExJS_window_height, g:ExJS_window_height_increment )
     endif
 endfunction " >>>
 
@@ -355,10 +355,10 @@ function s:exJS_ToggleWindow( short_title ) " <<<
 
     " toggle exJS window
     let title = '__exJS_' . s:exJS_short_title . 'Window__'
-    if g:exJS_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exJS_window_direction, g:exJS_window_width, g:exJS_use_vertical_window, 'none', 0, 'g:exJS_Init'.s:exJS_short_title.'Window', 'g:exJS_Update'.s:exJS_short_title.'Window' )
+    if g:ExJS_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExJS_window_direction, g:ExJS_window_width, g:ExJS_use_vertical_window, 'none', 0, 'g:ExJS_Init'.s:exJS_short_title.'Window', 'g:ExJS_Update'.s:exJS_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exJS_window_direction, g:exJS_window_height, g:exJS_use_vertical_window, 'none', 0, 'g:exJS_Init'.s:exJS_short_title.'Window', 'g:exJS_Update'.s:exJS_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExJS_window_direction, g:ExJS_window_height, g:ExJS_use_vertical_window, 'none', 0, 'g:ExJS_Init'.s:exJS_short_title.'Window', 'g:ExJS_Update'.s:exJS_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -370,7 +370,7 @@ endfunction " >>>
 " Desc: Init exTagSelect window
 " ------------------------------------------------------------------ 
 
-function g:exJS_InitSelectWindow() " <<<
+function g:ExJS_InitSelectWindow() " <<<
     syntax region ex_SynSearchPattern start="^----------" end="----------"
 
     syntax region exJS_SynJumpMethodS start="\[\C\(GS\|TS\|SS\)\]" skip="::" end=":" keepend contains=exJS_SynKeyWord
@@ -383,9 +383,9 @@ function g:exJS_InitSelectWindow() " <<<
     syntax match exJS_SynJumpLine '^ |='
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exJS_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exJS_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exJS_GotoSelectResult()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exJS_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exJS_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exJS_GotoSelectResult()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exJS_GotoSelectResult()<CR>
 
     " autocmd
@@ -396,7 +396,7 @@ endfunction " >>>
 " Desc: Update window
 " ------------------------------------------------------------------ 
 
-function g:exJS_UpdateSelectWindow() " <<<
+function g:ExJS_UpdateSelectWindow() " <<<
     " if need update stack window 
     if s:exJS_need_update_select_window
         let s:exJS_need_update_select_window = 0
@@ -573,7 +573,7 @@ function s:exJS_GotoStackByIndex( index ) " <<<
         call s:exJS_ToggleWindow('Select')
     else
         exe js_winnr . 'wincmd w'
-        call g:exJS_UpdateSelectWindow ()
+        call g:ExJS_UpdateSelectWindow ()
         let window_exists = 1
     endif
 
@@ -619,13 +619,13 @@ function s:exJS_GotoStackByIndex( index ) " <<<
         let keyword = s:exJS_stack_list[idx].keyword
         let tagidx = s:exJS_stack_list[idx].tagidx
     endif
-    call g:exTS_ResetTaglist ( 
+    call g:ExTS_ResetTaglist ( 
                 \ s:exJS_stack_list[idx].taglist,
                 \ keyword,
                 \ tagidx )
 
     " general window operation 
-    call exUtility#OperateWindow ( s:exJS_select_title, g:exJS_close_when_selected || (background_op && !window_exists), g:exJS_backto_editbuf || background_op, 1 )
+    call exUtility#OperateWindow ( s:exJS_select_title, g:ExJS_close_when_selected || (background_op && !window_exists), g:ExJS_backto_editbuf || background_op, 1 )
 endfunction " >>>
 
 "/////////////////////////////////////////////////////////////////////////////

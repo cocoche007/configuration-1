@@ -7,10 +7,10 @@
 
 " Enable ExVim
 let $EX_DEV='~/.exdev'
-let g:ex_toolkit_path = $HOME.'/.toolkit'
+let g:Ex_toolkit_path = $HOME.'/.toolkit'
 
 " put your own user name here
-let g:ex_usr_name = "Adrien Oliva"
+let g:Ex_usr_name = "Adrien Oliva"
 
 "/////////////////////////////////////////////////////////////////////////////
 " General
@@ -142,7 +142,7 @@ endfunction
 
 set cindent shiftwidth=4 " Set cindent on to autoinent when editing C/C++ file, with 4 shift width
 set tabstop=4 " Set tabstop to 4 characters
-set expandtab " Set expandtab on, the tab will be change to space automaticaly
+set noexpandtab " Set expandtab on, the tab will be change to space automaticaly
 
 " Set Number format to null(default is octal) , when press CTRL-A on number
 " like 007, it would not become 010
@@ -371,23 +371,23 @@ nnoremap <unique> <silent> <Leader>4 :call exUtility#HighlightCancle(4)<CR>
 
 " inherit
 nnoremap <unique> <silent> <Leader>gv :call exUtility#ViewInheritsImage()<CR>
-let g:exES_ImageViewer = '/usr/bin/mirage'
+let g:ExES_ImageViewer = '/usr/bin/mirage'
 
 " Mark special text
-let g:ex_todo_keyword = 'NOTE REF EXAMPLE SAMPLE CHECK TIPS HINT'
-let g:ex_comment_lable_keyword  = 'DELME TEMP MODIFY ADD KEEPME DISABLE TEST '
-let g:ex_comment_lable_keyword .= 'ERROR DEBUG CRASH DUMMY UNUSED TESTME '
-let g:ex_comment_lable_keyword .= 'FIXME BUG HACK OPTME HARDCODE REFACT DUPLICATE '
-let g:ex_comment_lable_keyword .= 'REDUNDANCY PATCH '
+let g:Ex_todo_keyword = 'NOTE REF EXAMPLE SAMPLE CHECK TIPS HINT'
+let g:Ex_comment_lable_keyword  = 'DELME TEMP MODIFY ADD KEEPME DISABLE TEST '
+let g:Ex_comment_lable_keyword .= 'ERROR DEBUG CRASH DUMMY UNUSED TESTME '
+let g:Ex_comment_lable_keyword .= 'FIXME BUG HACK OPTME HARDCODE REFACT DUPLICATE '
+let g:Ex_comment_lable_keyword .= 'REDUNDANCY PATCH '
 
 " register buffer names of plugins.
-let g:ex_plugin_registered_bufnames = ["-MiniBufExplorer-","__Tag_List__","\[Lookup File\]", "\[BufExplorer\]"] 
+let g:Ex_plugin_registered_bufnames = ["-MiniBufExplorer-","__Tag_List__","\[Lookup File\]", "\[BufExplorer\]"] 
 
 " register filetypes of plugins.
-let g:ex_plugin_registered_filetypes = ["ex_plugin","ex_project","taglist","nerdtree"] 
+let g:Ex_plugin_registered_filetypes = ["ex_plugin","ex_project","taglist","nerdtree"] 
 
 " default languages
-let g:ex_default_langs = ['c', 'cpp', 'c#', 'javascript', 'java', 'shader', 'python', 'lua', 'vim', 'uc', 'matlab', 'wiki', 'ini', 'make', 'sh', 'batch', 'debug', 'qt', 'swig' ] 
+let g:Ex_default_langs = ['c', 'cpp', 'c#', 'javascript', 'java', 'shader', 'python', 'lua', 'vim', 'uc', 'matlab', 'wiki', 'ini', 'make', 'sh', 'batch', 'debug', 'qt', 'swig' ] 
 
 " set exvim language map
 call exUtility#AddLangMap ( 'exvim', 'javascript', ['as'] )
@@ -408,9 +408,9 @@ nnoremap <unique> <silent> <Leader>ts :ExtsSelectToggle<CR>
 nnoremap <unique> <silent> <Leader>tg :ExtsGoDirectly<CR>
 nnoremap <unique> <silent> <Leader>] :ExtsGoDirectly<CR>
 
-let g:exTS_backto_editbuf = 0
-let g:exTS_close_when_selected = 1
-let g:exTS_window_direction = 'bel'
+let g:ExTS_backto_editbuf = 0
+let g:ExTS_close_when_selected = 1
+let g:ExTS_window_direction = 'bel'
 
 " ------------------------------------------------------------------ 
 " Desc: exGlobalSearch
@@ -423,11 +423,11 @@ nnoremap <unique> <silent> <Leader>n :ExgsGotoNextResult<CR>
 nnoremap <unique> <silent> <Leader>N :ExgsGotoPrevResult<CR>
 nnoremap <unique> <Leader><S-f> :GS 
 
-let g:exGS_backto_editbuf = 0
-let g:exGS_close_when_selected = 0
-let g:exGS_window_direction = 'bel'
-let g:exGS_auto_sort = 1
-let g:exGS_lines_for_autosort = 200
+let g:ExGS_backto_editbuf = 0
+let g:ExGS_close_when_selected = 0
+let g:ExGS_window_direction = 'bel'
+let g:ExGS_auto_sort = 1
+let g:ExGS_lines_for_autosort = 200
 
 " ------------------------------------------------------------------ 
 " Desc: exSymbolTable
@@ -438,7 +438,7 @@ nnoremap <unique> <silent> <Leader>sq :ExslQuickViewToggle<CR>
 nnoremap <unique> <silent> <Leader>sg :ExslGoDirectly<CR>
 " NOTE: the / can be mapped to other script ( for example exSearchComplete ), so here use nmap instead of nnoremap 
 
-let g:exSL_SymbolSelectCmd = 'TS'
+let g:ExSL_SymbolSelectCmd = 'TS'
 
 " ------------------------------------------------------------------ 
 " Desc: exJumpStack 
@@ -461,10 +461,10 @@ nnoremap <unique> <silent> <Leader>cc :CSCD<CR>
 nnoremap <unique> <silent> <Leader>cs :ExcsSelectToggle<CR>
 nnoremap <unique> <silent> <Leader>cq :ExcsQuickViewToggle<CR>
 
-let g:exCS_backto_editbuf = 0
-let g:exCS_close_when_selected = 0
-let g:exCS_window_direction = 'bel'
-let g:exCS_window_width = 48
+let g:ExCS_backto_editbuf = 0
+let g:ExCS_close_when_selected = 0
+let g:ExCS_window_direction = 'bel'
+let g:ExCS_window_width = 48
 
 " ------------------------------------------------------------------ 
 " Desc: exQuickFix
@@ -473,9 +473,9 @@ let g:exCS_window_width = 48
 nnoremap <unique> <silent> <leader>qf :ExqfSelectToggle<CR>
 nnoremap <unique> <silent> <leader>qq :ExqfQuickViewToggle<CR>
 
-let g:exQF_backto_editbuf = 0
-let g:exQF_close_when_selected = 0
-let g:exQF_window_direction = 'bel'
+let g:ExQF_backto_editbuf = 0
+let g:ExQF_close_when_selected = 0
+let g:ExQF_window_direction = 'bel'
 
 " ------------------------------------------------------------------ 
 " Desc: exMacroHighlight
@@ -493,10 +493,10 @@ nnoremap <unique> <leader>ff :EXProject<CR>:redraw<CR>/\[\l*\]\zs.*
 nnoremap <unique> <leader>fd :EXProject<CR>:redraw<CR>/\[\u\]\zs.*
 nnoremap <unique> <leader>fc :ExpjGotoCurrentFile<CR>
 
-let g:exPJ_backto_editbuf = 1
-let g:exPJ_close_when_selected = 0
-let g:exPJ_window_width = 30
-let g:exPJ_window_width_increment = 50
+let g:ExPJ_backto_editbuf = 1
+let g:ExPJ_close_when_selected = 0
+let g:ExPJ_window_width = 30
+let g:ExPJ_window_width_increment = 50
 
 " ------------------------------------------------------------------ 
 " Desc: exBufExplorer 
@@ -505,8 +505,8 @@ let g:exPJ_window_width_increment = 50
 nnoremap <unique> <silent> <leader>bs :EXBufExplorer<CR>
 nnoremap <unique> <leader>bk :EXAddBookmarkDirectly<CR>
 
-let g:exBE_backto_editbuf = 0
-let g:exBE_close_when_selected = 0
+let g:ExBE_backto_editbuf = 0
+let g:ExBE_close_when_selected = 0
 
 " ------------------------------------------------------------------ 
 " Desc: exMarksBrowser 
@@ -514,9 +514,9 @@ let g:exBE_close_when_selected = 0
 
 nnoremap <unique> <leader>ms :ExmbToggle<CR>
 
-let g:exMB_backto_editbuf = 0
-let g:exMB_close_when_selected = 0
-let g:exMB_window_direction = 'bel'
+let g:ExMB_backto_editbuf = 0
+let g:ExMB_close_when_selected = 0
+let g:ExMB_window_direction = 'bel'
 
 " ------------------------------------------------------------------ 
 " Desc: exEnvironmentSetting
@@ -524,15 +524,15 @@ let g:exMB_window_direction = 'bel'
 "       settings. It may update the default settings of plugin above
 " ------------------------------------------------------------------ 
 
-let g:exES_project_cmd = 'EXProject'
+let g:ExES_project_cmd = 'EXProject'
 
 " exEnvironmentSetting post update
 " NOTE: this is a post update environment function used for any custom environment update 
-function g:exES_PostUpdate()
+function g:ExES_PostUpdate()
 
     " set lookup file plugin variables
-    if exists( 'g:exES_LookupFileTag' )
-        let g:LookupFile_TagExpr='"'.g:exES_LookupFileTag.'"'
+    if exists( 'g:ExES_LookupFileTag' )
+        let g:LookupFile_TagExpr='"'.g:ExES_LookupFileTag.'"'
         if exists(':LUCurFile')
             " NOTE: the second <CR>, if only one file, will jump to it directly.
             unmap gf
@@ -541,21 +541,21 @@ function g:exES_PostUpdate()
     endif
 
     " set visual_studio plugin variables
-    if exists( 'g:exES_vsTaskList' )
-        let g:visual_studio_task_list = g:exES_vsTaskList
+    if exists( 'g:ExES_vsTaskList' )
+        let g:visual_studio_task_list = g:ExES_vsTaskList
     endif
-    if exists( 'g:exES_vsOutput' )
-        let g:visual_studio_output = g:exES_vsOutput
+    if exists( 'g:ExES_vsOutput' )
+        let g:visual_studio_output = g:ExES_vsOutput
     endif
-    if exists( 'g:exES_vsFindResult1' )
-        let g:visual_studio_find_results_1 = g:exES_vsFindResult1
+    if exists( 'g:ExES_vsFindResult1' )
+        let g:visual_studio_find_results_1 = g:ExES_vsFindResult1
     endif
-    if exists( 'g:exES_vsFindResult2' )
-        let g:visual_studio_find_results_2 = g:exES_vsFindResult2
+    if exists( 'g:ExES_vsFindResult2' )
+        let g:visual_studio_find_results_2 = g:ExES_vsFindResult2
     endif
 
     " set vimwiki
-    if exists( 'g:exES_wikiHome' )
+    if exists( 'g:ExES_wikiHome' )
         " clear the list first
         if exists( 'g:vimwiki_list' ) && !empty(g:vimwiki_list)
             silent call remove( g:vimwiki_list, 0, len(g:vimwiki_list)-1 )
@@ -563,9 +563,9 @@ function g:exES_PostUpdate()
 
         " assign vimwiki pathes, 
         " NOTE: vimwiki need full path.
-        let g:vimwiki_list = [ { 'path': fnamemodify(g:exES_wikiHome,":p"), 
-                    \ 'path_html': fnamemodify(g:exES_wikiHomeHtml,":p"),
-                    \ 'html_header': fnamemodify(g:exES_wikiHtmlHeader,":p") } ]
+        let g:vimwiki_list = [ { 'path': fnamemodify(g:ExES_wikiHome,":p"), 
+                    \ 'path_html': fnamemodify(g:ExES_wikiHomeHtml,":p"),
+                    \ 'html_header': fnamemodify(g:ExES_wikiHtmlHeader,":p") } ]
 
         " create vimwiki files
         call exUtility#CreateVimwikiFiles ()
@@ -599,7 +599,7 @@ let Tlist_Compact_Format = 1 " do not show help
 ":TlistShowPrototype [filename] [linenumber]
 
 " let taglist support shader language as c-like language
-let tlist_hlsl_settings = 'c;d:macro;g:enum;s:struct;u:union;t:typedef;v:variable;f:function'
+let tlist_hlsl_settings = 'c;d:macro;g:Enum;s:struct;u:union;t:typedef;v:variable;f:function'
 
 " ------------------------------------------------------------------ 
 " Desc: MiniBufExpl
@@ -775,14 +775,14 @@ let g:vimwiki_hl_headers = 1
 " Desc: snipMate
 " ------------------------------------------------------------------ 
 
-let g:snips_author = g:ex_usr_name
-let g:snippets_dir = g:ex_toolkit_path . '/snippets/'
+let g:snips_author = g:Ex_usr_name
+let g:snippets_dir = g:Ex_toolkit_path . '/snippets/'
 
 " ------------------------------------------------------------------ 
 " Desc: NERD_tree 
 " ------------------------------------------------------------------ 
 
-let g:NERDTreeWinSize = exists('g:exPJ_window_width') ? g:exPJ_window_width : 30 
+let g:NERDTreeWinSize = exists('g:ExPJ_window_width') ? g:ExPJ_window_width : 30 
 
 " ------------------------------------------------------------------ 
 " Desc: zencoding 

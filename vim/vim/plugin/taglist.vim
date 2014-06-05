@@ -391,16 +391,16 @@ let s:tlist_def_awk_settings = 'awk;f:function'
 let s:tlist_def_beta_settings = 'beta;f:fragment;s:slot;v:pattern'
 
 " c language
-let s:tlist_def_c_settings = 'c;d:macro;g:enum;s:struct;u:union;t:typedef;' .
+let s:tlist_def_c_settings = 'c;d:macro;g:Enum;s:struct;u:union;t:typedef;' .
                            \ 'v:variable;f:function'
 
 " c++ language
 let s:tlist_def_cpp_settings = 'c++;n:namespace;v:variable;d:macro;t:typedef;' .
-                             \ 'c:class;g:enum;s:struct;u:union;f:function'
+                             \ 'c:class;g:Enum;s:struct;u:union;f:function'
 
 " c# language
 let s:tlist_def_cs_settings = 'c#;d:macro;t:typedef;n:namespace;c:class;' .
-                             \ 'E:event;g:enum;s:struct;i:interface;' .
+                             \ 'E:event;g:Enum;s:struct;i:interface;' .
                              \ 'p:properties;m:method'
 
 " cobol language
@@ -487,7 +487,7 @@ let s:tlist_def_tcl_settings = 'tcl;c:class;f:method;m:method;p:procedure'
 
 " vera language
 let s:tlist_def_vera_settings = 'vera;c:class;d:macro;e:enumerator;' .
-                                \ 'f:function;g:enum;m:member;p:program;' .
+                                \ 'f:function;g:Enum;m:member;p:program;' .
                                 \ 'P:prototype;t:task;T:typedef;v:variable;' .
                                 \ 'x:externvar'
 
@@ -1629,8 +1629,8 @@ function! s:Tlist_Window_Init()
 
     " jwu MODIFY&ADD hot-key to space
     " nnoremap <buffer> <silent> x :call <SID>Tlist_Window_Zoom()<CR>
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>Tlist_Window_Zoom()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>Tlist_Window_Close()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>Tlist_Window_Zoom()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>Tlist_Window_Close()<CR>"
 
 
     au CursorMoved <buffer> :call exUtility#HighlightSelectLine()

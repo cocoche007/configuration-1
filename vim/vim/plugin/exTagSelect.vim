@@ -23,32 +23,32 @@ let loaded_extagselect=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_window_height')
-    let g:exTS_window_height = 20
+if !exists('g:ExTS_window_height')
+    let g:ExTS_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_window_width')
-    let g:exTS_window_width = 30
+if !exists('g:ExTS_window_width')
+    let g:ExTS_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_window_height_increment')
-    let g:exTS_window_height_increment = 30
+if !exists('g:ExTS_window_height_increment')
+    let g:ExTS_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_window_width_increment')
-    let g:exTS_window_width_increment = 50
+if !exists('g:ExTS_window_width_increment')
+    let g:ExTS_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,40 +56,40 @@ endif
 " 'topleft','botright','belowright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_window_direction')
-    let g:exTS_window_direction = 'belowright'
+if !exists('g:ExTS_window_direction')
+    let g:ExTS_window_direction = 'belowright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_use_vertical_window')
-    let g:exTS_use_vertical_window = 0
+if !exists('g:ExTS_use_vertical_window')
+    let g:ExTS_use_vertical_window = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go back to edit buffer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_backto_editbuf')
-    let g:exTS_backto_editbuf = 0
+if !exists('g:ExTS_backto_editbuf')
+    let g:ExTS_backto_editbuf = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go and close exTagSelect window
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_close_when_selected')
-    let g:exTS_close_when_selected = 1
+if !exists('g:ExTS_close_when_selected')
+    let g:ExTS_close_when_selected = 1
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use syntax highlight for search result
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_highlight_result')
-    let g:exTS_highlight_result = 0
+if !exists('g:ExTS_highlight_result')
+    let g:ExTS_highlight_result = 0
 endif
 
 " ------------------------------------------------------------------ 
@@ -97,8 +97,8 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exTS_edit_mode')
-    let g:exTS_edit_mode = 'replace'
+if !exists('g:ExTS_edit_mode')
+    let g:ExTS_edit_mode = 'replace'
 endif
 
 " ======================================================== 
@@ -148,7 +148,7 @@ let s:exTS_cur_tagidx = 0
 " Desc: 
 " ------------------------------------------------------------------ 
 
-function g:exTS_ResetTaglist( new_taglist, tag_name, tag_idx ) " <<<
+function g:ExTS_ResetTaglist( new_taglist, tag_name, tag_idx ) " <<<
     let s:exTS_need_update_select_window = 1
     let s:exTS_cur_taglist = a:new_taglist
     let s:exTS_cur_tagname = a:tag_name
@@ -164,7 +164,7 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exTS_ClearEntryToggleWindow( title ) " <<<
-    call g:exJS_ClearEntryStateList ()
+    call g:ExJS_ClearEntryStateList ()
     call s:exTS_ToggleWindow ( a:title )
 endfunction " >>>
 
@@ -178,10 +178,10 @@ function s:exTS_OpenWindow( short_title ) " <<<
     endif
     let title = '__exTS_' . s:exTS_short_title . 'Window__'
     " open window
-    if g:exTS_use_vertical_window
-        call exUtility#OpenWindow( title, g:exTS_window_direction, g:exTS_window_width, g:exTS_use_vertical_window, g:exTS_edit_mode, 1, 'g:exTS_Init'.s:exTS_short_title.'Window', 'g:exTS_Update'.s:exTS_short_title.'Window' )
+    if g:ExTS_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExTS_window_direction, g:ExTS_window_width, g:ExTS_use_vertical_window, g:ExTS_edit_mode, 1, 'g:ExTS_Init'.s:exTS_short_title.'Window', 'g:ExTS_Update'.s:exTS_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exTS_window_direction, g:exTS_window_height, g:exTS_use_vertical_window, g:exTS_edit_mode, 1, 'g:exTS_Init'.s:exTS_short_title.'Window', 'g:exTS_Update'.s:exTS_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExTS_window_direction, g:ExTS_window_height, g:ExTS_use_vertical_window, g:ExTS_edit_mode, 1, 'g:ExTS_Init'.s:exTS_short_title.'Window', 'g:ExTS_Update'.s:exTS_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -190,10 +190,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exTS_ResizeWindow() " <<<
-    if g:exTS_use_vertical_window
-        call exUtility#ResizeWindow( g:exTS_use_vertical_window, g:exTS_window_width, g:exTS_window_width_increment )
+    if g:ExTS_use_vertical_window
+        call exUtility#ResizeWindow( g:ExTS_use_vertical_window, g:ExTS_window_width, g:ExTS_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exTS_use_vertical_window, g:exTS_window_height, g:exTS_window_height_increment )
+        call exUtility#ResizeWindow( g:ExTS_use_vertical_window, g:ExTS_window_height, g:ExTS_window_height_increment )
     endif
 endfunction " >>>
 
@@ -214,10 +214,10 @@ function s:exTS_ToggleWindow( short_title ) " <<<
 
     " toggle exTS window
     let title = '__exTS_' . s:exTS_short_title . 'Window__'
-    if g:exTS_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exTS_window_direction, g:exTS_window_width, g:exTS_use_vertical_window, 'none', 0, 'g:exTS_Init'.s:exTS_short_title.'Window', 'g:exTS_Update'.s:exTS_short_title.'Window' )
+    if g:ExTS_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExTS_window_direction, g:ExTS_window_width, g:ExTS_use_vertical_window, 'none', 0, 'g:ExTS_Init'.s:exTS_short_title.'Window', 'g:ExTS_Update'.s:exTS_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exTS_window_direction, g:exTS_window_height, g:exTS_use_vertical_window, 'none', 0, 'g:exTS_Init'.s:exTS_short_title.'Window', 'g:exTS_Update'.s:exTS_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExTS_window_direction, g:ExTS_window_height, g:ExTS_use_vertical_window, 'none', 0, 'g:ExTS_Init'.s:exTS_short_title.'Window', 'g:ExTS_Update'.s:exTS_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -229,21 +229,21 @@ function s:exTS_SwitchWindow( short_title ) " <<<
     let title = '__exTS_' . a:short_title . 'Window__'
     if bufwinnr(title) == -1
         " save the old height & width
-        let old_height = g:exTS_window_height
-        let old_width = g:exTS_window_width
+        let old_height = g:ExTS_window_height
+        let old_width = g:ExTS_window_width
 
         " use the width & height of current window if it is same plugin window.
         if bufname ('%') ==# s:exTS_select_title 
-            let g:exTS_window_height = winheight('.')
-            let g:exTS_window_width = winwidth('.')
+            let g:ExTS_window_height = winheight('.')
+            let g:ExTS_window_width = winwidth('.')
         endif
 
         " switch to the new plugin window
         call s:exTS_ToggleWindow(a:short_title)
 
         " recover the width and height
-        let g:exTS_window_height = old_height
-        let g:exTS_window_width = old_width
+        let g:ExTS_window_height = old_height
+        let g:ExTS_window_width = old_width
     endif
 endfunction " >>>
 
@@ -269,14 +269,14 @@ endfunction " >>>
 " Desc: Init exTagSelect window
 " ------------------------------------------------------------------ 
 
-function g:exTS_InitSelectWindow() " <<<
+function g:ExTS_InitSelectWindow() " <<<
     " KEEPME: we don't need this, but keep it { 
     " load the tagfiles
     " let s:exTS_tag_file_list = tagfiles()
     " } KEEPME end 
 
     " syntax highlight
-    if g:exTS_highlight_result
+    if g:ExTS_highlight_result
         " this will load the syntax highlight as cpp for search result
         silent exec "so $VIM/vimfiles/after/syntax/exUtility.vim"
     endif
@@ -288,9 +288,9 @@ function g:exTS_InitSelectWindow() " <<<
     syntax match ex_SynLineNr '^        \d\+:'
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exTS_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exTS_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exTS_GotoTagSelectResult()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exTS_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exTS_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exTS_GotoTagSelectResult()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse> \|:call <SID>exTS_GotoTagSelectResult()<CR>
 
     " DUMMY { 
@@ -306,7 +306,7 @@ endfunction " >>>
 " Desc: Update window
 " ------------------------------------------------------------------ 
 
-function g:exTS_UpdateSelectWindow() " <<<
+function g:ExTS_UpdateSelectWindow() " <<<
     if s:exTS_need_update_select_window
         let s:exTS_need_update_select_window = 0
         call s:exTS_ShowTagList ( s:exTS_cur_taglist )
@@ -408,11 +408,11 @@ function s:exTS_GetTagSelectResult(tag, direct_jump) " <<<
         let stack_info.keyword = in_tag
         let stack_info.taglist = []
         let stack_info.tagidx = -1
-        call g:exJS_PushEntryState ( stack_info )
+        call g:ExJS_PushEntryState ( stack_info )
     endif
 
     " reset tag list
-    call g:exTS_ResetTaglist ( tag_list, in_tag, 0 )
+    call g:ExTS_ResetTaglist ( tag_list, in_tag, 0 )
 
     " open window
     let ts_winnr = bufwinnr(s:exTS_select_title)
@@ -420,7 +420,7 @@ function s:exTS_GetTagSelectResult(tag, direct_jump) " <<<
         call s:exTS_ToggleWindow('Select')
     else
         exe ts_winnr . 'wincmd w'
-        call g:exTS_UpdateSelectWindow()
+        call g:ExTS_UpdateSelectWindow()
     endif
 
     " go to first then highlight
@@ -533,13 +533,13 @@ function s:exTS_GotoTagSelectResult() " <<<
     let stack_info.tagidx = s:exTS_cur_tagidx
     if s:exTS_need_push_tag
         let s:exTS_need_push_tag = 0
-        call g:exJS_PushJumpStack (stack_info)
+        call g:ExJS_PushJumpStack (stack_info)
     else
-        call g:exJS_SetLastJumpStack (stack_info)
+        call g:ExJS_SetLastJumpStack (stack_info)
     endif
 
     " go back if needed
-    call exUtility#OperateWindow ( s:exTS_select_title, g:exTS_close_when_selected, g:exTS_backto_editbuf, 1 )
+    call exUtility#OperateWindow ( s:exTS_select_title, g:ExTS_close_when_selected, g:ExTS_backto_editbuf, 1 )
 endfunction " >>>
 
 "/////////////////////////////////////////////////////////////////////////////

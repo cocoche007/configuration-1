@@ -31,7 +31,7 @@ let s:init_search_input = 1
 " Key mappings
 "/////////////////////////////////////////////////////////////////////////////
 
-noremap / :call g:ex_SearchCompleteStart()<CR>/
+noremap / :call g:Ex_SearchCompleteStart()<CR>/
 
 "/////////////////////////////////////////////////////////////////////////////
 " function defines
@@ -42,11 +42,11 @@ noremap / :call g:ex_SearchCompleteStart()<CR>/
 " Desc: Set mappings for search complete
 " ------------------------------------------------------------------ 
 
-function g:ex_SearchCompleteStart() " <<<
+function g:Ex_SearchCompleteStart() " <<<
     let s:init_search_input = 1
 	cnoremap <Tab> <C-R>=<sid>ex_SearchComplete()<CR>
-	cnoremap <silent> <CR> <CR>:call g:ex_SearchCompleteStop()<CR>
-	cnoremap <silent> <Esc> <C-C>:call g:ex_SearchCompleteStop()<CR>
+	cnoremap <silent> <CR> <CR>:call g:Ex_SearchCompleteStop()<CR>
+	cnoremap <silent> <Esc> <C-C>:call g:Ex_SearchCompleteStop()<CR>
 endfunction " >>>
 
 " ------------------------------------------------------------------ 
@@ -107,7 +107,7 @@ endfunction " >>>
 " Desc: Remove search complete mappings
 " ------------------------------------------------------------------ 
 
-function g:ex_SearchCompleteStop() " <<<
+function g:Ex_SearchCompleteStop() " <<<
 	cunmap <Tab>
 	cunmap <CR>
 	cunmap <Esc>

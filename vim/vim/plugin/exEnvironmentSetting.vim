@@ -24,26 +24,26 @@ let loaded_ex_environment_setting=1
 " NOTE: this value will be set automatically
 " ------------------------------------------------------------------ 
 
-let g:exES_vimfiles_dirname = ".vimfiles"
+let g:ExES_vimfiles_dirname = ".vimfiles"
 
 " ------------------------------------------------------------------ 
 " Desc: set project command
 " ------------------------------------------------------------------ 
 
-if !exists('g:exES_project_cmd')
-    let g:exES_project_cmd = 'EXProject'
+if !exists('g:ExES_project_cmd')
+    let g:ExES_project_cmd = 'EXProject'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: set web browser
 " ------------------------------------------------------------------ 
 
-if !exists('g:exES_WebBrowser')
+if !exists('g:ExES_WebBrowser')
     if has("gui_running")
         if has("win32")
-            let g:exES_WebBrowser = 'c:\Users\Johnny\AppData\Local\Google\Chrome\Application\chrome.exe'
+            let g:ExES_WebBrowser = 'c:\Users\Johnny\AppData\Local\Google\Chrome\Application\chrome.exe'
         elseif has("unix")
-            let g:exES_WebBrowser = 'firefox'
+            let g:ExES_WebBrowser = 'firefox'
         endif
     endif
 endif
@@ -52,10 +52,10 @@ endif
 " Desc: set image viewer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exES_ImageViewer')
+if !exists('g:ExES_ImageViewer')
     if has("gui_running")
         if has("win32")
-            let g:exES_ImageViewer = $EX_DEV.'\tools\IrfanView\i_view32.exe'
+            let g:ExES_ImageViewer = $EX_DEV.'\tools\IrfanView\i_view32.exe'
         elseif has("unix")
             " TODO
         endif
@@ -180,23 +180,23 @@ function s:exES_LoadSettings( start, end ) " <<<
         if stridx ( Line, '+=') == -1
             let SettingList = split(Line, "=")
             if len(SettingList)>=2 " set value as string to the non-list variable.
-                " let g:exES_{SettingList[0]} = escape(SettingList[1], ' ')
+                " let g:ExES_{SettingList[0]} = escape(SettingList[1], ' ')
                 " since '\ ' will get error in win32, just disable it here
-                let g:exES_{SettingList[0]} = SettingList[1]
+                let g:ExES_{SettingList[0]} = SettingList[1]
             elseif len(SettingList)>=1 " if don't have value, set '' value
-                let g:exES_{SettingList[0]} = ''
+                let g:ExES_{SettingList[0]} = ''
             endif
         else " create list variables
             let SettingList = split(Line, "+=")
             if len(SettingList)>=1 " we can define a variable if the number of split list itmes more than one
-                if !exists( 'g:exES_'.SettingList[0] ) " if we don't define this list variable, define it first
-                    let g:exES_{SettingList[0]} = []
+                if !exists( 'g:ExES_'.SettingList[0] ) " if we don't define this list variable, define it first
+                    let g:ExES_{SettingList[0]} = []
                 endif
 
                 " now add items to the list
                 if len(SettingList)>=2 " we can assigne a value if the number of split list items more then two
                     if findfile( SettingList[1] ) != ''
-                        silent call add ( g:exES_{SettingList[0]}, SettingList[1] )
+                        silent call add ( g:ExES_{SettingList[0]}, SettingList[1] )
                     else
                         call exUtility#WarningMsg( 'Warning: vimentry ' . SettingList[1] . ' not found! Skip reference it' )
                     endif
@@ -212,8 +212,8 @@ endfunction " >>>
 
 function s:exES_ClearListVariables() " <<<
     " HACK: a little bit hack, if you add new list value, you need to maintain remove code manually { 
-    if !empty(g:exES_vimentryRefs)
-        silent call remove ( g:exES_vimentryRefs, 0, len(g:exES_vimentryRefs)-1 )
+    if !empty(g:ExES_vimentryRefs)
+        silent call remove ( g:ExES_vimentryRefs, 0, len(g:ExES_vimentryRefs)-1 )
     endif
     " } HACK end 
 endfunction " >>>
@@ -222,7 +222,7 @@ endfunction " >>>
 " Desc: 
 " ------------------------------------------------------------------ 
 
-function g:exES_SetEnvironment( force_reset ) " <<<
+function g:ExES_SetEnvironment( force_reset ) " <<<
     " do not show it in buffer list
     silent! setlocal bufhidden=hide
     silent! setlocal noswapfile
@@ -253,7 +253,7 @@ function g:exES_SetEnvironment( force_reset ) " <<<
     " if we already in a vimentry file, and open another vimentry file.
     if s:exES_setted == 1
         let cur_vimentry_name = fnamemodify( expand('%'), ":t:r" )  
-        if cur_vimentry_name !=# g:exES_VimEntryName
+        if cur_vimentry_name !=# g:ExES_VimEntryName
             " close all ex-plugin windows
             call exUtility#CloseAllExpluginWindow ()
 
@@ -283,17 +283,17 @@ function g:exES_SetEnvironment( force_reset ) " <<<
         " process check
         let _cwd = exUtility#Pathfmt( fnamemodify( expand('%'), ':p:h' ), 'unix' )
         let _vimentry_name = fnamemodify( expand('%'), ":t:r" )  
-        if !exists( 'g:exES_CWD' ) || !exists( 'g:exES_Version' )
-            echomsg "g:exES_CWD/g:exES_Version not exists"
+        if !exists( 'g:ExES_CWD' ) || !exists( 'g:ExES_Version' )
+            echomsg "g:ExES_CWD/g:ExES_Version not exists"
             let need_update = 1
-        elseif g:exES_CWD != _cwd " check if CWD is correct, rewrite default template if not
-            echomsg "g:exES_CWD != _cwd ==> " . g:exES_CWD . " != " . _cwd
+        elseif g:ExES_CWD != _cwd " check if CWD is correct, rewrite default template if not
+            echomsg "g:ExES_CWD != _cwd ==> " . g:ExES_CWD . " != " . _cwd
             let need_update = 1
-        elseif g:exES_Version != s:exES_CurrentVersion " check if Ver is correct, rewrite default template if not
-            echomsg "g:exES_Version != s:exES_CurrentVersion ==> " . g:exES_Version . " != " . s:exES_CurrentVersion
+        elseif g:ExES_Version != s:exES_CurrentVersion " check if Ver is correct, rewrite default template if not
+            echomsg "g:ExES_Version != s:exES_CurrentVersion ==> " . g:ExES_Version . " != " . s:exES_CurrentVersion
             let need_update = 1
-        elseif g:exES_VimEntryName != _vimentry_name
-            echomsg "g:exES_VimEntryName != _vimentry_name ==> " . g:exES_VimEntryName . " != " . _vimentry_name
+        elseif g:ExES_VimEntryName != _vimentry_name
+            echomsg "g:ExES_VimEntryName != _vimentry_name ==> " . g:ExES_VimEntryName . " != " . _vimentry_name
             let need_update = 1
         endif
 
@@ -308,7 +308,7 @@ function g:exES_SetEnvironment( force_reset ) " <<<
         call s:exES_LoadSettings ( 1, '$' )
 
         " update environment
-        call g:exES_UpdateEnvironment()
+        call g:ExES_UpdateEnvironment()
 
         "
         call exUtility#CreateIDLangMap ( exUtility#GetProjectFilter("file_filter") )
@@ -320,42 +320,42 @@ endfunction " >>>
 " Desc: default environment update function 
 " ------------------------------------------------------------------ 
 
-function g:exES_UpdateEnvironment() " <<<
+function g:ExES_UpdateEnvironment() " <<<
     " set parent working directory
-    if exists( 'g:exES_CWD' )
-        silent exec 'cd ' . escape(g:exES_CWD, " ")
+    if exists( 'g:ExES_CWD' )
+        silent exec 'cd ' . escape(g:ExES_CWD, " ")
     endif
 
-    if exists('g:exES_VimEntryName')
-        au VimEnter,BufNewFile,BufEnter * let &titlestring = g:exES_VimEntryName . ' : %t %M%r (' . expand("%:p:h") . ')' . ' %h%w%y'
+    if exists('g:ExES_VimEntryName')
+        au VimEnter,BufNewFile,BufEnter * let &titlestring = g:ExES_VimEntryName . ' : %t %M%r (' . expand("%:p:h") . ')' . ' %h%w%y'
     endif
 
     " create _vimfiles directories
-    if exists ('g:exES_VimfilesDirName')
-        let g:exES_vimfiles_dirname = g:exES_VimfilesDirName
+    if exists ('g:ExES_VimfilesDirName')
+        let g:ExES_vimfiles_dirname = g:ExES_VimfilesDirName
 
         " create .vimfiles directory
-        if finddir(g:exES_CWD.'/'.g:exES_vimfiles_dirname) == ''
-            silent call mkdir(g:exES_CWD.'/'.g:exES_vimfiles_dirname)
+        if finddir(g:ExES_CWD.'/'.g:ExES_vimfiles_dirname) == ''
+            silent call mkdir(g:ExES_CWD.'/'.g:ExES_vimfiles_dirname)
         endif
 
         " create .hierarchies directory
-        let inherit_directory_path = g:exES_CWD.'/'.g:exES_vimfiles_dirname.'/.hierarchies' 
+        let inherit_directory_path = g:ExES_CWD.'/'.g:ExES_vimfiles_dirname.'/.hierarchies' 
         if finddir(inherit_directory_path) == ''
             silent call mkdir(inherit_directory_path)
         endif
 
         " create .temp directory
-        let temp_directory_path = g:exES_CWD.'/'.g:exES_vimfiles_dirname.'/.temp' 
+        let temp_directory_path = g:ExES_CWD.'/'.g:ExES_vimfiles_dirname.'/.temp' 
         if finddir(temp_directory_path) == ''
             silent call mkdir(temp_directory_path)
         endif
     endif
 
     " set default language type map
-    if exists('g:exES_LangType')
-        if g:exES_LangType != 'auto' " if auto, we use default language map.
-            let lang_list = split( g:exES_LangType, ',' )
+    if exists('g:ExES_LangType')
+        if g:ExES_LangType != 'auto' " if auto, we use default language map.
+            let lang_list = split( g:ExES_LangType, ',' )
             silent call exUtility#SetProjectFilter ( "file_filter", exUtility#GetFileFilterByLanguage (lang_list) )
         endif
     endif
@@ -367,30 +367,30 @@ function g:exES_UpdateEnvironment() " <<<
     endif
 
     " set tag file path
-    if exists( 'g:exES_Tag' )
-        "let &tags = &tags . ',' . g:exES_Tag
-        let &tags = escape(g:exES_Tag, " ")
+    if exists( 'g:ExES_Tag' )
+        "let &tags = &tags . ',' . g:ExES_Tag
+        let &tags = escape(g:ExES_Tag, " ")
     endif
 
     " open exProject window
-    if exists( 'g:exES_Project' )
-        silent exec g:exES_project_cmd.' '.g:exES_Project
+    if exists( 'g:ExES_Project' )
+        silent exec g:ExES_project_cmd.' '.g:ExES_Project
         silent exec 'ExpjUpdateFilters'
     endif
 
     " init macro list
-    if exists( 'g:exES_Macro' )
-        silent call g:exMH_InitMacroList(g:exES_Macro)
+    if exists( 'g:ExES_Macro' )
+        silent call g:ExMH_InitMacroList(g:ExES_Macro)
     endif
 
     " connect cscope file
-    if exists( 'g:exES_Cscope' )
-        silent call g:exCS_ConnectCscopeFile()
+    if exists( 'g:ExES_Cscope' )
+        silent call g:ExCS_ConnectCscopeFile()
     endif
 
     " set vimentry references
-    if exists ('g:exES_vimentryRefs')
-        for vimentry in g:exES_vimentryRefs
+    if exists ('g:ExES_vimentryRefs')
+        for vimentry in g:ExES_vimentryRefs
             let ref_entry_dir = fnamemodify( vimentry, ':p:h')
             let ref_vimfiles_dirname = '.vimfiles.' . fnamemodify( vimentry, ":t:r" )
             let fullpath_tagfile = exUtility#GetVimFile ( ref_entry_dir, ref_vimfiles_dirname, 'tag')
@@ -406,11 +406,11 @@ function g:exES_UpdateEnvironment() " <<<
     endif
 
     " check if load last opened buffer
-    if exists ('g:exES_RestoreBuffers')
-        if g:exES_RestoreBuffers ==? 'true'
+    if exists ('g:ExES_RestoreBuffers')
+        if g:ExES_RestoreBuffers ==? 'true'
             autocmd VimLeave * call exUtility#SaveRestoreInfo ()
             let choice = 1
-            if exists ('g:exES_AskForRestoration') && g:exES_AskForRestoration ==? 'true'
+            if exists ('g:ExES_AskForRestoration') && g:ExES_AskForRestoration ==? 'true'
                 let choice = confirm("Restore last edit buffers?", "&Yes\n&No", 1)
             endif
             if choice == 1 " if ask for restoration
@@ -421,8 +421,8 @@ function g:exES_UpdateEnvironment() " <<<
     endif
 
     " update custom environment
-    if exists('*g:exES_PostUpdate')
-        call g:exES_PostUpdate()
+    if exists('*g:ExES_PostUpdate')
+        call g:ExES_PostUpdate()
     endif
 endfunction " >>>
 
@@ -434,8 +434,8 @@ endfunction " >>>
 " Desc: if it is vimentry files, set evironment first
 " ------------------------------------------------------------------ 
 
-au BufEnter *.vimentry call g:exES_SetEnvironment(0)
-au BufWritePost *.vimentry :call g:exES_SetEnvironment(1)
+au BufEnter *.vimentry call g:ExES_SetEnvironment(0)
+au BufWritePost *.vimentry :call g:ExES_SetEnvironment(1)
 
 "/////////////////////////////////////////////////////////////////////////////
 " finish

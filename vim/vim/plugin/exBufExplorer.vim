@@ -23,32 +23,32 @@ let loaded_exbufexplorer=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_window_height')
-    let g:exBE_window_height = 20
+if !exists('g:ExBE_window_height')
+    let g:ExBE_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_window_width')
-    let g:exBE_window_width = 30
+if !exists('g:ExBE_window_width')
+    let g:ExBE_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_window_height_increment')
-    let g:exBE_window_height_increment = 30
+if !exists('g:ExBE_window_height_increment')
+    let g:ExBE_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_window_width_increment')
-    let g:exBE_window_width_increment = 50
+if !exists('g:ExBE_window_width_increment')
+    let g:ExBE_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,32 +56,32 @@ endif
 " 'topleft','botright', 'belowright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_window_direction')
-    let g:exBE_window_direction = 'botright'
+if !exists('g:ExBE_window_direction')
+    let g:ExBE_window_direction = 'botright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_use_vertical_window')
-    let g:exBE_use_vertical_window = 1
+if !exists('g:ExBE_use_vertical_window')
+    let g:ExBE_use_vertical_window = 1
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go back to edit buffer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_backto_editbuf')
-    let g:exBE_backto_editbuf = 0
+if !exists('g:ExBE_backto_editbuf')
+    let g:ExBE_backto_editbuf = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go and close exTagSelect window
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_close_when_selected')
-    let g:exBE_close_when_selected = 0
+if !exists('g:ExBE_close_when_selected')
+    let g:ExBE_close_when_selected = 0
 endif
 
 " ------------------------------------------------------------------ 
@@ -89,8 +89,8 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exBE_edit_mode')
-    let g:exBE_edit_mode = 'replace'
+if !exists('g:ExBE_edit_mode')
+    let g:ExBE_edit_mode = 'replace'
 endif
 
 " ======================================================== 
@@ -126,10 +126,10 @@ function s:exBE_OpenWindow( short_title ) " <<<
     let title = '__exBE_' . s:exBE_short_title . 'Window__'
 
     " open window
-    if g:exBE_use_vertical_window
-        call exUtility#OpenWindow( title, g:exBE_window_direction, g:exBE_window_width, g:exBE_use_vertical_window, 'none', 1, 'g:exBE_Init'.s:exBE_short_title.'Window', 'g:exBE_Update'.s:exBE_short_title.'Window' )
+    if g:ExBE_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExBE_window_direction, g:ExBE_window_width, g:ExBE_use_vertical_window, 'none', 1, 'g:ExBE_Init'.s:exBE_short_title.'Window', 'g:ExBE_Update'.s:exBE_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exBE_window_direction, g:exBE_window_height, g:exBE_use_vertical_window, 'none', 1, 'g:exBE_Init'.s:exBE_short_title.'Window', 'g:exBE_Update'.s:exBE_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExBE_window_direction, g:ExBE_window_height, g:ExBE_use_vertical_window, 'none', 1, 'g:ExBE_Init'.s:exBE_short_title.'Window', 'g:ExBE_Update'.s:exBE_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -138,10 +138,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exBE_ResizeWindow() " <<<
-    if g:exBE_use_vertical_window
-        call exUtility#ResizeWindow( g:exBE_use_vertical_window, g:exBE_window_width, g:exBE_window_width_increment )
+    if g:ExBE_use_vertical_window
+        call exUtility#ResizeWindow( g:ExBE_use_vertical_window, g:ExBE_window_width, g:ExBE_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exBE_use_vertical_window, g:exBE_window_height, g:exBE_window_height_increment )
+        call exUtility#ResizeWindow( g:ExBE_use_vertical_window, g:ExBE_window_height, g:ExBE_window_height_increment )
     endif
 endfunction " >>>
 
@@ -153,10 +153,10 @@ function s:exBE_ToggleWindow( short_title ) " <<<
     let title = '__exBE_' . s:exBE_short_title . 'Window__'
 
     " when toggle on, we expect the cursor can be focus on that window.
-    if g:exBE_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exBE_window_direction, g:exBE_window_width, g:exBE_use_vertical_window, 'none', 0, 'g:exBE_Init'.s:exBE_short_title.'Window', 'g:exBE_Update'.s:exBE_short_title.'Window' )
+    if g:ExBE_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExBE_window_direction, g:ExBE_window_width, g:ExBE_use_vertical_window, 'none', 0, 'g:ExBE_Init'.s:exBE_short_title.'Window', 'g:ExBE_Update'.s:exBE_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exBE_window_direction, g:exBE_window_height, g:exBE_use_vertical_window, 'none', 0, 'g:exBE_Init'.s:exBE_short_title.'Window', 'g:exBE_Update'.s:exBE_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExBE_window_direction, g:ExBE_window_height, g:ExBE_use_vertical_window, 'none', 0, 'g:ExBE_Init'.s:exBE_short_title.'Window', 'g:ExBE_Update'.s:exBE_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -168,7 +168,7 @@ endfunction " >>>
 " Desc: init select window
 " ------------------------------------------------------------------ 
 
-function g:exBE_InitSelectWindow () " <<<
+function g:ExBE_InitSelectWindow () " <<<
     silent! setlocal cursorline
     silent! setlocal nomodifiable
 
@@ -177,22 +177,22 @@ function g:exBE_InitSelectWindow () " <<<
     syntax region ex_SynFileName start="(" end=")" oneline
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exBE_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exBE_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exBE_GotoInSelectWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exBE_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exBE_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exBE_GotoInSelectWindow()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exBE_GotoInSelectWindow()<CR>
 
     nnoremap <buffer> <silent> dd   :call <SID>exBE_DeleteSelectLine()<CR>
 
     " Autocommands to keep the window the specified size
-    au WinEnter <buffer> :call g:exBE_UpdateSelectWindow()
+    au WinEnter <buffer> :call g:ExBE_UpdateSelectWindow()
 endfunction " >>>
 
 " ------------------------------------------------------------------ 
 " Desc: Update exProject select window 
 " ------------------------------------------------------------------ 
 
-function g:exBE_UpdateSelectWindow() " <<<
+function g:ExBE_UpdateSelectWindow() " <<<
     call s:exBE_ShowEditBuffers ()
 endfunction " >>>
 
@@ -227,7 +227,7 @@ function s:exBE_GotoInSelectWindow() " <<<
 
     " go back if needed
     let title = '__exBE_' . s:exBE_short_title . 'Window__'
-    call exUtility#OperateWindow ( title, g:exBE_close_when_selected, g:exBE_backto_editbuf, 0 )
+    call exUtility#OperateWindow ( title, g:ExBE_close_when_selected, g:ExBE_backto_editbuf, 0 )
 endfunction " >>>
 
 " ------------------------------------------------------------------ 
@@ -276,14 +276,14 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exBE_DeleteSelectBookmark () " <<<
-    if exists ( 'g:exES_Bookmarks' )
+    if exists ( 'g:ExES_Bookmarks' )
         silent! setlocal modifiable
         silent normal! "_dd
         silent! setlocal nomodifiable
 
         let bookmark_nr = search ('-- Bookmarks --', 'n')
         let lines = getline( bookmark_nr+1, '$' )
-        silent call writefile( lines, g:exES_Bookmarks )
+        silent call writefile( lines, g:ExES_Bookmarks )
     endif
 endfunction " >>>
 
@@ -329,11 +329,11 @@ function s:exBE_ShowEditBuffers () " <<<
     silent call append( line('$'), line_list )
 
     " save book marks
-    if exists ( 'g:exES_Bookmarks' )
+    if exists ( 'g:ExES_Bookmarks' )
         silent call append( line('$'), [''] )
         silent call append( line('$'), book_mark_title )
-        if filereadable(g:exES_Bookmarks) == 1
-            silent call append( line('$'), readfile( g:exES_Bookmarks ) )
+        if filereadable(g:ExES_Bookmarks) == 1
+            silent call append( line('$'), readfile( g:ExES_Bookmarks ) )
         endif
     endif
     silent! setlocal nomodifiable
@@ -350,7 +350,7 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exBE_AddBookmark ( filename ) " <<<
-    if exists ( 'g:exES_Bookmarks' )
+    if exists ( 'g:ExES_Bookmarks' )
         " show input dialog
         let bookmark_name = inputdialog( 'Bookmark Alias: ', fnamemodify(a:filename,':t'), 'cancle' )
         if bookmark_name == ''
@@ -362,8 +362,8 @@ function s:exBE_AddBookmark ( filename ) " <<<
 
         " read book mark file
         let lines = []
-        if filereadable(g:exES_Bookmarks) == 1
-            let lines = readfile( g:exES_Bookmarks )
+        if filereadable(g:ExES_Bookmarks) == 1
+            let lines = readfile( g:ExES_Bookmarks )
         endif
 
         let relative_filename = fnamemodify(a:filename,':p:.')
@@ -387,7 +387,7 @@ function s:exBE_AddBookmark ( filename ) " <<<
             silent call add( lines, bookmark_info )
         endif
         let lines = sort( lines, 's:exBE_BookmarkCompare' )
-        silent call writefile( lines, g:exES_Bookmarks )
+        silent call writefile( lines, g:ExES_Bookmarks )
     endif
 endfunction " >>>
 

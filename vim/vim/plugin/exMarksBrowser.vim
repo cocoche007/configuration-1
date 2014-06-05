@@ -28,32 +28,32 @@ let loaded_exmarksbrowser=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_window_height')
-    let g:exMB_window_height = 20
+if !exists('g:ExMB_window_height')
+    let g:ExMB_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_window_width')
-    let g:exMB_window_width = 30
+if !exists('g:ExMB_window_width')
+    let g:ExMB_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_window_height_increment')
-    let g:exMB_window_height_increment = 30
+if !exists('g:ExMB_window_height_increment')
+    let g:ExMB_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_window_width_increment')
-    let g:exMB_window_width_increment = 50
+if !exists('g:ExMB_window_width_increment')
+    let g:ExMB_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -61,32 +61,32 @@ endif
 " 'topleft','botright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_window_direction')
-    let g:exMB_window_direction = 'belowright'
+if !exists('g:ExMB_window_direction')
+    let g:ExMB_window_direction = 'belowright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_use_vertical_window')
-    let g:exMB_use_vertical_window = 0
+if !exists('g:ExMB_use_vertical_window')
+    let g:ExMB_use_vertical_window = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go back to edit buffer
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_backto_editbuf')
-    let g:exMB_backto_editbuf = 0
+if !exists('g:ExMB_backto_editbuf')
+    let g:ExMB_backto_editbuf = 0
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: go and close exTagSelect window
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_close_when_selected')
-    let g:exMB_close_when_selected = 0
+if !exists('g:ExMB_close_when_selected')
+    let g:ExMB_close_when_selected = 0
 endif
 
 " ------------------------------------------------------------------ 
@@ -94,8 +94,8 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMB_edit_mode')
-    let g:exMB_edit_mode = 'replace'
+if !exists('g:ExMB_edit_mode')
+    let g:ExMB_edit_mode = 'replace'
 endif
 
 " ======================================================== 
@@ -139,10 +139,10 @@ function s:exMB_OpenWindow( short_title ) " <<<
     endif
     let title = '__exMB_' . s:exMB_short_title . 'Window__'
     " open window
-    if g:exMB_use_vertical_window
-        call exUtility#OpenWindow( title, g:exMB_window_direction, g:exMB_window_width, g:exMB_use_vertical_window, g:exMB_edit_mode, 1, 'g:exMB_Init'.s:exMB_short_title.'Window', 'g:exMB_Update'.s:exMB_short_title.'Window' )
+    if g:ExMB_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExMB_window_direction, g:ExMB_window_width, g:ExMB_use_vertical_window, g:ExMB_edit_mode, 1, 'g:ExMB_Init'.s:exMB_short_title.'Window', 'g:ExMB_Update'.s:exMB_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exMB_window_direction, g:exMB_window_height, g:exMB_use_vertical_window, g:exMB_edit_mode, 1, 'g:exMB_Init'.s:exMB_short_title.'Window', 'g:exMB_Update'.s:exMB_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExMB_window_direction, g:ExMB_window_height, g:ExMB_use_vertical_window, g:ExMB_edit_mode, 1, 'g:ExMB_Init'.s:exMB_short_title.'Window', 'g:ExMB_Update'.s:exMB_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -151,10 +151,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exMB_ResizeWindow() " <<<
-    if g:exMB_use_vertical_window
-        call exUtility#ResizeWindow( g:exMB_use_vertical_window, g:exMB_window_width, g:exMB_window_width_increment )
+    if g:ExMB_use_vertical_window
+        call exUtility#ResizeWindow( g:ExMB_use_vertical_window, g:ExMB_window_width, g:ExMB_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exMB_use_vertical_window, g:exMB_window_height, g:exMB_window_height_increment )
+        call exUtility#ResizeWindow( g:ExMB_use_vertical_window, g:ExMB_window_height, g:ExMB_window_height_increment )
     endif
 endfunction " >>>
 
@@ -177,10 +177,10 @@ function s:exMB_ToggleWindow( short_title ) " <<<
 
     " toggle exMB window
     let title = '__exMB_' . s:exMB_short_title . 'Window__'
-    if g:exMB_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exMB_window_direction, g:exMB_window_width, g:exMB_use_vertical_window, 'none', 0, 'g:exMB_Init'.s:exMB_short_title.'Window', 'g:exMB_Update'.s:exMB_short_title.'Window' )
+    if g:ExMB_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExMB_window_direction, g:ExMB_window_width, g:ExMB_use_vertical_window, 'none', 0, 'g:ExMB_Init'.s:exMB_short_title.'Window', 'g:ExMB_Update'.s:exMB_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exMB_window_direction, g:exMB_window_height, g:exMB_use_vertical_window, 'none', 0, 'g:exMB_Init'.s:exMB_short_title.'Window', 'g:exMB_Update'.s:exMB_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExMB_window_direction, g:ExMB_window_height, g:ExMB_use_vertical_window, 'none', 0, 'g:ExMB_Init'.s:exMB_short_title.'Window', 'g:ExMB_Update'.s:exMB_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -192,7 +192,7 @@ endfunction " >>>
 " Desc: Init exTagSelect window
 " ------------------------------------------------------------------ 
 
-function g:exMB_InitSelectWindow() " <<<
+function g:ExMB_InitSelectWindow() " <<<
     " syntax match
     syntax match ex_SynFileName '|\S|'
     syntax match ex_SynLineNr '(\d\+,\d\+):'
@@ -200,9 +200,9 @@ function g:exMB_InitSelectWindow() " <<<
     syntax match ex_SynTitle '^<<<<<< .* >>>>>>'
 
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exMB_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exMB_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exMB_GotoSelectResult()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exMB_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exMB_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exMB_GotoSelectResult()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exMB_GotoSelectResult()<CR>
 
     " dummy mapping
@@ -217,7 +217,7 @@ endfunction " >>>
 " Desc: Update window
 " ------------------------------------------------------------------ 
 
-function g:exMB_UpdateSelectWindow() " <<<
+function g:ExMB_UpdateSelectWindow() " <<<
     " we alwasy clear confirmed highlight, every time we open the browse window
     call exUtility#ClearConfirmHighlight ()
 
@@ -299,11 +299,11 @@ function s:exMB_GotoSelectResult() " <<<
     " cause different files have different marks (those lower case marks), so we need to refresh mark browser
     if need_refresh_marks
         call exUtility#GotoPluginBuffer()
-        call g:exMB_UpdateSelectWindow ()
+        call g:ExMB_UpdateSelectWindow ()
     endif
 
     "
-    call exUtility#OperateWindow ( s:exMB_select_title, g:exMB_close_when_selected, g:exMB_backto_editbuf, 1 )
+    call exUtility#OperateWindow ( s:exMB_select_title, g:ExMB_close_when_selected, g:ExMB_backto_editbuf, 1 )
 endfunction " >>>
 
 " ------------------------------------------------------------------ 

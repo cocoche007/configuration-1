@@ -23,32 +23,32 @@ let loaded_exmacrohighlight=1
 " Desc: window height for horizon window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMH_window_height')
-    let g:exMH_window_height = 20
+if !exists('g:ExMH_window_height')
+    let g:ExMH_window_height = 20
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width for vertical window mode
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMH_window_width')
-    let g:exMH_window_width = 30
+if !exists('g:ExMH_window_width')
+    let g:ExMH_window_width = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window height increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMH_window_height_increment')
-    let g:exMH_window_height_increment = 30
+if !exists('g:ExMH_window_height_increment')
+    let g:ExMH_window_height_increment = 30
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: window width increment value
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMH_window_width_increment')
-    let g:exMH_window_width_increment = 50
+if !exists('g:ExMH_window_width_increment')
+    let g:ExMH_window_width_increment = 50
 endif
 
 " ------------------------------------------------------------------ 
@@ -56,16 +56,16 @@ endif
 " 'topleft','botright','belowright'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMH_window_direction')
-    let g:exMH_window_direction = 'botright'
+if !exists('g:ExMH_window_direction')
+    let g:ExMH_window_direction = 'botright'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: use vertical or not
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMH_use_vertical_window')
-    let g:exMH_use_vertical_window = 1
+if !exists('g:ExMH_use_vertical_window')
+    let g:ExMH_use_vertical_window = 1
 endif
 
 " ------------------------------------------------------------------ 
@@ -73,16 +73,16 @@ endif
 " 'none', 'append', 'replace'
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMH_edit_mode')
-    let g:exMH_edit_mode = 'replace'
+if !exists('g:ExMH_edit_mode')
+    let g:ExMH_edit_mode = 'replace'
 endif
 
 " ------------------------------------------------------------------ 
 " Desc: set tag select command
 " ------------------------------------------------------------------ 
 
-if !exists('g:exMH_SymbolSelectCmd')
-    let g:exMH_SymbolSelectCmd = 'ts'
+if !exists('g:ExMH_SymbolSelectCmd')
+    let g:ExMH_SymbolSelectCmd = 'ts'
 endif
 
 " ======================================================== 
@@ -182,13 +182,13 @@ let s:elifn_disable_pattern = s:elifn_and_pattern . s:def_macro_pattern . s:end_
 function s:exMH_OpenWindow( short_title ) " <<<
     " read the file first, if file name changes, reset title.
     " if s:exMH_cur_filename don't load, we load and do MH init 
-    if exists('g:exES_Macro')
-        if s:exMH_cur_filename != g:exES_Macro
-            call g:exMH_InitMacroList(g:exES_Macro)
+    if exists('g:ExES_Macro')
+        if s:exMH_cur_filename != g:ExES_Macro
+            call g:ExMH_InitMacroList(g:ExES_Macro)
         endif
     else
         call exUtility#WarningMsg('macro file not found, please create one in vimentry')
-        call g:exMH_InitMacroList(s:exMH_select_title)
+        call g:ExMH_InitMacroList(s:exMH_select_title)
     endif
 
     " if need switch window
@@ -211,10 +211,10 @@ function s:exMH_OpenWindow( short_title ) " <<<
         let title = s:exMH_cur_filename
     endif
     " open window
-    if g:exMH_use_vertical_window
-        call exUtility#OpenWindow( title, g:exMH_window_direction, g:exMH_window_width, g:exMH_use_vertical_window, g:exMH_edit_mode, 1, 'g:exMH_Init'.s:exMH_short_title.'Window', 'g:exMH_Update'.s:exMH_short_title.'Window' )
+    if g:ExMH_use_vertical_window
+        call exUtility#OpenWindow( title, g:ExMH_window_direction, g:ExMH_window_width, g:ExMH_use_vertical_window, g:ExMH_edit_mode, 1, 'g:ExMH_Init'.s:exMH_short_title.'Window', 'g:ExMH_Update'.s:exMH_short_title.'Window' )
     else
-        call exUtility#OpenWindow( title, g:exMH_window_direction, g:exMH_window_height, g:exMH_use_vertical_window, g:exMH_edit_mode, 1, 'g:exMH_Init'.s:exMH_short_title.'Window', 'g:exMH_Update'.s:exMH_short_title.'Window' )
+        call exUtility#OpenWindow( title, g:ExMH_window_direction, g:ExMH_window_height, g:ExMH_use_vertical_window, g:ExMH_edit_mode, 1, 'g:ExMH_Init'.s:exMH_short_title.'Window', 'g:ExMH_Update'.s:exMH_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -223,10 +223,10 @@ endfunction " >>>
 " ------------------------------------------------------------------ 
 
 function s:exMH_ResizeWindow() " <<<
-    if g:exMH_use_vertical_window
-        call exUtility#ResizeWindow( g:exMH_use_vertical_window, g:exMH_window_width, g:exMH_window_width_increment )
+    if g:ExMH_use_vertical_window
+        call exUtility#ResizeWindow( g:ExMH_use_vertical_window, g:ExMH_window_width, g:ExMH_window_width_increment )
     else
-        call exUtility#ResizeWindow( g:exMH_use_vertical_window, g:exMH_window_height, g:exMH_window_height_increment )
+        call exUtility#ResizeWindow( g:ExMH_use_vertical_window, g:ExMH_window_height, g:ExMH_window_height_increment )
     endif
 endfunction " >>>
 
@@ -237,13 +237,13 @@ endfunction " >>>
 function s:exMH_ToggleWindow( short_title ) " <<<
     " read the file first, if file name changes, reset title.
     " if s:exMH_cur_filename don't load, we load and do MH init 
-    if exists('g:exES_Macro')
-        if s:exMH_cur_filename != g:exES_Macro
-            call g:exMH_InitMacroList(g:exES_Macro)
+    if exists('g:ExES_Macro')
+        if s:exMH_cur_filename != g:ExES_Macro
+            call g:ExMH_InitMacroList(g:ExES_Macro)
         endif
     else
         call exUtility#WarningMsg('macro file not found, please create one in vimentry')
-        call g:exMH_InitMacroList(s:exMH_select_title)
+        call g:ExMH_InitMacroList(s:exMH_select_title)
     endif
 
     " if need switch window
@@ -265,10 +265,10 @@ function s:exMH_ToggleWindow( short_title ) " <<<
     if a:short_title == 'Select'
         let title = s:exMH_cur_filename
     endif
-    if g:exMH_use_vertical_window
-        call exUtility#ToggleWindow( title, g:exMH_window_direction, g:exMH_window_width, g:exMH_use_vertical_window, 'none', 0, 'g:exMH_Init'.s:exMH_short_title.'Window', 'g:exMH_Update'.s:exMH_short_title.'Window' )
+    if g:ExMH_use_vertical_window
+        call exUtility#ToggleWindow( title, g:ExMH_window_direction, g:ExMH_window_width, g:ExMH_use_vertical_window, 'none', 0, 'g:ExMH_Init'.s:exMH_short_title.'Window', 'g:ExMH_Update'.s:exMH_short_title.'Window' )
     else
-        call exUtility#ToggleWindow( title, g:exMH_window_direction, g:exMH_window_height, g:exMH_use_vertical_window, 'none', 0, 'g:exMH_Init'.s:exMH_short_title.'Window', 'g:exMH_Update'.s:exMH_short_title.'Window' )
+        call exUtility#ToggleWindow( title, g:ExMH_window_direction, g:ExMH_window_height, g:ExMH_use_vertical_window, 'none', 0, 'g:ExMH_Init'.s:exMH_short_title.'Window', 'g:ExMH_Update'.s:exMH_short_title.'Window' )
     endif
 endfunction " >>>
 
@@ -276,7 +276,7 @@ endfunction " >>>
 " Desc: 
 " ------------------------------------------------------------------ 
 
-function g:exMH_InitMacroList(macrofile_name) " <<<
+function g:ExMH_InitMacroList(macrofile_name) " <<<
     " init file name and read the file into line_list
     let s:exMH_cur_filename = a:macrofile_name
     let line_list = []
@@ -559,7 +559,7 @@ endfunction " >>>
 " Desc: Init macro higlihgt select window
 " ------------------------------------------------------------------ 
 
-function g:exMH_InitSelectWindow() " <<<
+function g:ExMH_InitSelectWindow() " <<<
     " set buffer no modifiable
     silent! setlocal nonumber
     " this will help Update symbol relate with it.
@@ -567,9 +567,9 @@ function g:exMH_InitSelectWindow() " <<<
     silent! setlocal cursorline
     
     " key map
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call <SID>exMH_ToggleWindow('Select')<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_resize . " :call <SID>exMH_ResizeWindow()<CR>"
-    silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_confirm . " \\|:call <SID>exMH_SelectConfirm()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call <SID>exMH_ToggleWindow('Select')<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_resize . " :call <SID>exMH_ResizeWindow()<CR>"
+    silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_confirm . " \\|:call <SID>exMH_SelectConfirm()<CR>"
     nnoremap <buffer> <silent> <2-LeftMouse>   \|:call <SID>exMH_SelectConfirm()<CR>
 
     " dummy mapping
@@ -598,7 +598,7 @@ endfunction " >>>
 " Desc: Update exMacroHighlight window
 " ------------------------------------------------------------------ 
 
-function g:exMH_UpdateSelectWindow() " <<<
+function g:ExMH_UpdateSelectWindow() " <<<
     " call cursor( s:exMH_select_idx, 1)
     " call exUtility#HighlightConfirmLine()
 endfunction " >>>

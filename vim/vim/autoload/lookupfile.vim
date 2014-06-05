@@ -68,7 +68,7 @@ function! lookupfile#OpenWindow(bang, initPat)
       endif
       let s:myBufNum = bufnr('%')
       " JWU ADD { 
-      silent exec "nnoremap <buffer> <silent> " . g:ex_keymap_close . " :call lookupfile#CloseWindow()<CR>"
+      silent exec "nnoremap <buffer> <silent> " . g:Ex_keymap_close . " :call lookupfile#CloseWindow()<CR>"
       " } JWU ADD end 
     else
       let winnr = bufwinnr(s:myBufNum)
