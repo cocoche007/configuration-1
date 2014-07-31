@@ -1,0 +1,26 @@
+#!/bin/sh
+
+if [ ! -f /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_input ]; then
+	echo -e "No temp for tag ${1}\n"
+	echo -e "#f34f39\n"
+	exit 1
+fi
+
+BRUT=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_input)
+HIGH=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_max)
+CRIT=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_crit)
+LABL=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_label | sed 's|Core ||')
+
+TEMP=$(( $BRUT / 1000 ))
+TEMP+=".$(( $BRUT - ($TEMP * 1000) ))"
+
+if [ $BRUT -ge $CRIT ]; then
+	COLOR="#f34f39"
+elif [ $BRUT -ge $HIGH ]; then
+	COLOR="#ffd00a"
+else
+	COLOR="#729eca"
+fi
+
+echo -e "$LABL: $TEMP°C\n"
+echo -e "$COLOR\n"

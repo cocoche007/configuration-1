@@ -1,0 +1,27 @@
+#!/bin/sh
+
+OLDIFS=$IFS
+IFS=$'\n'
+
+IP=""
+COLOR="#93f91d"
+
+if ip -o link show $1 | grep "state UP" > /dev/null 2>&1; then
+	for line in $(ip -o addr show dev $1 2> /dev/null | grep "inet "); do
+		NEWIP=$(echo $line | sed 's|^.*inet ||;s| brd .*$||')
+		IP+=" $NEWIP"
+	done
+
+	if [ -z "$IP" ]; then
+		IP=" No Ip"
+		COLOR="#ffd00a"
+	fi
+else
+	IP=" Not connected"
+	COLOR="#f34f39"
+fi
+
+echo -e "$2:$IP\n"
+echo -e "$COLOR\n"
+
+IFS=$OLDIFS

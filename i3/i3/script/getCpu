@@ -1,0 +1,15 @@
+#!/bin/sh
+
+FREQUENCY=""
+
+for freq in $(cat /proc/cpuinfo | sed -n '/cpu MHz/p;' | head -n 4 | sed 's/cpu MHz[ \t]*: \([0-9]*\)\..*/\1/'); do
+	if [ $freq -ge 1000 ]; then
+		freq=$(echo $freq / 1000 | bc).$(echo $freq % 1000 / 100 | bc | sed 's/\..*$//')
+		unit="GHz"
+	else
+		unit="MHz"
+	fi
+	FREQUENCY="$FREQUENCY·$freq$unit"
+done
+
+echo $FREQUENCY
