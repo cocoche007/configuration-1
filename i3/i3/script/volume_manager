@@ -1,25 +1,8 @@
 #!/bin/sh
 
-APPNAME="Volume manager"
-CURRENT_SINK="$(cat .i3/script/.volume.current_sinks)"
-ALLSINKS=
-MAXSINKS=
-
-init_sink()
-{
-    if [ -z ${ALLSINKS} ]; then
-        i=0
-        for sink in $(pacmd list-sinks | grep "name:" | sed 's|^.*name: <||;s|>||'); do
-            echo "Add $sink in array"
-            ALLSINKS[$i]=$sink
-            i=$(( $i + 1 ))
-        done
-        MAXSINKS=$i
-    fi
-    if [ -z $(CURRENT_SINK) ]; then
-        
-    fi
-}
+APPNAME="PaYap"
+PAYAPDIR="/home/olivaa/.payap"
+COMMAND="$PAYAPDIR/command"
 
 notify()
 {
@@ -28,99 +11,40 @@ notify()
 
 toggle_volume()
 {
-    sink=$1
-    pactl set-sink-mute $sink toggle
-    notify normal "Card $(echo $sink | sed 's|^.*\.||')" "$(get_volume $sink) - Toggle mute"
+    echo toggle > "$COMMAND"
+    notify normal "Card $(cat "$PAYAPDIR/default_sink")" "$(cat "$PAYAPDIR/volume")"
 }
 
 up_volume()
 {
-    sink=$1
-
-    pactl set-sink-volume $sink +$2%
-    notify normal "Card $(echo $sink | sed 's|^.*\.||')" "$(get_volume $sink) - Increase volume"
+    echo up > "$COMMAND"
+    notify normal "Card $(cat "$PAYAPDIR/default_sink")" "$(cat "$PAYAPDIR/volume")"
 }
 
 down_volume()
 {
-    sink=$1
-
-    pactl set-sink-volume $sink -- -$2%
-    notify normal "Card $(echo $sink | sed 's|^.*\.||')" "$(get_volume $sink) - Decrease volume"
+    echo down > "$COMMAND"
+    notify normal "Card $(cat "$PAYAPDIR/default_sink")" "$(cat "$PAYAPDIR/volume")"
 }
 
-get_volume()
+switch_sink()
 {
-    sink=$1
-
-    sinkfound=0
-    volumefound=0
-    mutefound=0
-
-    OUTPUT=$(pactl list sinks)
-    for line in $OUTPUT; do
-        if [ $sinkfound -eq 1 ]; then
-            if [ $volumefound -eq 1 ]; then
-                look=$(echo $line | /usr/bin/grep "[0-9][0-9]*%")
-                if [ $? -eq 0 ]; then
-                    echo $look
-                    return
-                fi
-            else
-                if [ $line == "Volume:" ]; then
-                    volumefound=1
-                fi
-            fi
-            if [ $mutefound -eq 1 ]; then
-                if [ $line == "yes" ]; then
-                    echo "Mute"
-                    return
-                fi
-                mutefound=0
-            else
-                if [ $line == "Mute:" ]; then
-                    mutefound=1
-                fi
-            fi
-
-        else
-            if [ $line == $sink ]; then
-                sinkfound=1
-            fi
-        fi
-    done
+    echo switch > "$COMMAND"
+    notify normal "Card $(cat "$PAYAPDIR/default_sink")" "$(cat "$PAYAPDIR/volume")"
 }
 
 case $1 in
     "toggle")
-        if [ -f $HOME/.i3/volume.sinks ]; then
-            while read sink; do
-                toggle_volume $sink
-            done < $HOME/.i3/volume.sinks
-        else
-            notify critical "Toggle mute" "No sinks defined on system"
-        fi
+        toggle_volume
         ;;
     "up")
-        if [ -f $HOME/.i3/volume.sinks ]; then
-            while read sink; do
-                up_volume $sink 1
-            done < $HOME/.i3/volume.sinks
-        else
-            notify critical "Increase volume" "No sinks defined on system"
-        fi
+        up_volume
         ;;
     "down")
-        if [ -f $HOME/.i3/volume.sinks ]; then
-            while read sink; do
-                down_volume $sink 1
-            done < $HOME/.i3/volume.sinks
-        else
-            notify critical "Decrease volume" "No sinks defined on system"
-        fi
+        down_volume
         ;;
     "select")
-        echo "TODO"
+        switch_sink
         ;;
     *)
 esac
