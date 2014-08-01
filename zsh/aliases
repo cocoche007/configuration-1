@@ -3,3 +3,4 @@ alias grep='grep --color=auto --exclude-dir=".svn" --exclude-dir=".git" -n'
 alias egrep='egrep --color=auto'
 alias gl='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit'
 alias jctl='journalctl -b'
+alias noblank="xset s noblank; xset s off; xset s reset; xset -dpms"
