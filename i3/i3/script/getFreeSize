@@ -1,0 +1,20 @@
+#!/bin/sh
+
+FREESIZE=$(df -h $1 | tail -n 1 | sed 's|  *| |g' | cut -d ' ' -f 4)
+FREESIZEBRUT=$(df $1 | tail -n 1 | sed 's|  *| |g' | cut -d ' ' -f 4)
+
+LIMIT=$2
+if [ -z "$LIMIT" ]; then
+	LIMIT=1
+fi
+LIMIT=$(( $LIMIT * 1024 * 1024 ))
+
+if [ $FREESIZEBRUT -le $LIMIT ]; then
+	COLOR="#f34f39"
+else
+	COLOR="#ad7fa8"
+fi
+
+
+echo -e "$1: $FREESIZE\n"
+echo -e "$COLOR\n"

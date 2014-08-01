@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PERC=0
+
+for perc in $(ps -eo pcpu | sort -r); do
+	if [ "$perc" != "%CPU" ]; then
+		if [ "$perc" == "0.0" ]; then
+			break
+		fi
+		PERC=$(echo "$PERC + $perc" | bc)
+	fi
+done
+echo "${PERC}%"
