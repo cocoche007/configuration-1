@@ -5,3 +5,4 @@ alias gl='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Crese
 alias jctl='journalctl -b'
 alias noblank="xset s noblank; xset s off; xset s reset; xset -dpms"
 alias fjctl='journalctl -f'
+alias :wq='exit'
