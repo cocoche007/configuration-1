@@ -2,6 +2,8 @@ Dotfiles repository
 -------------------
                       -- One repository to configure all
 
+             /!\ OUTDATED README /!\
+
 Each software configuration is located on a single folder.
 
     vim - Vim configuration with ExVim IDE installation
@@ -18,4 +20,9 @@ variant of Dvorak layout, see http://bepo.fr).
 
 ========================================================
                         ZSH PART
+========================================================
+
+
+========================================================
+                        I3  PART
 ========================================================
