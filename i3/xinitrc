@@ -13,36 +13,5 @@ fi
 
 xset -b
 
-exec dbus-launch i3 &
-export WMPID=$!
+exec dbus-launch $HOME/.Xsessions
 
-# Load Xresource
-[ -f "$HOME/.Xresources" ] && /usr/bin/xrdb -merge "$HOME/.Xresources"
-
-# Start composite manager
-if [ -x /usr/bin/xcompmgr ]; then
-    /usr/bin/xcompmgr -O -D1 -C &
-    export XCOMPID=$!
-fi
-
-# Create background list
-if [ -x /usr/bin/feh ]; then
-    filelist="$HOME/.background/filelist"
-    if [ -d "$HOME/.background" ]; then
-        /usr/bin/find "$HOME/.background" -name "*.png" >  "$filelist"
-        /usr/bin/find "$HOME/.background" -name "*.jpg" >> "$filelist"
-        /usr/bin/find "$HOME/.background" -name "*.gif" >> "$filelist"
-        /usr/bin/find "$HOME/.background" -name "*.bmp" >> "$filelist"
-        /usr/bin/feh --bg-scale --randomize $(/usr/bin/cat "$filelist")
-    fi
-    unset filelist
-fi
-
-#[ -x /usr/bin/start-pulseaudio-x11 ] && /usr/bin/start-pulseaudio-x11
-[ -x /usr/bin/thunar ] && /usr/bin/thunar --daemon &
-[ -x /usr/bin/redshift ] && /usr/bin/redshift -l 47.25:6.33 -t 5700:3600 -g 0.8 -m vidmode &
-[ -x /usr/bin/pasystray ] && /usr/bin/pasystray &
-sleep 15
-[ -x /usr/bin/payap ] && /usr/bin/payap --dir="$HOME/.payap" -l "$HOME/.payap/payap.log" -vvvv
-
-wait $WMPID

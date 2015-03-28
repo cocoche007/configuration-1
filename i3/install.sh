@@ -63,6 +63,7 @@ installdir()
 
 installfile "$INSTALL_DIR/Xresources"     "$HOME/.Xresources"
 installfile "$INSTALL_DIR/xinitrc"        "$HOME/.xinitrc"
+installfile "$INSTALL_DIR/Xsession"        "$HOME/.Xsession"
 installfile "$INSTALL_DIR/keyboard.sh"    "/etc/profile.d/keyboard.sh" "sudo"
 installfile "$INSTALL_DIR/XCompose"       "$HOME/.XCompose"
 installfile "$INSTALL_DIR/dunstrc"        "$HOME/.config/dunst/dunstrc"
