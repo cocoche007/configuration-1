@@ -84,7 +84,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+n focus child
 
 # switch to workspace
 bindsym $mod+quotedbl workspace 1
@@ -117,7 +117,7 @@ bindsym $mod+Shift+o restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+p exec --no-startup-id "$HOME/.i3/script/i3-exit"
 # start thunar
-bindsym $mod+e exec --no-startup-id "thunar"
+bindsym $mod+e exec --no-startup-id "nemo --no-desktop"
 # Lock screen
 bindsym $mod+Shift+l exec --no-startup-id "$HOME/.i3/script/i3lock-wrapper"
 
