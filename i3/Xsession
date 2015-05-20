@@ -34,6 +34,7 @@ fi
 [ -x /usr/bin/transmission-gtk ] && /usr/bin/transmission-gtk --minimized &
 [ -x /usr/bin/pasystray ] && /usr/bin/pasystray &
 [ -x /usr/bin/owncloud ] && /usr/bin/owncloud &
+[ -x /usr/bin/cbatticon ] && /usr/bin/cbatticon &
 sleep 15
 [ -x /usr/bin/payap ] && /usr/bin/payap --dir="$HOME/.payap" -l "$HOME/.payap/payap.log" -vvvv
 
