@@ -128,6 +128,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id "$HOME/.i3/script/volume_manag
 bindsym $mod+XF86AudioMute exec --no-startup-id "$HOME/.i3/script/volume_manager select"
 bindsym $mod+XF86AudioLowerVolume exec --no-startup-id "$HOME/.i3/script/volume_manager select"
 bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id "$HOME/.i3/script/volume_manager select"
+bindsym XF86MonBrightnessUp exec --no-startup-id "$HOME/.i3/script/backlight_manager inc 10"
+bindsym XF86MonBrightnessDown exec --no-startup-id "$HOME/.i3/script/backlight_manager dec 10"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

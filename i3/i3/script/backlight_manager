@@ -1,0 +1,13 @@
+#!/bin/sh
+
+notify()
+{
+	notify-send --expire-time=1000 --urgency="$1" --app-name="$APPNAME" --category="device" "$2" "$3"
+}
+
+MAX=$(cat /sys/class/backlight/*/max_brightness | head -n 1)
+CUR=$(cat /sys/class/backlight/*/brightness | head -n 1)
+PERCENT=$(( $CUR * 100 / $MAX ))
+
+/usr/bin/xbacklight -$1 $2
+notify normal "Backlight" "set screen backlight to $PERCENT %"
