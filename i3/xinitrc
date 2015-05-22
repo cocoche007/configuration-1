@@ -13,9 +13,5 @@ fi
 
 xset -b
 
-# Start gnome-keyring
-eval $(/usr/bin/gnome-keyring-daemon --start -l --components=pkcs11,secrets,ssh)
-export SSH_AUTH_SOCK
-
-exec dbus-launch $HOME/.Xsession
+exec dbus-launch /bin/sh "$HOME/.Xsession"
 

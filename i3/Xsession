@@ -1,8 +1,13 @@
 #!/bin/sh
 #
+# ~/.Xsession
 
 i3 &
 export WMPID=$!
+
+# Start gnome-keyring
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
 
 # Load Xresource
 [ -f "$HOME/.Xresources" ] && /usr/bin/xrdb -merge "$HOME/.Xresources"
@@ -16,7 +21,7 @@ fi
 # Create background list
 if [ -x /usr/bin/feh ]; then
     filelist="$HOME/.background/filelist"
-if [ -d "$HOME/.background" ]; then
+    if [ -d "$HOME/.background" ]; then
         /usr/bin/find "$HOME/.background" -name "*.png" >  "$filelist"
         /usr/bin/find "$HOME/.background" -name "*.jpg" >> "$filelist"
         /usr/bin/find "$HOME/.background" -name "*.gif" >> "$filelist"
@@ -28,6 +33,7 @@ fi
 
 #[ -x /usr/bin/start-pulseaudio-x11 ] && /usr/bin/start-pulseaudio-x11
 [ -x /usr/bin/thunar ] && /usr/bin/thunar --daemon &
+[ -x /usr/bin/pcmanfm ] && /usr/bin/pcmanfm --daemon-mode &
 [ -x /usr/bin/redshift ] && /usr/bin/redshift -l 47.25:6.33 -t 5700:3600 -g 0.8 -m vidmode &
 [ -x /usr/bin/pidgin ] && /usr/bin/pidgin &
 [ -x /usr/bin/bluedevil-monolithic ] && /usr/bin/bluedevil-monolithic &
