@@ -9,7 +9,7 @@ ROOTDIR="$(readlink -f "$(dirname $0)")"
 
 SYMBOLIC=0
 
-DEPLIST="vim git vim-l9 cmake python2 idutils"
+DEPLIST="vim git vim-l9 cmake python2 idutils clang"
 
 # Warning: this script run for Archlinux or any distros that use pacman
 #          as package manager
@@ -112,7 +112,7 @@ install_plugin_from_git "https://github.com/SirVer/ultisnips.git" "ultisnips"
 # Install YouCompleteMe (to add autocomplete)
 install_plugin_from_git "https://github.com/Valloric/YouCompleteMe.git" "youcompleteme"
 # Compile YouCompleteMe plugin
-(cd "${BUNDLE}/youcompleteme" && ./install.sh --clang-completer)
+(cd "${BUNDLE}/youcompleteme" && ./install.sh --clang-completer --omnisharp-completer --gocod-completer)
 # Install delimitMate (to automatically close bracket)
 install_plugin_from_git "https://github.com/Raimondi/delimitMate.git" "delimitmate"
 # Install colorizer (to color background of html color)
