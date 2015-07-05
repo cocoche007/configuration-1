@@ -1,90 +1,154 @@
 #!/bin/sh
 
-INSTALL_DIR=$(dirname $0)
+VIMDIR="${HOME}/.vim"
+VIMRC="${VIMDIR}/vimrc"
+BUNDLE="${VIMDIR}/bundle"
+CONF="${VIMDIR}/config"
+LANGUAGE="${VIMDIR}/specif"
+ROOTDIR="$(readlink -f "$(dirname $0)")"
 
-installfile()
+SYMBOLIC=0
+
+DEPLIST="vim git vim-l9 cmake python2 idutils"
+
+# Warning: this script run for Archlinux or any distros that use pacman
+#          as package manager
+check_deps()
 {
-    if [ -f "$2" ]; then
-        if [ "x$3" != "x" ]; then
-            answer=$3
-        else
-            echo "Warning, $2 file already exists."
-            diff "$1" "$2"
-            echo -n "(R)eplace, (M)erge, (S)kip? [R/m/s]"
-            read answer
+    pacman -Q "$1"
+    return $?
+}
+
+
+install_prerequisities()
+{
+    error=0
+    for pkg in ${DEPLIST}; do
+        if ! check_deps "${pkg}"; then
+            echo "You need to install '${pkg}' package."
+            error=1
         fi
-        case "$answer" in
-            "M"|"m")
-                echo "Manually merge $1 and $2"
-                vimdiff "$1" "$2"
-                ;;
-            "S"|"s")
-                ;;
-            "R"|"r"|*)
-                if [ ! -d "$(dirname "$2")" ]; then
-                    mkdir -p "$(dirname "$2")"
-                fi
-                cp -v "$1" "$2"
-        esac
-    else
-        if [ ! -d "$(dirname "$2")" ]; then
-            mkdir -p "$(dirname "$2")"
-        fi
-        cp -v "$1" "$2"
+    done
+
+    if [ ${error} -eq 1 ]; then
+        exit 127
     fi
 }
 
-installdir()
+install_plugin_from_git()
 {
-    if [ -d "$2" ]; then
-        echo "Warning, $2 folder already exists."
-        diff -r "$1" "$2"
-        echo -n "(R)eplace all, (M)erge all, (S)kip all, (I)nteractive? [R/m/s/i]"
-        read answer
-        case "$answer" in
-            "M"|"m")
-                flag="M"
-                ;;
-            "S"|"s")
-                return
-                ;;
-            "I"|"i")
-                flag=""
-                ;;
-            "R"|"r"|*)
-                flag="R"
-                ;;
-        esac
-        for file in $(find "$1" -type f); do
-            outfile=$(echo "$file" | sed "s|$1|$2|")
-            installfile "$file" "$outfile" $flag
-        done
+    url="$1"
+    name="$2"
+
+    if [ -d "${BUNDLE}/${name}" ]; then
+        (cd "${BUNDLE}/${name}" && git pull origin master)
+        (cd "${BUNDLE}/${name}" && git submodule update --recursive)
     else
-        cp -Rvf "$1" "$2"
+        (cd "${BUNDLE}" && git clone "${url}" "${name}")
+        (cd "${BUNDLE}/${name}" && git submodule update --init --recursive)
     fi
 }
 
-update()
+usage()
 {
-    if [ -f "$1" ]; then
-        echo -n "Do you really want to update $1 from internet (source $2) ? [Y/n]"
-        read answer
-        case "$answer" in
-            "n"|"N")
-                echo "Abort update."
-                ;;
-            *)
-                curl "$2" > "$1"
-                ;;
-        esac
-    fi
+    echo "VIM installation script"
+    echo ""
+    echo "$0 [OPTIONS]"
+    echo ""
+    echo "-s, --symbolic"
+    echo "        Install configuration using symbolic links."
 }
 
+while [ $# -ne 0 ]; do
+    case "$1" in
+        "--symbolic"|"-s")
+            SYMBOLIC=1
+            ;;
+        *)
+            echo "Unrecognized argument. ($1)"
+            usage
+            exit 127
+            ;;
+    esac
+    shift
+done
 
-update      "$INSTALL_DIR/vim/syntax/i3.vim" "https://raw.githubusercontent.com/PotatoesMaster/i3-vim-syntax/master/syntax/i3.vim"
-installfile "$INSTALL_DIR/vimrc"    "$HOME/.vimrc"
-installdir  "$INSTALL_DIR/vim"	    "$HOME/.vim"
-installdir  "$INSTALL_DIR/toolkit"  "$HOME/.toolkit"
-[ ! -d "$HOME/.exdev" ] && mkdir "$HOME/.exdev"
+install_prerequisities
+
+# Init global vim structure
+mkdir -p "${VIMDIR}/autoload"
+mkdir -p "${BUNDLE}"
+
+if [ ${SYMBOLIC} -eq 1 ]; then
+    ln -svf "$(readlink -f "${ROOTDIR}/vimrc")" "${VIMRC}"
+else
+    cp -Rvf "${ROOTDIR}/vimrc" "${VIMRC}"
+fi
+
+ln -sf "${VIMRC}" "${HOME}/.vimrc"
+
+# Install pathogen plugin
+if [ -d "${VIMDIR}/pathogen" ]; then
+    (cd "${VIMDIR}/pathogen" && git pull origin master)
+else
+    git clone https://github.com/tpope/vim-pathogen.git "${VIMDIR}/pathogen"
+    (cd "${VIMDIR}/autoload" && ln -s "../pathogen/autoload/pathogen.vim" .)
+fi
+
+# Install NERDTree plugin (to navigate in folder tree)
+install_plugin_from_git "https://github.com/scrooloose/nerdtree.git" "nerdtree"
+# Install FuzzyFinder (to find anything, anywhere)
+install_plugin_from_git "https://github.com/vim-scripts/FuzzyFinder.git" "fuzzyfinder"
+# Install Fugitive (to do all git in vim)
+install_plugin_from_git "https://github.com/tpope/vim-fugitive.git" "fugitive"
+# Install vim-git (to get better vim color when using git)
+install_plugin_from_git "https://github.com/tpope/vim-git.git" "vimgit"
+# Install tagbar (to get all tags)
+install_plugin_from_git "https://github.com/majutsushi/tagbar.git" "tagbar"
+# Install syntastic (to statically check syntax)
+install_plugin_from_git "https://github.com/scrooloose/syntastic.git" "syntastic"
+# Install ultisnips (to manage snippets)
+install_plugin_from_git "https://github.com/SirVer/ultisnips.git" "ultisnips"
+# Install YouCompleteMe (to add autocomplete)
+install_plugin_from_git "https://github.com/Valloric/YouCompleteMe.git" "youcompleteme"
+# Compile YouCompleteMe plugin
+(cd "${BUNDLE}/youcompleteme" && ./install.sh --clang-completer)
+# Install delimitMate (to automatically close bracket)
+install_plugin_from_git "https://github.com/Raimondi/delimitMate.git" "delimitmate"
+# Install colorizer (to color background of html color)
+install_plugin_from_git "https://github.com/vim-scripts/colorizer.git" "colorizer"
+# Install vim-matchit (to easely navigate from one bracket to another)
+install_plugin_from_git "https://github.com/edsono/vim-matchit.git" "matchit"
+# Install NERDCommenter (to comment or uncomment large part of code)
+install_plugin_from_git "https://github.com/scrooloose/nerdcommenter.git" "nerdcommenter"
+# Install Tabular (to produce wonderfull array)
+install_plugin_from_git "https://github.com/godlygeek/tabular.git" "tabular"
+# Install nextval (to increment/decrement absolutely everything)
+install_plugin_from_git "https://github.com/vim-scripts/nextval.git" "nextval"
+# Install surround (to encapsulate piece of text)
+install_plugin_from_git "https://github.com/tpope/vim-surround.git" "surround"
+
+# Install bepo mapping
+if [ ${SYMBOLIC} -eq 1 ]; then
+    ln -svf "$(readlink -f "${ROOTDIR}/config")" "${CONF}"
+    ln -svf "$(readlink -f "${ROOTDIR}/specif")" "${LANGUAGE}"
+else
+    cp -Rvf "${ROOTDIR}/config" "${CONF}"
+    cp -Rvf "${ROOTDIR}/specif" "${LANGUAGE}"
+fi
 
 
+# Easy Diff goto
+#noremap <unique> <C-Up> [c
+#noremap <unique> <C-s> [c
+#noremap <unique> <C-Down> ]c
+#noremap <unique> <C-t> ]c
+
+#""" Mutt
+#augroup filetypedetect
+#    autocmd BufRead,BufNewfile *mutt-*  setfiletype mail
+#augroup END
+
+
+#map <F7> :setlocal spell! spelllang=fr,en<CR>
+#map <F6> :set expandtab!<CR>
