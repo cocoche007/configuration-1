@@ -9,7 +9,8 @@ ROOTDIR="$(readlink -f "$(dirname $0)")"
 
 SYMBOLIC=0
 
-DEPLIST="vim git vim-l9 cmake python2 idutils clang"
+DEPLIST="git vim-l9 cmake python2 idutils clang"
+VIMLIST="vim gvim"
 
 # Warning: this script run for Archlinux or any distros that use pacman
 #          as package manager
@@ -23,6 +24,13 @@ check_deps()
 install_prerequisities()
 {
     error=0
+    foundvim=0
+    for pkg in ${VIMLIST}; do
+        if check_deps "${pkg}"; then
+            echo "Found ${pkg}"
+            foundvim=1
+        fi
+    done
     for pkg in ${DEPLIST}; do
         if ! check_deps "${pkg}"; then
             echo "You need to install '${pkg}' package."
@@ -30,6 +38,10 @@ install_prerequisities()
         fi
     done
 
+    if [ ${foundvim} -eq 0 ]; then
+        echo "You need to install vim to apply Vim configuration"
+        exit 127
+    fi
     if [ ${error} -eq 1 ]; then
         exit 127
     fi
@@ -52,17 +64,24 @@ install_plugin_from_git()
 usage()
 {
     echo "VIM installation script"
+    echo "-----------------------"
     echo ""
     echo "$0 [OPTIONS]"
     echo ""
     echo "-s, --symbolic"
     echo "        Install configuration using symbolic links."
+    echo "-h, --help"
+    echo "        Show this help and quit"
 }
 
 while [ $# -ne 0 ]; do
     case "$1" in
         "--symbolic"|"-s")
             SYMBOLIC=1
+            ;;
+        "--help"|"-h")
+            usage
+            exit 0
             ;;
         *)
             echo "Unrecognized argument. ($1)"
