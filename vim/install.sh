@@ -9,7 +9,7 @@ ROOTDIR="$(readlink -f "$(dirname $0)")"
 
 SYMBOLIC=0
 
-DEPLIST="vim git vim-l9 cmake python2 idutils clang"
+DEPLIST="vim git cmake python2 idutils clang"
 
 # Warning: this script run for Archlinux or any distros that use pacman
 #          as package manager
@@ -95,6 +95,8 @@ else
     (cd "${VIMDIR}/autoload" && ln -s "../pathogen/autoload/pathogen.vim" .)
 fi
 
+# Install Vim-L9 plugin
+install_plugin_from_git "https://github.com/vim-scripts/L9" "vim-l9"
 # Install NERDTree plugin (to navigate in folder tree)
 install_plugin_from_git "https://github.com/scrooloose/nerdtree.git" "nerdtree"
 # Install FuzzyFinder (to find anything, anywhere)
