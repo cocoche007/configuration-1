@@ -1,5 +1,3 @@
-call s:checkIfExpandTab()
-
 function s:CheckIfExpandTab()
     let has_noexpandtab = search('^\t', 'wn')
     let has_expandtab   = search('^    ', 'wn')
@@ -36,3 +34,5 @@ function s:CheckIfExpandTab()
         " we use original vim setting
     endif
 endfunction
+
+call s:CheckIfExpandTab()
