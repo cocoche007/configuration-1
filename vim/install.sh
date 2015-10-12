@@ -148,6 +148,8 @@ install_plugin_from_git "https://github.com/godlygeek/tabular.git" "tabular"
 install_plugin_from_git "https://github.com/vim-scripts/nextval.git" "nextval"
 # Install surround (to encapsulate piece of text)
 install_plugin_from_git "https://github.com/tpope/vim-surround.git" "surround"
+# Install wmgraphviz (to manipulate gv graph)
+install_plugin_from_git "https://github.com/wannesm/wmgraphviz.vim.git" "wmgraphviz"
 
 # Install bepo mapping
 if [ ${SYMBOLIC} -eq 1 ]; then
