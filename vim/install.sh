@@ -153,12 +153,20 @@ install_plugin_from_git "https://github.com/wannesm/wmgraphviz.vim.git" "wmgraph
 
 # Install bepo mapping
 if [ ${SYMBOLIC} -eq 1 ]; then
-    ln -svf "$(readlink -f "${ROOTDIR}/config")" "${CONF}"
-    ln -svf "$(readlink -f "${ROOTDIR}/specif")" "${LANGUAGE}"
+    [ ! -s ${CONF} ] && ln -svf "$(readlink -f "${ROOTDIR}/config")" "${CONF}"
+    [ ! -s ${LANGUAGE} ] && ln -svf "$(readlink -f "${ROOTDIR}/specif")" "${LANGUAGE}"
 else
-    cp -Rvf "${ROOTDIR}/config" "${CONF}"
-    cp -Rvf "${ROOTDIR}/specif" "${LANGUAGE}"
+    [ ! -d ${CONF} ] && cp -Rvf "${ROOTDIR}/config" "${CONF}"
+    [ ! -d ${LANGUAGE} ] && cp -Rvf "${ROOTDIR}/specif" "${LANGUAGE}"
 fi
+
+for patch in $(find "${ROOTDIR}/patch/" -type f); do
+    base=$(basename "${patch}")
+    plugin=$(echo "${base}" | sed 's|\.patch||')
+    if [ -d "${BUNDLE}/${plugin}" ]; then
+        (cd "${BUNDLE}/${plugin}" && git apply "${patch}")
+    fi
+done
 
 
 # Easy Diff goto
