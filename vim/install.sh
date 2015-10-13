@@ -9,7 +9,7 @@ ROOTDIR="$(readlink -f "$(dirname $0)")"
 
 SYMBOLIC=0
 
-DEPLIST="git cmake python2 idutils clang tidy-html5"
+DEPLIST="git cmake python2 idutils clang tidy-html5 powerline-fonts-git"
 VIMLIST="vim gvim"
 
 # Warning: this script run for Archlinux or any distros that use pacman
@@ -134,6 +134,12 @@ install_plugin_from_git "https://github.com/SirVer/ultisnips.git" "ultisnips"
 install_plugin_from_git "https://github.com/Valloric/YouCompleteMe.git" "youcompleteme"
 # Compile YouCompleteMe plugin
 (cd "${BUNDLE}/youcompleteme" && ./install.sh --clang-completer --omnisharp-completer --gocode-completer)
+# Set default ycm_extra_conf
+if [ ${SYMBOLIC} -eq 1 ]; then
+    [ ! -s "${VIMDIR}/ycm_extra_conf.py" ] && ln -svf "$(readlink -f "${ROOTDIR}/ycm_extra_conf.py")" "${VIMDIR}/ycm_extra_conf.py"
+else
+    [ ! -f "${VIMDIR}/ycm_extra_conf.py" ] && cp -vf "$(readlink -f "${ROOTDIR}/ycm_extra_conf.py")" "${VIMDIR}/ycm_extra_conf.py"
+fi
 # Install delimitMate (to automatically close bracket)
 install_plugin_from_git "https://github.com/Raimondi/delimitMate.git" "delimitmate"
 # Install colorizer (to color background of html color)
@@ -169,6 +175,7 @@ for patch in $(find "${ROOTDIR}/patch/" -type f); do
         (cd "${BUNDLE}/${plugin}" && git apply "${patch}")
     fi
 done
+
 
 # Easy Diff goto
 #noremap <unique> <C-Up> [c
