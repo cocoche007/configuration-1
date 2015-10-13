@@ -9,7 +9,7 @@ ROOTDIR="$(readlink -f "$(dirname $0)")"
 
 SYMBOLIC=0
 
-DEPLIST="git cmake python2 idutils clang"
+DEPLIST="git cmake python2 idutils clang tidy-html5"
 VIMLIST="vim gvim"
 
 # Warning: this script run for Archlinux or any distros that use pacman
@@ -150,6 +150,8 @@ install_plugin_from_git "https://github.com/vim-scripts/nextval.git" "nextval"
 install_plugin_from_git "https://github.com/tpope/vim-surround.git" "surround"
 # Install wmgraphviz (to manipulate gv graph)
 install_plugin_from_git "https://github.com/wannesm/wmgraphviz.vim.git" "wmgraphviz"
+# Install vim-airline (to get better line status)
+install_plugin_from_git "https://github.com/bling/vim-airline.git" "vim-airline"
 
 # Install bepo mapping
 if [ ${SYMBOLIC} -eq 1 ]; then
@@ -167,7 +169,6 @@ for patch in $(find "${ROOTDIR}/patch/" -type f); do
         (cd "${BUNDLE}/${plugin}" && git apply "${patch}")
     fi
 done
-
 
 # Easy Diff goto
 #noremap <unique> <C-Up> [c
