@@ -14,6 +14,7 @@ set scrolloff=0
 set nowrap
 
 " Set color scheme
+set t_Co=256
 set background=dark
 let g:hybrid_use_Xresources = 1
 colorscheme elflord
