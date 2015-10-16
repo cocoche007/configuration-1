@@ -158,6 +158,8 @@ install_plugin_from_git "https://github.com/tpope/vim-surround.git" "surround"
 install_plugin_from_git "https://github.com/wannesm/wmgraphviz.vim.git" "wmgraphviz"
 # Install vim-airline (to get better line status)
 install_plugin_from_git "https://github.com/bling/vim-airline.git" "vim-airline"
+# Install doxygen toolkit
+install_plugin_from_git "https://github.com/vim-scripts/DoxygenToolkit.vim" "doxygentoolkit"
 
 # Install bepo mapping
 if [ ${SYMBOLIC} -eq 1 ]; then
