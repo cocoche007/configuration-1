@@ -1,0 +1,21 @@
+[global_config]
+  title_transmit_bg_color = "#285577"
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_darkness = 0.87
+    background_image = None
+    background_type = transparent
+    foreground_color = "#ffffff"
+    palette = "#101010:#f34f39:#93f91d:#ffd00a:#88abd9:#d25ae8:#08c8cb:#f2f2f2:#1d202f:#ef2929:#8ae234:#fce94f:#729eca:#ad7fa8:#4bb8fd:#eeeeec"
+    scroll_on_output = False
+    scrollback_infinite = True
