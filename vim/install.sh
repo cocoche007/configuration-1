@@ -5,6 +5,7 @@ VIMRC="${VIMDIR}/vimrc"
 BUNDLE="${VIMDIR}/bundle"
 CONF="${VIMDIR}/config"
 LANGUAGE="${VIMDIR}/specif"
+SNIPPS="${VIMDIR}/UltiSnips"
 ROOTDIR="$(readlink -f "$(dirname $0)")"
 
 SYMBOLIC=0
@@ -165,9 +166,11 @@ install_plugin_from_git "https://github.com/vim-scripts/DoxygenToolkit.vim" "dox
 if [ ${SYMBOLIC} -eq 1 ]; then
     [ ! -s ${CONF} ] && ln -svf "$(readlink -f "${ROOTDIR}/config")" "${CONF}"
     [ ! -s ${LANGUAGE} ] && ln -svf "$(readlink -f "${ROOTDIR}/specif")" "${LANGUAGE}"
+    [ ! -s ${SNIPPS} ] && ln -svf "$(readlink -f "${ROOTDIR}/UltiSnips")" "${SNIPPS}"
 else
     [ ! -d ${CONF} ] && cp -Rvf "${ROOTDIR}/config" "${CONF}"
     [ ! -d ${LANGUAGE} ] && cp -Rvf "${ROOTDIR}/specif" "${LANGUAGE}"
+    [ ! -s ${SNIPPS} ] && cp -Rvf "${ROOTDIR}/UltiSnips" "${SNIPPS}"
 fi
 
 for patch in $(find "${ROOTDIR}/patch/" -type f); do
