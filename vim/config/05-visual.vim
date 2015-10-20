@@ -62,3 +62,5 @@ match NbSp /\%xa0/
 
 set list
 set lcs:trail:·,tab:»\ 
+
+:2mat ErrorMsg '\%80v.'
