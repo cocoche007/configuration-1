@@ -2,7 +2,7 @@ snippet unique
 #ifndef __$1__
 #define __$1__
 
-
+$0
 
 #endif /* __$1__ */
 endsnippet
@@ -10,4 +10,19 @@ snippet sep
 // ====================================
 // $1
 // ====================================
+$0
+endsnippet
+snippet cls
+class $1${2: : public ${3:mother}} {
+    public:
+        $1();
+        $1(const $1 &oObj);
+        ~$1();
+
+    private:
+        $0
+};
+endsnippet
+snippet printf
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
 endsnippet
