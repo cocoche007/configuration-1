@@ -1,15 +1,15 @@
 #!/bin/sh
 
-if [ ! -f /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_input ]; then
+if [ ! -f /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp${1}_input ]; then
 	echo -e "No temp for tag ${1}\n"
 	echo -e "#f34f39\n"
 	exit 1
 fi
 
-BRUT=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_input)
-HIGH=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_max)
-CRIT=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_crit)
-LABL=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp${1}_label | sed 's|Core ||')
+BRUT=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp${1}_input)
+HIGH=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp${1}_max)
+CRIT=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp${1}_crit)
+LABL=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp${1}_label | sed 's|Core ||')
 
 TEMP=$(( $BRUT / 1000 ))
 TEMP+=".$(( $BRUT - ($TEMP * 1000) ))"
