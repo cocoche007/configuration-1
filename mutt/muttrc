@@ -1,0 +1,27 @@
+# Mutt configuration
+# YapBreak - 2016
+#
+source account.conf
+
+## IMAP
+set imap_user = $my_login
+set imap_pass = $my_password
+set folder = imap://$my_imap_server
+set spoolfile = +INBOX
+set imap_check_subscribed
+set header_cache = ~/.mutt/cache
+set postponed = +Drafts
+unset imap_passive
+set imap_keepalive = 300
+set mail_check = 120
+
+## SMTP
+set record = +Sent
+set realname = "$my_name"
+set from = "$my_name <$my_email>"
+set use_from = yes
+set smtp_url = smtp://$my_login:$my_password@$my_smtp_server
+set ssl_force_tls = yes
+set ssl_starttls = yes
+
+
