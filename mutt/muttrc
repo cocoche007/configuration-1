@@ -1,7 +1,7 @@
 # Mutt configuration
 # YapBreak - 2016
 #
-source account.conf
+source $HOME/.mutt/account.conf
 
 ## IMAP
 set imap_user = $my_login
