@@ -83,6 +83,8 @@ testshell()
             esac
         fi
     fi
+    echo "To enable dynamic syntax highlighting, please install:"
+    echo "zsh-syntax-highlighting"
 }
 
 

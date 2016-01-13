@@ -5,6 +5,7 @@
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' menu select
 zstyle :compinstall filename "$HOME/.zshrc"
+zstyle ':completion:*' rehash true
 autoload -Uz compinit
 compinit
 setopt completealiases
@@ -20,6 +21,9 @@ setopt HIST_IGNORE_DUPS
 
 # Load aliases
 source  "$HOME/.aliases"
+
+# Load syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # /////////////////////////////////////////////////////////////////////////////
 #                               Export some env vars
