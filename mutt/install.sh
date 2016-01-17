@@ -5,7 +5,7 @@ mkdir -p ~/.mutt/cache
 mkdir -p ~/.mutt/temp
 
 ln -s $(readlink -f muttrc) ~/.mutt/muttrc
-ln -s $(readlink -f mailcap) ~/.mutt/muttrc
+ln -s $(readlink -f mailcap) ~/.mutt/mailcap
 ln -s $(readlink -f view_attachment.sh) ~/.mutt/view_attachment.sh
 echo "Please manually edit credentials files in ~/.mutt/"
 echo "with the following content:"
