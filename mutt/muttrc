@@ -1,27 +1,139 @@
-# Mutt configuration
-# YapBreak - 2016
-#
-source $HOME/.mutt/account.conf
+# Paths ---------------------------------------------------------------------
+set folder = ~/.mail # mailbox location
+set alias_file = ~/.mutt/alias # where alias are stored
+set header_cache = ~/.mutt/cache/headers # where header caches are stored
+set message_cachedir = ~/.mutt/cache/bodies # where body caches are stored
+set certificate_file = ~/.mutt/certificates # where certificates are stored
+set mailcap_path = ~/.mutt/mailcap # entries for mail capacities
+set tmpdir = ~/.mutt/temp # temporary folder
+set signature = ~/.mutt/signature # stored signature
 
-## IMAP
-set imap_user = $my_login
-set imap_pass = $my_password
-set folder = imap://$my_imap_server
-set spoolfile = +INBOX
-set imap_check_subscribed
-set header_cache = ~/.mutt/cache
-set postponed = +Drafts
-unset imap_passive
-set imap_keepalive = 300
-set mail_check = 120
+# Basic Options --------------------------------------------------------------
+set wait_key =  no # shut up, mutt
+set mbox_type = Maildir # mailbox type
+set timeout = 3 # idle time before scanning
+set mail_check = 0 # minimum time between scans
+set delete # just do it
+unset confirmappend # just do it
+set quit # just do it
+unset mark_old # read/unread is enough
+set pipe_decode # strip headers and eval mimes when piping
+set thorough_search # strip headers and eval mimes before searching
 
-## SMTP
-set record = +Sent
-set realname = "$my_name"
+# Sidebar Patch --------------------------------------------------------------
+set sidebar_delim = ' |'
+set sidebar_visible = yes
+set sidebar_width = 24
+color sidebar_new color221 color223
+
+# Status Bar -----------------------------------------------------------------
+set status_chars = " *%A"
+set status_format = "–––[ Folder: %f ]–––[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]–––%>–%?p?( %p postponed )?–––"
+
+# Header options -------------------------------------------------------------
+ignore * # ignore all headers
+unignore from: to: cc: date: subject: # show only these
+unhdr_order * # some distros ohder things by default
+hdr_order from: to: cc: date: subject: # use this order
+
+# Account Settings -----------------------------------------------------------
+source ~/.mutt/credentials
+
+# Smtp
+set record = "+Sent"
 set from = "$my_name <$my_email>"
 set use_from = yes
 set smtp_url = smtp://$my_login:$my_password@$my_smtp_server
 set ssl_force_tls = yes
 set ssl_starttls = yes
 
+# Imap
+set imap_user = $my_login
+set imap_pass = $my_password
+set folder = imap://$my_imap_server
+set imap_check_subscribed
+set postponed = "+Drafts"
+unset imap_passive
+set imap_keepalive = 300
+set mail_check = 60
 
+# Default inbox
+set spoolfile = "+INBOX"
+
+# Alternate email addresses
+alternates admin@yapbreak.fr
+
+
+# Index view Options ---------------------------------------------------------
+set date_format = "%Y-%m-%d %H:%M:%S"
+set index_format = "[%Z] %D  %-20.20F  %s"
+set sort = threads
+set sort_aux = reverse-last-date-received
+set uncollapse_jump
+set sort_re
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+# Index key bindings ---------------------------------------------------------
+bind index gg first-entry
+bind index G last-entry
+bind index R group-reply
+bind index <tab> sync-mailbox
+bind index <space> collapse-thread
+bind index t next-entry
+bind index s previous-entry
+bind index T next-page
+bind index S previous-page
+bind index,pager <down> sidebar-next
+bind index,pager <up> sidebar-prev
+bind index,pager <right> sidebar-open
+bind index p recall-message
+
+# Ctrl-R to mark all as read
+macro index \Cr "T-U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all message as read"
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+# Pager view -----------------------------------------------------------------
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop
+set menu_scroll
+set tilde
+unset markers
+
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+alternative_order text/plain text/enriched text/html
+
+# Pager key binding ----------------------------------------------------------
+bind pager s previous-line
+bind pager j next-line
+bind pager gg top
+bind pager G bottom
+bind pager R group-reply
+
+bind attach <return> view-mailcap
+
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
+
+# Compose view options -------------------------------------------------------
+set realname = $my_name
+set envelope_from
+set sig_dashes
+set edit_headers
+set fast_reply
+set askcc
+set fcc_attach
+unset mime_forward
+set forward_format = "Fwd: %s"
+set forward_decode
+set attribution = "On %d, %n wrote:"
+set reply_to
+set reverse_name
+set include
+set forward_quote
+set send_charset = "utf-8"
+
+#bind compose p recall-message
+set query_command="/usr/bin/pc_query -m '%s'"
+bind editor <Tab> complete-query
+bind editor ^T complete
