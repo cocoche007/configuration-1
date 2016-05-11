@@ -16,8 +16,64 @@ snippet cls
 class $1${2: : public ${3:mother}} {
     public:
         $1();
-        $1(const $1 &oObj);
+        $1(const $1 &ref);
         ~$1();
+
+    private:
+        $0
+};
+endsnippet
+snippet cls=
+class $1${2: : public ${3:mother}} {
+    public:
+        $1();
+        $1(const $1 &ref);
+        ~$1();
+
+        $1 &operator=(const $1 &ref);
+
+    private:
+        $0
+};
+endsnippet
+snippet incls
+class $1${2: : public ${3:mother}} {
+    public:
+        $1()
+        {
+        }
+
+        $1(const $1 &ref)
+        {
+        }
+
+        ~$1()
+        {
+        }
+
+    private:
+        $0
+};
+endsnippet
+snippet incls=
+class $1${2: : public ${3:mother}} {
+    public:
+        $1()
+        {
+        }
+
+        $1(const $1 &ref)
+        {
+        }
+
+        ~$1()
+        {
+        }
+
+        $1 &operator=(const $1 &ref)
+        {
+        }
+
 
     private:
         $0
@@ -25,4 +81,20 @@ class $1${2: : public ${3:mother}} {
 endsnippet
 snippet printf
 printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+snippet extern
+#ifdef __cplusplus
+extern "C"
+#endif
+
+$0
+
+#ifdef __cplusplus
+}
+#endif
+endsnippet
+snippet ns
+namespace $1 {
+$0
+};
 endsnippet

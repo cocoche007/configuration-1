@@ -43,3 +43,4 @@ let NERDTreeMapJumpNextSibling='<C-t>'
 let NERDTreeMapJumpPrevSibling='<C-s>'
 let NERDTreeMapOpenInTab='j'
 let NERDTreeMapOpenInTabSilent='J'
+let NERDTreeRespectWildIgnore=1
