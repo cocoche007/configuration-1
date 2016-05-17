@@ -134,7 +134,7 @@ install_plugin_from_git "https://github.com/SirVer/ultisnips.git" "ultisnips"
 # Install YouCompleteMe (to add autocomplete)
 install_plugin_from_git "https://github.com/Valloric/YouCompleteMe.git" "youcompleteme"
 # Compile YouCompleteMe plugin
-(cd "${BUNDLE}/youcompleteme" && ./install.py --clang-completer --omnisharp-completer --gocode-completer)
+(cd "${BUNDLE}/youcompleteme" && ./install.py)
 # Set default ycm_extra_conf
 if [ ${SYMBOLIC} -eq 1 ]; then
     [ ! -s "${VIMDIR}/ycm_extra_conf.py" ] && ln -svf "$(readlink -f "${ROOTDIR}/ycm_extra_conf.py")" "${VIMDIR}/ycm_extra_conf.py"
