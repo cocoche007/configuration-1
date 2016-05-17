@@ -55,7 +55,7 @@ install_plugin_from_git()
 
     if [ -d "${BUNDLE}/${name}" ]; then
         (cd "${BUNDLE}/${name}" && git pull origin master)
-        (cd "${BUNDLE}/${name}" && git submodule update --recursive)
+        (cd "${BUNDLE}/${name}" && git submodule update --init --recursive)
     else
         (cd "${BUNDLE}" && git clone "${url}" "${name}")
         (cd "${BUNDLE}/${name}" && git submodule update --init --recursive)
@@ -134,7 +134,7 @@ install_plugin_from_git "https://github.com/SirVer/ultisnips.git" "ultisnips"
 # Install YouCompleteMe (to add autocomplete)
 install_plugin_from_git "https://github.com/Valloric/YouCompleteMe.git" "youcompleteme"
 # Compile YouCompleteMe plugin
-(cd "${BUNDLE}/youcompleteme" && ./install.sh --clang-completer --omnisharp-completer --gocode-completer)
+(cd "${BUNDLE}/youcompleteme" && ./install.py --clang-completer --omnisharp-completer --gocode-completer)
 # Set default ycm_extra_conf
 if [ ${SYMBOLIC} -eq 1 ]; then
     [ ! -s "${VIMDIR}/ycm_extra_conf.py" ] && ln -svf "$(readlink -f "${ROOTDIR}/ycm_extra_conf.py")" "${VIMDIR}/ycm_extra_conf.py"
@@ -159,6 +159,8 @@ install_plugin_from_git "https://github.com/tpope/vim-surround.git" "surround"
 install_plugin_from_git "https://github.com/wannesm/wmgraphviz.vim.git" "wmgraphviz"
 # Install vim-airline (to get better line status)
 install_plugin_from_git "https://github.com/bling/vim-airline.git" "vim-airline"
+# Install vim-airline-theme
+install_plugin_from_git "https://github.com/vim-airline/vim-airline-themes" "vim-airline-themes"
 # Install doxygen toolkit
 install_plugin_from_git "https://github.com/vim-scripts/DoxygenToolkit.vim" "doxygentoolkit"
 
