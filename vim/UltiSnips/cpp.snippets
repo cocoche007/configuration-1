@@ -98,3 +98,17 @@ namespace $1 {
 $0
 };
 endsnippet
+snippet minit
+, m_$1($1)
+endsnippet
+snippet getset
+$1get${2/\w+\s*/\u$0/g}()
+{
+    return m_$2;
+}
+
+void set${2/\w+\s*/\u$0/g}($1$2)
+{
+    m_$2 = $2;
+}
+endsnippet

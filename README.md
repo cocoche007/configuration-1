@@ -67,7 +67,7 @@ configuration run with `startx` utility.
 * imagemagick
 * i3lock
 * scrot
-* [payap](https://redmine.yapbreak.fr/project/payap)
+* [payap](https://redmine.yapbreak.fr/projects/payap)
 * feh (for desktop background handling)
 
 ### Installation
